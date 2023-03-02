@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('apartments', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->tinyInteger('n_rooms');
-            $table->tinyInteger('n_bathrooms');
-            $table->tinyInteger('n_beds');
-            $table->mediumInteger('square_meters');
+            $table->unsignedTinyInteger('n_rooms');
+            $table->unsignedTinyInteger('n_bathrooms');
+            $table->unsignedTinyInteger('n_beds');
+            $table->unsignedMediumInteger('square_meters');
             $table->string('address');
             $table->boolean('visibility')->nullable()->default(1);
             $table->string('img_cover');
