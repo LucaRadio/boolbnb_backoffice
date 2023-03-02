@@ -8,6 +8,21 @@ use Illuminate\Database\Eloquent\Model;
 class Apartment extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'title',
+        'n_rooms',
+        'n_bathrooms',
+        'n_beds',
+        'square_meters',
+        'address',
+        'visibility',
+        'img_cover',
+        'description',
+        'longitude',
+        'latitude',
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);
