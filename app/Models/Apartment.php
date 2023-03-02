@@ -22,4 +22,14 @@ class Apartment extends Model
     {
         return $this->hasMany(Visual::class);
     }
+
+    public function promotions()
+    {
+        return $this->belongsToMany(Promotion::class);
+    }
+
+    public function services()
+    {
+        return $this->belongsToMany(Service::class);
+    }
 }
