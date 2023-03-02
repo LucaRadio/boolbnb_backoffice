@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Visual extends Model
 {
     use HasFactory;
+
+    public function apartment()
+    {
+        return $this->belongsTo(Apartment::class);
+    }
 }
