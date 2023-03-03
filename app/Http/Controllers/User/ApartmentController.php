@@ -6,6 +6,7 @@ use App\Models\Apartment;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ApartmentController extends Controller
 {
@@ -41,7 +42,12 @@ class ApartmentController extends Controller
         $user = Auth::user();
 
         $apartment->fill($data);
+
         $apartment->user_id = $user->id;
+
+        $path = Storage::put('cover_img', $data['img_cover']);
+
+        $apartment->img_cover = $path?? 'cover_img/NoImageFound.jpg.png';
 
         if ($request->has('services')) {
             $apartment->services()->attach($data['services']);
@@ -76,8 +82,18 @@ class ApartmentController extends Controller
      */
     public function update(Request $request, Apartment $apartment)
     {
+
         $data = $request->all();
+
         $apartment->fill($data);
+
+        if (key_exists('img_cover', $data)) {
+            $path = Storage::put('cover_img', $data['img_cover']);
+            Storage::delete($apartment->img_cover);
+        }
+        
+
+        $apartment->img_cover = $path?? $apartment->img_cover;
 
         if ($request->has('services')) {
             $apartment->services()->sync($data['services']);
