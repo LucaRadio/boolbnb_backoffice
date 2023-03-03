@@ -5,6 +5,8 @@ namespace App\Http\Controllers\User;
 use App\Models\Apartment;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Promotion;
+use App\Models\Service;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -26,7 +28,10 @@ class ApartmentController extends Controller
      */
     public function create()
     {
-        return view("user.apartments.create");
+        $services = Service::all();
+        $promotions = Promotion::all();
+
+        return view("user.apartments.create", compact('services', 'promotions'));
     }
 
     /**
@@ -34,10 +39,26 @@ class ApartmentController extends Controller
      */
     public function store(Request $request)
     {
-
+        
         $data = $request->all();
-
+        $via = urlencode($data['address']);
+        
+        $rawData = file_get_contents("https://api.tomtom.com/search/2/geocode/". $via . ".json?storeResult=false&view=Unified&limit=1&key=sGNJHBIkBGVklWlAnKDehryPD39qsJxn" );
+        $rawData = json_decode($rawData);
+        
         $apartment = new Apartment();
+        
+        $apartment->latitude = $rawData->results[0]->position->lat;
+        $apartment->longitude = $rawData->results[0]->position->lon;
+
+        if ($data['visibility']){
+            $data['visibility'] = 1;
+        } else{
+            $data['visibility'] = 0;
+        }
+
+        
+
 
         $user = Auth::user();
 
@@ -49,15 +70,16 @@ class ApartmentController extends Controller
 
         $apartment->img_cover = $path?? 'cover_img/NoImageFound.jpg.png';
 
+        $apartment->save();
+
+
         if ($request->has('services')) {
             $apartment->services()->attach($data['services']);
         }
         if ($request->has('promotions')) {
             $apartment->promotions()->attach($data['promotions']);
         }
-
-        $apartment->save();
-
+        
         return redirect()->route("user.apartments.show", $apartment->id);
     }
 
