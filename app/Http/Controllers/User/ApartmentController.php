@@ -15,7 +15,7 @@ class ApartmentController extends Controller
     {
         $apartments=Apartment::all();
 
-        return view("apartments.index", compact("apartments"));
+        return view("user.apartments.index", compact("apartments"));
     }
 
     /**
@@ -23,7 +23,7 @@ class ApartmentController extends Controller
      */
     public function create()
     {
-        //
+        return view("user.apartments.create");
     }
 
     /**
@@ -31,7 +31,22 @@ class ApartmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data=$request->all();
+        $apartment= new Apartment();
+
+        $apartment->fill($data);
+
+        if ($request->has('services')) {
+            $apartment->services()->attach($data['services']);
+        }
+        if ($request->has('promotions')) {
+            $apartment->promotions()->attach($data['promotions']);
+        }
+        $apartment->user()->attach($data['user']);
+        
+        $apartment->save();
+
+        return redirect()->route("apartments.show", $apartment->id);
     }
 
     /**
@@ -39,7 +54,7 @@ class ApartmentController extends Controller
      */
     public function show(Apartment $apartment)
     {
-        //
+        return view("user.apartments.show", compact("apartment"));
     }
 
     /**
@@ -47,7 +62,7 @@ class ApartmentController extends Controller
      */
     public function edit(Apartment $apartment)
     {
-        //
+        return view("user.apartments.edit", compact("apartment"));
     }
 
     /**
@@ -55,7 +70,19 @@ class ApartmentController extends Controller
      */
     public function update(Request $request, Apartment $apartment)
     {
-        //
+        $data=$request->all();
+        $apartment->fill($data);
+
+        if ($request->has('services')) {
+            $apartment->services()->sync($data['services']);
+        }
+        if ($request->has('promotions')) {
+            $apartment->promotions()->sync($data['promotions']);
+        }
+
+        $apartment->save();
+
+        return redirect()->route("apartment.show", compact("apartment"));
     }
 
     /**
@@ -63,6 +90,11 @@ class ApartmentController extends Controller
      */
     public function destroy(Apartment $apartment)
     {
-        //
+        $apartment->services()->detach();
+        $apartment->promotions()->detach();
+        $apartment->user()->dissociate();
+        $apartment->delete();
+
+        return redirect()->route("dashboard");
     }
 }
