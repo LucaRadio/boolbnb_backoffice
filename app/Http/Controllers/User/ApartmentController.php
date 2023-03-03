@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Models\Apartment;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class ApartmentController extends Controller
 {
@@ -30,11 +31,16 @@ class ApartmentController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
+    {   
+    
         $data=$request->all();
+
         $apartment= new Apartment();
 
+        $user = Auth::user();
+
         $apartment->fill($data);
+        $apartment->user_id=$user->id;
 
         if ($request->has('services')) {
             $apartment->services()->attach($data['services']);
@@ -42,8 +48,7 @@ class ApartmentController extends Controller
         if ($request->has('promotions')) {
             $apartment->promotions()->attach($data['promotions']);
         }
-        $apartment->user()->attach($data['user']);
-        
+                
         $apartment->save();
 
         return redirect()->route("apartments.show", $apartment->id);
