@@ -14,9 +14,10 @@ class ApartmentController extends Controller
      */
     public function index()
     {
-        $apartments=Apartment::all();
+        $user = Auth::user();
+        $apartments = Apartment::where('user_id', $user->id)->get();
 
-        return view("user.apartments.index", compact("apartments"));
+        return view("user.apartments.index", compact('apartments'));
     }
 
     /**
@@ -31,16 +32,16 @@ class ApartmentController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {   
-    
-        $data=$request->all();
+    {
 
-        $apartment= new Apartment();
+        $data = $request->all();
+
+        $apartment = new Apartment();
 
         $user = Auth::user();
 
         $apartment->fill($data);
-        $apartment->user_id=$user->id;
+        $apartment->user_id = $user->id;
 
         if ($request->has('services')) {
             $apartment->services()->attach($data['services']);
@@ -48,7 +49,7 @@ class ApartmentController extends Controller
         if ($request->has('promotions')) {
             $apartment->promotions()->attach($data['promotions']);
         }
-                
+
         $apartment->save();
 
         return redirect()->route("apartments.show", $apartment->id);
@@ -75,7 +76,7 @@ class ApartmentController extends Controller
      */
     public function update(Request $request, Apartment $apartment)
     {
-        $data=$request->all();
+        $data = $request->all();
         $apartment->fill($data);
 
         if ($request->has('services')) {
