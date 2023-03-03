@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+
     <div class="container">
         <h1>Sezione create</h1>
 
@@ -12,5 +13,5 @@
             <button class="btn btn-lg btn-outline-dark mt-4" type="submit">Salva Progetto</button>
         </form>
     </div>
-    </div>
+
 @endsection

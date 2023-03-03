@@ -58,7 +58,7 @@ class ApartmentController extends Controller
 
         $apartment->save();
 
-        return redirect()->route("apartments.show", $apartment->id);
+        return redirect()->route("user.apartments.show", $apartment->id);
     }
 
     /**
@@ -104,7 +104,7 @@ class ApartmentController extends Controller
 
         $apartment->save();
 
-        return redirect()->route("apartment.show", compact("apartment"));
+        return redirect()->route("user.apartment.show", compact("apartment"));
     }
 
     /**
