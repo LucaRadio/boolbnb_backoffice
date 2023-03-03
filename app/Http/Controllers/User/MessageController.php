@@ -19,7 +19,7 @@ class MessageController extends Controller
 
         $apartments = Apartment::where('user_id', $user->id)->get();
 
-        return view("user.messages.index", compact('messages'));
+        return view("user.messages.index", compact('apartments'));
     }
 
     /**
