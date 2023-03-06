@@ -9,6 +9,7 @@ use App\Models\Promotion;
 use App\Models\Service;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\StoreApartmentRequest;
 
 class ApartmentController extends Controller
 {
@@ -37,10 +38,10 @@ class ApartmentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreApartmentRequest $request, Apartment $apartment)
     {
 
-        $data = $request->all();
+        $data = $request->validated();
         $via = urlencode($data['address']);
 
         $rawData = file_get_contents("https://api.tomtom.com/search/2/geocode/" . $via . ".json?storeResult=false&view=Unified&limit=1&key=sGNJHBIkBGVklWlAnKDehryPD39qsJxn");
