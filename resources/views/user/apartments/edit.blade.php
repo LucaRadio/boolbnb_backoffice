@@ -81,7 +81,7 @@
                   @error('services') is-invalid @enderror">
                             <input class="form-check-input @error('services') is-invalid @enderror" type="checkbox"
                                 id="serviceCheckbox_{{ $loop->index }}" value="{{ $service->id }}" name="services[]"
-                                {{ in_array($service->id, old('services', [])) ? 'checked' : '' }}>
+                                {{ (in_array($service->name, $apartment->services('name')->get()->toArray())) ? 'checked' : '' }}>
                             <label class="form-check-label"
                                 for="serviceCheckbox_{{ $loop->index }}">{{ $service->name }}</label>
                         </div>
