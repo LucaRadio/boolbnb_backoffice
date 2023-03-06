@@ -57,6 +57,13 @@
                     <label class="form-label">Indirizzo</label>
                     <input type="text" step="0.5" class="form-control text-center w-75 mx-auto" name="address"
                         v-model="searchField" @keyup="refreshSearch">
+                    <div class="address" v-if='searchData'>
+                        <ul class="list-unstyled">
+                            <li v-for='item in searchData'>
+                                <a href="">@{{ item.address.freeformAddress }}</a>
+                            </li>
+                        </ul>
+                    </div>
 
                 </div>
 
@@ -132,14 +139,11 @@
                         "key": 'C1SeMZqi2HmD2jfTGWrbkAAknINrhUJ3'
                     },
                     
-                    // headers:{
-                    //     "Access-Control-Allow-Origin":['*']
-                    // }
+                    
                 })
                     .then((resp) => {
                         this.searchData = resp.data.results;
                     })
-                    .catch(err=>{console.log(err);})
             };
         }
     },
