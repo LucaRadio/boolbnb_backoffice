@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends ('layouts.app')
 
 @section('content')
     <div class="container">
@@ -12,8 +12,8 @@
                     <label class="form-label">Nome Titolo appartemento</label>
                     <input type="text" class="form-control text-center w-75 mx-auto" name="title">
                     {{-- @error('name') is-invalid @elseif(old('name')) is-valid @enderror"
-                name="name" value="{{old('name')}}">
-                @error('name')
+                    name="name" value="{{ old('name') }}">
+                    @error('name')
                     <div class="invalid-feedback">
                         {{ $message }}
                     </div>
@@ -46,16 +46,17 @@
                 <div class="mb-3">
                     <label class="form-label">Descrizione</label>
                     <textarea name="description" cols="30" rows="5" class="form-control w-75 mx-auto"></textarea>
-                    {{-- @error('description') is-invalid @elseif(old('description')) is-valid @enderror">{{old('description')}}</textarea>
-                @error('description')
-                    <div class="invalid-feedback">
-                        {{ $message }}
-                    </div>
+                    {{-- @error('description') is-invalid @elseif(old('description')) is-valid @enderror">{{ old('description') }}</textarea>
+            @error('description')
+            <div class="invalid-feedback">
+                {{ $message }}
+            </div>
                 @enderror --}}
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Indirizzo</label>
-                    <input type="text" step="0.5" class="form-control text-center w-75 mx-auto" name="address">
+                    <input type="text" step="0.5" class="form-control text-center w-75 mx-auto" name="address"
+                        v-model="searchField" @keyup="refreshSearch">
 
                 </div>
 
@@ -81,20 +82,20 @@
                     @endforeach
                     {{--     
                 @error('technologys')
-                  <div class="invalid-feedback">
+                <div class="invalid-feedback">
                     {{ $message }}
-                  </div>
+                </div>
                 @enderror --}}
                 </div>
-                <div class="mb-3">
-                    <label class="form-label">Vuoi aggiungere una promotion?</label>
-                    <select name="promotion_id" class="w-75 mx-auto form-select">
-                        <option></option>
-                        @foreach ($promotions as $promotion)
-                            <option value="{{ $promotion->id }}">{{ $promotion->type }}</option>
-                        @endforeach
-                    </select>
-                </div>
+                {{-- < div class="mb-3">
+            <label class="form-label">Vuoi aggiungere una promotion?</label>
+            <select name="promotion_id" class="w-75 mx-auto form-select">
+                <option></option>
+                @foreach ($promotions as $promotion)
+                <option value="{{ $promotion->id }}">{{ $promotion-> type}}</option>
+                @endforeach
+            </select>
+    </> --}}
                 <div class="mb-3">
                     <label class="form-label">Carica l'immagine del progetto</label>
                     <input type="file"
@@ -113,15 +114,34 @@
     @endsection
 
     <script type="module">
-        const {createApp} = Vue;
-        createApp({
-            data() {
-                return {
+    const {createApp} = Vue;
+    createApp({
+        data() {
+            return {
+                searchField: null,
+                searchData: []
+            }},
+    methods: {
+        async refreshSearch() {
+            if (this.searchField) {
+                encodeURIComponent(this.searchField);
+
+
+                await axios.get(`https://api.tomtom.com/search/2/search/${this.searchField}.json?lat=41.9028&lon=12.4964&language=it-IT&minFuzzyLevel=1&maxFuzzyLevel=2&view=Unified&relatedPois=all`,{
+                    params:{
+                        "key": 'C1SeMZqi2HmD2jfTGWrbkAAknINrhUJ3'
+                    },
                     
-                };
-            },
-            mounted() {
-                console.log('ciao');
-            },
+                    // headers:{
+                    //     "Access-Control-Allow-Origin":['*']
+                    // }
+                })
+                    .then((resp) => {
+                        this.searchData = resp.data.results;
+                    })
+                    .catch(err=>{console.log(err);})
+            };
+        }
+    },
         }).mount("#app");
-    </script>
+</script>
