@@ -39,25 +39,25 @@ class ApartmentController extends Controller
      */
     public function store(Request $request)
     {
-        
+
         $data = $request->all();
         $via = urlencode($data['address']);
-        
-        $rawData = file_get_contents("https://api.tomtom.com/search/2/geocode/". $via . ".json?storeResult=false&view=Unified&limit=1&key=sGNJHBIkBGVklWlAnKDehryPD39qsJxn" );
+
+        $rawData = file_get_contents("https://api.tomtom.com/search/2/geocode/" . $via . ".json?storeResult=false&view=Unified&limit=1&key=sGNJHBIkBGVklWlAnKDehryPD39qsJxn");
         $rawData = json_decode($rawData);
-        
+
         $apartment = new Apartment();
-        
+
         $apartment->latitude = $rawData->results[0]->position->lat;
         $apartment->longitude = $rawData->results[0]->position->lon;
 
-        if ($data['visibility']){
+        if ($data['visibility']) {
             $data['visibility'] = 1;
-        } else{
+        } else {
             $data['visibility'] = 0;
         }
 
-        
+
 
 
         $user = Auth::user();
@@ -68,7 +68,7 @@ class ApartmentController extends Controller
 
         $path = Storage::put('cover_img', $data['img_cover']);
 
-        $apartment->img_cover = $path?? 'cover_img/NoImageFound.jpg.png';
+        $apartment->img_cover = $path ?? 'cover_img/NoImageFound.jpg.png';
 
         $apartment->save();
 
@@ -79,7 +79,7 @@ class ApartmentController extends Controller
         if ($request->has('promotions')) {
             $apartment->promotions()->attach($data['promotions']);
         }
-        
+
         return redirect()->route("user.apartments.show", $apartment->id);
     }
 
@@ -96,7 +96,11 @@ class ApartmentController extends Controller
      */
     public function edit(Apartment $apartment)
     {
-        return view("user.apartments.edit", compact("apartment"));
+        if (Auth::user()->id === $apartment->user_id) {
+            return view("user.apartments.edit", compact("apartment"));
+        } else {
+            return view('errorPage');
+        };
     }
 
     /**
@@ -113,9 +117,9 @@ class ApartmentController extends Controller
             $path = Storage::put('cover_img', $data['img_cover']);
             Storage::delete($apartment->img_cover);
         }
-        
 
-        $apartment->img_cover = $path?? $apartment->img_cover;
+
+        $apartment->img_cover = $path ?? $apartment->img_cover;
 
         if ($request->has('services')) {
             $apartment->services()->sync($data['services']);
