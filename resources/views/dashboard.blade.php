@@ -19,6 +19,10 @@
 
                     {{ __('You are logged in!') }}
                 </div>
+                <div class="p-3">
+                    <h6>Visto che sei loggato, dai un'occhiata alla pagina dei tuoi appartamenti!</h6>
+                    <button class="btn btn-primary btn-sm"><a href="{{route('user.apartments.index')}}" class="text-white">Index</a></button> 
+                </div>
             </div>
         </div>
     </div>
