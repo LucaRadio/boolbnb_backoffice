@@ -11,10 +11,10 @@
             <form action="{{ route('user.apartments.store') }}"
                 class="form-group w-75 d-inline-block shadow rounded-3 p-3 py-5" method="POST" enctype="multipart/form-data">
                 @csrf()
-                <div class="mb-3">
+                <div class="mb-3 apartmentName">
                     <label class="form-label">Titolo appartemento</label>
-                    <input @input='checkData()' v-model='apartmentName' type="text"
-                        class="form-control text-center w-75 mx-auto" name="title" minlength="1" required
+                    <input pattern="[a-zA-Z0-9-]+" @input='checkData(apartmentName,"apartmentName")' v-model='apartmentName'
+                        type="text" class="form-control text-center w-75 mx-auto" name="title" minlength="1" required
                         @error('title') is-invalid @elseif(old('title')) is-valid @enderror>
                     @error('title')
                         <div class="invalid-feedback">
@@ -22,35 +22,46 @@
                         </div>
                     @enderror
                     <div class="error d-none text-danger">
-                        C'è qualche problema con il tuo nome
+                        C'è qualche problema con il tuo nome. Ti consigliamo di controllare che non ci siano caratteri
+                        speciali.
                     </div>
 
                 </div>
-                <div class="mb-3">
+                <div class="rooms mb-3">
                     <label class="form-label">Numero di stanze</label>
-                    <input @input='checkData()' v-model='rooms' type="number" step="1" min="0"
+                    <input @input='checkData(rooms,"rooms")' v-model='rooms' type="number" step="1" min="0"
                         class="form-control text-center w-75 mx-auto" name="n_rooms">
                     <div class="error d-none text-danger">
-                        C'è qualche problema con il tuo nome
+                        C'è qualche problema con il numero delle stanze. Controlla che il numero sia compreso tra 1 e 255.
                     </div>
 
                 </div>
-                <div class="mb-3">
+                <div class="bath mb-3">
                     <label class="form-label">Numero di bagni</label>
-                    <input @input='checkData()' v-model='bath' type="number" step="1" min="0"
+                    <input @input='checkData(bath,"bath")' v-model='bath' type="number" step="1" min="0"
                         class="form-control text-center w-75 mx-auto" name="n_bathrooms">
+                    <div class="error d-none text-danger">
+                        C'è qualche problema con il numero dei bagni. Controlla che il numero sia compreso tra 1 e 255.
+                    </div>
 
                 </div>
-                <div class="mb-3">
+                <div class="beds mb-3">
                     <label class="form-label">Numero di letti</label>
-                    <input @input='checkData()' v-model='beds' type="number" step="1" min="0"
+                    <input @input='checkData(beds,"beds")' v-model='beds' type="number" step="1" min="0"
                         class="form-control text-center w-75 mx-auto" name="n_beds">
+                    <div class="error d-none text-danger">
+                        C'è qualche problema con il numero dei letti. Controlla che il numero sia compreso tra 1 e 255.
+                    </div>
 
                 </div>
-                <div class="mb-3">
+                <div class="sm mb-3">
                     <label class="form-label">Metri quadrati</label>
-                    <input @input='checkData()' v-model='sm' type="number" step="0.5" min="30"
+                    <input @input='checkData(sm,"sm")' v-model='sm' type="number" step="0.5" min="30"
                         class="form-control text-center w-75 mx-auto" name="square_meters">
+                    <div class="error d-none text-danger">
+                        C'è qualche problema con il numero dei metri quadrati. Controlla che il numero sia compreso tra 30 e
+                        2.000.000.
+                    </div>
 
                 </div>
                 <div class="mb-3">
@@ -64,12 +75,16 @@
             </div>
                 @enderror --}}
                 </div>
-                <div class="mb-3">
+                <div class="address mb-3">
                     <label class="form-label">Indirizzo</label>
-                    <input @input='checkData(address)' type="text" step="0.5"
+                    <input @input='checkData(searchField,"address")' type="text" step="0.5"
                         class="form-control text-center w-75 mx-auto" name="address" v-model="searchField"
                         @keyup="refreshSearch">
-                    <div class="address" v-if='searchData'>
+                    <div class="error d-none text-danger">
+                        C'è qualche problema con il tuo indirizzo, assicurati che non abbia caratteri speciali e che tu
+                        abbia selezionato l'indirizzo cliccandolo dal meno a tendina.
+                    </div>
+                    <div class="addressList" v-if='searchData'>
                         <ul class="list-unstyled">
                             <li v-for='item in searchData'>
                                 <a href="">@{{ item.address.freeformAddress }}</a>
@@ -87,7 +102,7 @@
                     <input type="radio" step="0.5" name="visibility" value="true" checked>
                 </div>
 
-                <div class="mb-3">
+                <div class="services mb-3">
                     @foreach ($services as $service)
                         <div class="form-check form-check-inline
                   @error('services') is-invalid @enderror">
@@ -136,7 +151,7 @@
     createApp({
         data() {
             return {
-                searchField: null,
+                searchField: '',
                 searchData: [],
                 apartmentName:'',
                 rooms:'',
@@ -144,7 +159,8 @@
                 beds:'',
                 sm:'',
                 apartmentDescription:'',
-                services:[]
+                services:[],
+                error:false
 
 
             }},
@@ -163,35 +179,95 @@
                 })
                     .then((resp) => {
                         this.searchData = resp.data.results;
+                        this.error=false
+                    })
+                    .catch(()=>{
+                        this.error = true
                     })
             };
         },
-        checkData(){
-            const name = document.querySelectorAll('.error');
-            const inputsText= document.querySelectorAll("input[type*='text']");
-            const inputsNumber= document.querySelectorAll("input[type*='number']");
+        checkData(properties,cName){
+            const specialCharacters = [
+                '+',
+                 '-',
+                 '@',
+                 '#',
+                 '$',
+                 '&&',
+                '|',
+                '=',
+                 '!',
+                 '%',
+                 '<',
+                 '>',
+                 '(',
+                 '`',
+                 ')',
+                 '{',
+                 '}',
+                 '[',
+                 '[]',
+                 ']',
+                 '^',
+                 '"',
+                 ';',
+                 '~',
+                 '*',
+                 '?',
+                 ':'
+            ]
 
-            inputsText.forEach((field,i) => {
-                if (field.value.includes('@') || field.value.includes('#')){
-                    field.classList.add('is-invalid');
+            let className = `.${cName}>*`;
 
-
-                }else{
-                    field.classList.remove('is-invalid')
-                }
-                });
-            inputsNumber.forEach((field,i) => {
-                
-                if (field.value < 0 && i != 3 || field.value >255  && i != 3){
-                    field.classList.add('is-invalid');
-                }else if(inputsNumber[3].value <0 || inputsNumber[3].value>8000000){
-                    inputsNumber[3].classList.add('is-invalid');
+            const rawDiv = document.querySelectorAll(className)
+            const input = rawDiv[1];
+            const errorDiv = rawDiv[2];
+            const addressList = document.querySelector('.addressList')
+            if(typeof(properties) === 'number' && input.getAttribute('name') != 'square_meters'){
+                if( properties <= 0 || properties >255){
+                input.classList.add('is-invalid')
+                errorDiv.classList.replace('d-none','d-block')
                 }
                 else{
-                    field.classList.remove('is-invalid')
+                    input.classList.remove('is-invalid')
+                    errorDiv.classList.replace('d-block','d-none')
                 }
-                });
             }
+            else if(typeof(properties) === 'number'){
+                if( properties < 30 || properties >2000000){
+                input.classList.add('is-invalid')
+                errorDiv.classList.replace('d-none','d-block')
+                }else{
+                    input.classList.remove('is-invalid')
+                    errorDiv.classList.replace('d-block','d-none')
+                }
+            }
+
+
+            if(this.error && typeof(properties) === 'string'){
+                input.classList.add('is-invalid')
+                errorDiv.classList.replace('d-none','d-block')
+                addressList.classList.add('d-none')
+
+            }else if(typeof(properties) === 'string'){
+                for(let i= 0;i<specialCharacters.length;i++){
+                    if(properties.includes(specialCharacters[i])){
+                        input.classList.add('is-invalid')
+                        errorDiv.classList.replace('d-none','d-block')
+                        addressList.classList.replace('d-block','d-none')
+                        break;
+                    }else{
+                        input.classList.remove('is-invalid')
+                        errorDiv.classList.replace('d-block','d-none')
+                        addressList.classList.replace('d-none','d-block')
+                        
+                    }
+                }
+                
+            }
+            }
+           
+            
             
 }
         }).mount("#app");
