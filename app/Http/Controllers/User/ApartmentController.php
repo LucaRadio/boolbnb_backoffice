@@ -97,7 +97,8 @@ class ApartmentController extends Controller
     public function edit(Apartment $apartment)
     {
         if (Auth::user()->id === $apartment->user_id) {
-            return view("user.apartments.edit", compact("apartment"));
+            $services = Service::all();
+            return view("user.apartments.edit", compact("apartment", 'services'));
         } else {
             return view('errorPage');
         };
@@ -130,7 +131,7 @@ class ApartmentController extends Controller
 
         $apartment->save();
 
-        return redirect()->route("user.apartment.show", compact("apartment"));
+        return redirect()->route("user.apartments.show", compact("apartment"));
     }
 
     /**
