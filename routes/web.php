@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\User\ApartmentController;
 use App\Http\Controllers\User\MessageController;
+use App\Http\Controllers\User\PromotionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -42,6 +43,11 @@ Route::middleware(['auth', 'verified'])
             Route::get('/index',[MessageController::class, 'index'])->name('index');
             Route::get('/{message}',[MessageController::class, 'show'])->name('show');
             Route::delete('/{message}',[MessageController::class, 'destroy'])->name('delete'); 
+        });
+        Route::name('promotions.')
+        ->prefix('promotions')
+        ->group(function (){
+            Route::get('/index',[PromotionController::class, 'index'])->name('index');
         });
     });
 
