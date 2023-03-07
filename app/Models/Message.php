@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Message extends Model
 {
     use HasFactory;
+    protected $fillable = ['apartment_id'];
 
     public function apartment()
     {

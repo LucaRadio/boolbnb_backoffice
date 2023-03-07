@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Apartment;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -45,10 +46,26 @@ class ProfileController extends Controller
         $request->validateWithBag('userDeletion', [
             'password' => ['required', 'current-password'],
         ]);
-
         $user = $request->user();
+        $userApartments = Apartment::where('user_id', $user->id)->get();
+
+        foreach ($userApartments as  $value) {
+
+            if ($value->messages) {
+                $value->messages()->delete();
+            }
+            if ($value->visuals) {
+                $value->visuals()->delete();
+            }
+            $value->promotions()->detach();
+            $value->services()->detach();
+            $value->user()->dissociate();
+            $value->delete();
+            $value->save();
+        }
 
         Auth::logout();
+
 
         $user->delete();
 
