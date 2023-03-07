@@ -2,22 +2,25 @@
 
 @section('content')
     <div class="container">
-        <h1>Sezione create</h1>
+        <div class="text-center pt-5">
+            <h1>Inserisci il tuo Appartamento</h1>
+        </div>
+        
 
         <div class="text-center bg-white rounded-3 py-5" id="app">
             <form action="{{ route('user.apartments.store') }}"
                 class="form-group w-75 d-inline-block shadow rounded-3 p-3 py-5" method="POST" enctype="multipart/form-data">
                 @csrf()
                 <div class="mb-3">
-                    <label class="form-label">Nome Titolo appartemento</label>
-                    <input type="text" class="form-control text-center w-75 mx-auto" name="title">
-                    {{-- @error('name') is-invalid @elseif(old('name')) is-valid @enderror"
-                    name="name" value="{{ old('name') }}">
-                    @error('name')
+                    <label class="form-label">Titolo appartemento</label>
+                    <input type="text" class="form-control text-center w-75 mx-auto" name="title" minlength="1" required 
+                    @error('title') is-invalid @elseif(old('title')) is-valid @enderror
+                    value="{{ old('title') }}">
+                    @error('title')
                     <div class="invalid-feedback">
                         {{ $message }}
                     </div>
-                @enderror --}}
+                @enderror
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Numero di stanze</label>
