@@ -1,6 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
+@php
+   $apartmentServices = $apartment->services()->get()->toArray();
+   $length = sizeOf($apartmentServices)
+@endphp
 <div class="container">
     <h1>Sezione edit</h1>
     <div class="text-center bg-white rounded-3 py-5">
@@ -81,7 +85,9 @@
                   @error('services') is-invalid @enderror">
                             <input class="form-check-input @error('services') is-invalid @enderror" type="checkbox"
                                 id="serviceCheckbox_{{ $loop->index }}" value="{{ $service->id }}" name="services[]"
-                                {{ in_array($service->id, old('services', [])) ? 'checked' : '' }}>
+                                 @for ($i=0; $i < $length; $i++) {{ 
+                                    
+                                 ($service->name === $apartment->services()->get()->toArray()[$i]['name']) ? 'checked' : '' }}@endfor>
                             <label class="form-check-label"
                                 for="serviceCheckbox_{{ $loop->index }}">{{ $service->name }}</label>
                         </div>
