@@ -19,19 +19,31 @@
 
         <div class="mb-2 d-flex">
             <div class="fw-bold text-primary">Nome:&nbsp;</div>
-            <p class="m-0">{{ $user->name }}</p>
+            @if ($user->name)
+                <p class="m-0">{{ $user->name }}</p>
+            @else
+                <p class="m-0">Nessun nome inserito</p>
+            @endif
 
         </div>
 
         <div class="mb-2 d-flex">
             <div class="fw-bold text-primary">Cognome:&nbsp;</div>
-            <p class="m-0">{{ $user->surname }}</p>
+            @if ($user->surname)
+                <p class="m-0">{{ $user->surname }}</p>
+            @else
+                <p class="m-0">Nessun cognome inserito</p>
+            @endif
 
         </div>
 
         <div class="mb-2 d-flex">
             <div class="fw-bold text-primary">Data di nascita:&nbsp;</div>
-            <p class="m-0">{{ date('d-M-Y', strtotime($user->date_of_birth)) }}</p>
+            @if ($user->date_of_birth)
+                <p class="m-0">{{ date('d-M-Y', strtotime($user->date_of_birth)) }}</p>
+            @else
+                <p class="m-0">Nessuna data di nascita inserito</p>
+            @endif
 
         </div>
 
