@@ -10,11 +10,11 @@
         <div class="text-center bg-white rounded-3 py-5" id="app">
             <form action="{{ route('user.apartments.store') }}"
                 class="form-group w-75 d-inline-block shadow rounded-3 p-3 py-5" method="POST" enctype="multipart/form-data">
-                @csrf()
+                @csrf
                 <div class="mb-3 apartmentName">
                     <label class="form-label">Titolo appartemento</label>
-                    <input pattern="[a-zA-Z0-9-]+" @input='checkData(apartmentName,"apartmentName")' v-model='apartmentName'
-                        type="text" class="form-control text-center w-75 mx-auto" name="title" minlength="1" required
+                    <input @input='checkData(apartmentName,"apartmentName")' v-model='apartmentName' type="text"
+                        class="form-control text-center w-75 mx-auto" name="title" minlength="1" required
                         @error('title') is-invalid @elseif(old('title')) is-valid @enderror>
                     @error('title')
                         <div class="invalid-feedback">
@@ -145,7 +145,7 @@
             </form>
         </div>
     @endsection
-
+    {{-- 
     <script type="module">
     const {createApp} = Vue;
     createApp({
@@ -271,4 +271,4 @@
             
 }
         }).mount("#app");
-</script>
+</script> --}}
