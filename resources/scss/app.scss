@@ -1,1 +1,6 @@
-@import '~bootstrap/scss/bootstrap'
+@import '~bootstrap/scss/bootstrap';
+
+.unauthorized_img{
+    max-width: 250px;
+    object-fit: cover;
+}

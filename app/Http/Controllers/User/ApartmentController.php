@@ -94,7 +94,7 @@ class ApartmentController extends Controller
         if (Auth::user()->id === $apartment->user_id) {
             return view("user.apartments.show", compact("apartment"));
         } else {
-            return view('errorPage');
+            return view('errorPage', ['message' => 'Non sei autorizzato a vedere questo appartamento']);
         }
     }
 
@@ -107,7 +107,7 @@ class ApartmentController extends Controller
             $services = Service::all();
             return view("user.apartments.edit", compact("apartment", 'services'));
         } else {
-            return view('errorPage');
+            return view('errorPage', ['message' => 'Non sei autorizzato a modificare questo appartamento']);
         };
     }
 
