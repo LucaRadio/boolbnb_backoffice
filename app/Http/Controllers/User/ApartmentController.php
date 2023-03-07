@@ -90,7 +90,12 @@ class ApartmentController extends Controller
      */
     public function show(Apartment $apartment)
     {
-        return view("user.apartments.show", compact("apartment"));
+        // passare anche promozione attiva su quest'appartamento
+        if (Auth::user()->id === $apartment->user_id) {
+            return view("user.apartments.show", compact("apartment"));
+        } else {
+            return view('errorPage');
+        }
     }
 
     /**
