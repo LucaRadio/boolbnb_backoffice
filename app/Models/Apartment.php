@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Apartment extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
         'title',
@@ -21,7 +22,8 @@ class Apartment extends Model
         'description',
         'longitude',
         'latitude',
-        'user_id'
+        'user_id',
+        'deleted_at'
     ];
 
     public function user()

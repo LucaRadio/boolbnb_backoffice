@@ -151,6 +151,6 @@ class ApartmentController extends Controller
         $apartment->user()->dissociate();
         $apartment->delete();
 
-        return redirect()->route("dashboard");
+        return redirect()->route("user.dashboard");
     }
 }
