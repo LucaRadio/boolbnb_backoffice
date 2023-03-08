@@ -102,28 +102,27 @@
 
 
                 onMounted(async () => {
-                    let apartmentList =[];
-
-                    await axios.get(`http://127.0.0.1:8000/api/apartments/${window.location.href.charAt(window.location.href.length-1)}`)
+                    let apartment;
+                    await axios.get(`http://127.0.0.1:8000/api/apartments/${window.location.href.slice(38)}`)
                         .then(resp => {
-
-                            apartmentList.push(resp.data) ;
+                            apartment = resp.data;
                         });
-
+                        // console.log(apartment);
+                        const centerLat=apartment.latitude - 0.001
+                        const centerLon=apartment.longitude - 0.001
                     const tt = window.tt;
                     var map = tt.map({
                         key: 'C1SeMZqi2HmD2jfTGWrbkAAknINrhUJ3',
                         container: mapRef.value,
                         style: 'tomtom://vector/1/basic-main/',
-                        zoom: 10,
-                        center: [9.1900, 45.4642],
+                        zoom: 13,
+                        center: [centerLon, centerLat],
                     });
                     map.addControl(new tt.FullscreenControl());
                     map.addControl(new tt.NavigationControl());
-                    apartmentList?.forEach(apartment => {
-                        addMarker(map, apartment.longitude, apartment.latitude, apartment
-                            .address);
-                    });
+
+                        addMarker(map, apartment.longitude, apartment.latitude, apartment.address);
+
 
                 })
 
