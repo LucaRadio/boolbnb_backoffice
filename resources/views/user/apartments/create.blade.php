@@ -88,13 +88,20 @@
                         C'è qualche problema con il tuo indirizzo, assicurati che non abbia caratteri speciali e che tu
                         abbia selezionato l'indirizzo cliccandolo dal meno a tendina.
                     </div>
-                    <div class="addressList" v-if='searchData'>
+                    <div class="list-group addressList">
+                        <a :value='i' v-for='(item,i) in searchData'
+                            class="list-group-item list-group-item-action" @click='choosenAddress(i)'>
+                            @{{ item.address.freeformAddress }}
+                        </a>
+
+                    </div>
+                    {{-- <div class="addressList" v-if='searchData'>
                         <ul class="list-unstyled">
-                            <li v-for='item in searchData'>
-                                <a href="">@{{ item.address.freeformAddress }}</a>
+                            <li v-for='(item,i) in searchData'>
+                                <a :value='i' @click='choosenAddress(i)'>@{{ item.address.freeformAddress }}</a>
                             </li>
                         </ul>
-                    </div>
+                    </div> --}}
 
                 </div>
 
@@ -203,6 +210,15 @@
                     this.img_cover = chosenFiles[0];
 
                 },
+                choosenAddress(i){
+                    const rawDiv = document.querySelector('.addressList')
+                    const tagA = document.querySelectorAll('.addressList > a');
+                    this.searchField = tagA[i].textContent;
+                    rawDiv.classList.add('d-none')
+
+                    
+                },
+                
 
         
 
