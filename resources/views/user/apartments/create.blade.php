@@ -84,7 +84,18 @@
                     <input @input='checkData(searchField,"address")' type="text" step="0.5"
                         class="form-control text-center w-75 mx-auto" name="address" v-model="searchField"
                         @keyup="refreshSearch">
-                    <div class="address" v-if='searchData'>
+                    <div class="error d-none text-danger">
+                        C'è qualche problema con il tuo indirizzo, assicurati che non abbia caratteri speciali e che tu
+                        abbia selezionato l'indirizzo cliccandolo dal meno a tendina.
+                    </div>
+                    <div class="list-group addressList">
+                        <a :value='i' v-for='(item,i) in searchData'
+                            class="list-group-item list-group-item-action" @click='choosenAddress(i)'>
+                            @{{ item.address.freeformAddress }}
+                        </a>
+
+                    </div>
+                    {{-- <div class="addressList" v-if='searchData'>
                         <ul class="list-unstyled">
                             <li v-for='(item,i) in searchData'>
                                 <a :value='i' @click='choosenAddress(i)'>@{{ item.address.freeformAddress }}</a>
@@ -102,7 +113,9 @@
                     <input type="radio" step="0.5" name="visibility" value="true" checked>
                 </div>
 
-                <div class="mb-3">
+                <div class="services mb-3">
+                    <div class="rules"><span class="text-info fw-bold">N.B: </span>Devi selezionare almeno un servizio
+                    </div>
                     @foreach ($services as $service)
                         <div class="form-check form-check-inline
                   @error('services') is-invalid @enderror">
@@ -147,7 +160,9 @@
                 beds:'',
                 sm:'',
                 apartmentDescription:'',
-                services:[]
+                services:[],
+                img_cover:'',
+                error:false
 
 
             }},
@@ -283,13 +298,27 @@
                     input.classList.remove('is-invalid')
                     errorDiv.classList.replace('d-block','d-none')
                 }
-                });
-            inputsNumber.forEach((field,i) => {
-                
-                if (field.value < 0 && i != 3 || field.value >255  && i != 3){
-                    field.classList.add('is-invalid');
-                }else if(inputsNumber[3].value <0 || inputsNumber[3].value>8000000){
-                    inputsNumber[3].classList.add('is-invalid');
+            }
+
+
+            if(this.error && typeof(properties) === 'string'){
+                input.classList.add('is-invalid')
+                errorDiv.classList.replace('d-none','d-block')
+                addressList.classList.add('d-none')
+
+            }else if(typeof(properties) === 'string'){
+                for(let i= 0;i<specialCharacters.length;i++){
+                    if(properties.includes(specialCharacters[i])){
+                        input.classList.add('is-invalid')
+                        errorDiv.classList.replace('d-none','d-block')
+                        addressList?.classList.add('d-none')
+                        break;
+                    }else{
+                        input.classList.remove('is-invalid')
+                        errorDiv.classList.replace('d-block','d-none')
+                        addressList?.classList.replace('d-none','d-block')
+                        
+                    }
                 }
                 
             }
