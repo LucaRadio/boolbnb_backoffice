@@ -16,10 +16,11 @@ class MessageController extends Controller
     public function index()
     {
         $user = Auth::user();
-
         $apartments = Apartment::where('user_id', $user->id)->get();
+        $user_id=$apartments[0]->user_id;
+        $messages = Message::where(, $user_id)->get();
 
-        return view("user.messages.index", compact('apartments'));
+        return view("user.messages.index", compact('messages'));
     }
 
     /**
@@ -27,7 +28,12 @@ class MessageController extends Controller
      */
     public function show(Message $message)
     {
-        return view('user.messages.show', compact('message'));
+        if (Auth::user()->id === $message->apartment[0]->user_id) {
+            return view('user.messages.show', compact('message'));
+        } else {
+            return view('errorPage');
+        }
+
     }
 
     /**
