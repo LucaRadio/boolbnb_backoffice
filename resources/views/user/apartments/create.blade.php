@@ -81,7 +81,7 @@
                 </div>
                 <div class="address mb-3">
                     <label class="form-label">Indirizzo</label>
-                    <input @input='checkData(searchField,"address")' type="text" step="0.5"
+                    <input @input='checkData(searchField,"address")' type="text" step="0.5" autocomplete="off"
                         class="form-control text-center w-75 mx-auto" name="address" v-model="searchField"
                         @keyup="refreshSearch">
                     <div class="error d-none text-danger">
