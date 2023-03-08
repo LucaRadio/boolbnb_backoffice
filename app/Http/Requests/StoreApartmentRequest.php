@@ -30,7 +30,8 @@ class StoreApartmentRequest extends FormRequest
             "address" => "required|string|max:255",
             "visibility" => "string",
             "img_cover" => "required|max:255|file",
-            "description" => "required|max:500|string"
+            "description" => "required|max:500|string",
+            "services" => "required|array",
         ];
     }
 

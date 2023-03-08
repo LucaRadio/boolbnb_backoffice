@@ -42,7 +42,6 @@ class ApartmentController extends Controller
     {
         // validazione fatta da StoreApartmentRequest
         $data = $request->validated();
-        dd($data);
 
         //utente loggato
         $user = Auth::user();
@@ -70,15 +69,12 @@ class ApartmentController extends Controller
             ...$data,
             'img_cover' => $path ?? 'cover_img/NoImageFound.jpg.png',
             'user_id' => $user->id,
-            'latidude' => $lat,
+            'latitude' => $lat,
             'longitude' => $lon
         ]);
 
         if ($request->has('services')) {
             $apartment->services()->attach($data['services']);
-        }
-        if ($request->has('promotions')) {
-            $apartment->promotions()->attach($data['promotions']);
         }
 
         return redirect()->route("user.apartments.show", $apartment->id);
