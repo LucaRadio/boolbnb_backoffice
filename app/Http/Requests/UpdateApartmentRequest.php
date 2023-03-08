@@ -30,7 +30,7 @@ class UpdateApartmentRequest extends FormRequest
             "address" => "required|string|max:255",
             "services" => "required|array",
             "visibility" => "string",
-            "img_cover" => "required|max:255|file",
+            "img_cover" => "required|file",
             "description" => "required|max:500|string",
         ];
     }
