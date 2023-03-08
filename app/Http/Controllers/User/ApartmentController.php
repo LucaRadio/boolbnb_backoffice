@@ -21,7 +21,6 @@ class ApartmentController extends Controller
     {
         $user = Auth::user();
         $apartments = Apartment::where('user_id', $user->id)->get();
-
         return view("user.apartments.index", compact('apartments'));
     }
 
@@ -39,41 +38,41 @@ class ApartmentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreApartmentRequest $request, Apartment $apartment)
+    public function store(StoreApartmentRequest $request)
     {
-
+        // validazione fatta da StoreApartmentRequest
         $data = $request->validated();
-        $via = urlencode($data['address']);
+        dd($data);
 
+        //utente loggato
+        $user = Auth::user();
+
+        //immagine
+        if (key_exists('img_cover', $data)) {
+            $path = Storage::put('cover_img', $data['img_cover']);
+        }
+
+        //coordinate
+        $via = urlencode($data['address']);
         $rawData = file_get_contents("https://api.tomtom.com/search/2/geocode/" . $via . ".json?storeResult=false&view=Unified&limit=1&key=sGNJHBIkBGVklWlAnKDehryPD39qsJxn");
         $rawData = json_decode($rawData);
+        $lat = $rawData->results[0]->position->lat;
+        $lon = $rawData->results[0]->position->lon;
 
-        $apartment = new Apartment();
-
-        $apartment->latitude = $rawData->results[0]->position->lat;
-        $apartment->longitude = $rawData->results[0]->position->lon;
-
+        //visibilità
         if ($data['visibility']) {
             $data['visibility'] = 1;
         } else {
             $data['visibility'] = 0;
         }
 
-
-
-
-        $user = Auth::user();
-
-        $apartment->fill($data);
-
-        $apartment->user_id = $user->id;
-
-        $path = Storage::put('cover_img', $data['img_cover']);
-
-        $apartment->img_cover = $path ?? 'cover_img/NoImageFound.jpg.png';
-
-        $apartment->save();
-
+        $apartment = Apartment::create([
+            ...$data,
+            'img_cover' => $path ?? 'cover_img/NoImageFound.jpg.png',
+            'user_id' => $user->id,
+            'latidude' => $lat,
+            'longitude' => $lon
+        ]);
 
         if ($request->has('services')) {
             $apartment->services()->attach($data['services']);

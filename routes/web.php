@@ -26,7 +26,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
 });
 
 Route::middleware(['auth', 'verified'])
@@ -38,17 +37,17 @@ Route::middleware(['auth', 'verified'])
         })->name("dashboard");
         Route::resource('/apartments', ApartmentController::class);
         Route::name('messages.')
-        ->prefix('message')
-        ->group(function () {
-            Route::get('/index',[MessageController::class, 'index'])->name('index');
-            Route::get('/{message}',[MessageController::class, 'show'])->name('show');
-            Route::delete('/{message}',[MessageController::class, 'destroy'])->name('delete'); 
-        });
+            ->prefix('message')
+            ->group(function () {
+                Route::get('/index', [MessageController::class, 'index'])->name('index');
+                Route::get('/{message}', [MessageController::class, 'show'])->name('show');
+                Route::delete('/{message}', [MessageController::class, 'destroy'])->name('delete');
+            });
         Route::name('promotions.')
-        ->prefix('promotions')
-        ->group(function (){
-            Route::get('/index',[PromotionController::class, 'index'])->name('index');
-        });
+            ->prefix('promotions')
+            ->group(function () {
+                Route::get('/index', [PromotionController::class, 'index'])->name('index');
+            });
     });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
