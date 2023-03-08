@@ -14,7 +14,7 @@
                                 <div class="col-md-6">
                                     <input id="name" type="text"
                                         class="form-control @error('name') is-invalid @enderror"
-                                        value="{{ old('name') }}" >
+                                        value="{{ old('name') }}">
                                 </div>
                                 @error('name')
                                     <span class="invalid-feedback" role="alert">
@@ -26,7 +26,8 @@
                                 <label for="surname"
                                     class="col-md-4 col-form-label text-md-right">{{ __('Surname') }}</label>
                                 <div class="col-md-6">
-                                    <input id="surname" type="text"
+                                    <input id="surname" 
+                                        type="text"
                                         class="form-control @error('surname') is-invalid @enderror"
                                         value="{{ old('surname') }}">
                                 </div>
@@ -40,7 +41,8 @@
                                 <label for="date_of_birth"
                                     class="col-md-4 col-form-label text-md-right">{{ __('Date of birth') }}</label>
                                 <div class="col-md-6">
-                                    <input id="date_of_birth" type="date"
+                                    <input id="date_of_birth" 
+                                        type="date"
                                         class="form-control @error('date_of_birth') is-invalid @enderror"
                                         value="{{ old('date_of_birth') }}">
                                 </div>
@@ -56,8 +58,11 @@
                                     class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
                                 <div class="col-md-6">
                                     <input id="email" type="email"
-                                        class="form-control @error('email') is-invalid @enderror" name="email"
-                                        value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                        class="form-control @error('email') is-invalid @enderror" 
+                                        name="email"
+                                        value="{{ old('email') }}" 
+                                        required autocomplete="email" 
+                                        autofocus>
                                     @error('email')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -69,9 +74,14 @@
                                 <label for="password"
                                     class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
                                 <div class="col-md-6">
-                                    <input id="password" type="password"
-                                        class="form-control @error('password') is-invalid @enderror" name="password"
-                                        required autocomplete="new-password" minlength="8">
+                                    <input id="password" 
+                                        type="password"
+                                        class="form-control @error('password') is-invalid @enderror" 
+                                        name="password"
+                                        required autocomplete="new-password" 
+                                        minlength="8"
+                                        pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                                        title="La password deve essere lunga almeno 8 caratteri e contenere, una lettera maiuscola, una lettera minuscola e un numero">
                                     @error('password')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -83,8 +93,12 @@
                                 <label for="password-confirm"
                                     class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
                                 <div class="col-md-6">
-                                    <input id="password-confirm" type="password" class="form-control"
-                                        name="password_confirmation" required autocomplete="new-password" minlength="8">
+                                    <input id="password-confirm" 
+                                        type="password" 
+                                        class="form-control"
+                                        name="password_confirmation" 
+                                        required autocomplete="new-password" 
+                                        minlength="8">
                                 </div>
                             </div>
                             <div class="mb-4 row mb-0">
