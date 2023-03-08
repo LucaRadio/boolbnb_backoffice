@@ -30,10 +30,11 @@ class MessageController extends Controller
      */
     public function show(Message $message)
     {
+
         if (Auth::user()->id === $message->apartment->user_id) {
             return view('user.messages.show', compact('message'));
         } else {
-            return view('errorPage');
+            return view('errorPage', ['message' => 'Non sei autorizzato a visionare questo messaggio']);
         }
 
     }
