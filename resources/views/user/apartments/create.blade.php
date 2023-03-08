@@ -74,37 +74,27 @@
                     </div>
 
                 </div>
-                <div class="mb-3">
+                <div class="apartmentDescription mb-3">
                     <label class="form-label">Descrizione</label>
                     <textarea v-model='apartmentDescription' name="description" cols="30" rows="5"
                         class="form-control w-75 mx-auto"></textarea>
-                    {{-- @error('description') is-invalid @elseif(old('description')) is-valid @enderror">{{ old('description') }}</textarea>
-            @error('description')
-            <div class="invalid-feedback">
-                {{ $message }}
-            </div>
-                @enderror --}}
                 </div>
                 <div class="address mb-3">
                     <label class="form-label">Indirizzo</label>
                     <input @input='checkData(searchField,"address")' type="text" step="0.5"
                         class="form-control text-center w-75 mx-auto" name="address" v-model="searchField"
                         @keyup="refreshSearch">
-                    <div class="error d-none text-danger">
-                        C'è qualche problema con il tuo indirizzo, assicurati che non abbia caratteri speciali e che tu
-                        abbia selezionato l'indirizzo cliccandolo dal meno a tendina.
-                    </div>
-                    <div class="addressList" v-if='searchData'>
+                    <div class="address" v-if='searchData'>
                         <ul class="list-unstyled">
-                            <li v-for='item in searchData'>
-                                <a href="">@{{ item.address.freeformAddress }}</a>
+                            <li v-for='(item,i) in searchData'>
+                                <a :value='i' @click='choosenAddress(i)'>@{{ item.address.freeformAddress }}</a>
                             </li>
                         </ul>
-                    </div>
+                    </div> --}}
 
                 </div>
 
-                <div class="mb-3">
+                <div class="visibility mb-3">
                     <label class="form-label">Visibilità</label>
                     <label for="">No</label>
                     <input type="radio" step="0.5" name="visibility" value="false">
@@ -112,7 +102,7 @@
                     <input type="radio" step="0.5" name="visibility" value="true" checked>
                 </div>
 
-                <div class="services mb-3">
+                <div class="mb-3">
                     @foreach ($services as $service)
                         <div class="form-check form-check-inline
                   @error('services') is-invalid @enderror">
@@ -123,25 +113,12 @@
                                 for="serviceCheckbox_{{ $loop->index }}">{{ $service->name }}</label>
                         </div>
                     @endforeach
-                    {{--     
-                @error('technologys')
-                <div class="invalid-feedback">
-                    {{ $message }}
+
                 </div>
-                @enderror --}}
-                </div>
-                {{-- < div class="mb-3">
-            <label class="form-label">Vuoi aggiungere una promotion?</label>
-            <select name="promotion_id" class="w-75 mx-auto form-select">
-                <option></option>
-                @foreach ($promotions as $promotion)
-                <option value="{{ $promotion->id }}">{{ $promotion-> type}}</option>
-                @endforeach
-            </select>
-    </> --}}
-                <div class="mb-3">
+
+                <div class="img_cover mb-3">
                     <label class="form-label">Carica l'immagine del progetto</label>
-                    <input type="file"
+                    <input @change='imgCoverChange' type="file"
                         class="form-control text-center w-75 mx-auto
                         @error('img_cover') is-invalid @elseif(old('img_cover')) is-valid @enderror"
                         name="img_cover">
@@ -151,7 +128,8 @@
                         </div>
                     @enderror
                 </div>
-                <button class="btn btn-lg btn-outline-dark mt-4" type="submit">Salva Progetto</button>
+                <button :disabled='errorDigit' class="btn btn-lg btn-outline-dark mt-4" type="submit">Salva
+                    Progetto</button>
             </form>
         </div>
     @endsection
@@ -169,12 +147,66 @@
                 beds:'',
                 sm:'',
                 apartmentDescription:'',
-                services:[],
-                error:false
+                services:[]
 
 
             }},
-    methods: {
+            computed:{
+                errorDigit: function (){
+                    if(this.apartmentName.length <=0 || this.apartmentName.length>255){
+                        return true
+                        }else {
+                            if(this.rooms <0 || this.rooms>255){
+                                return true
+                            }else {
+                                if(this.bath <=0 || this.bath>255){
+                                    return true
+                            }else {
+                                if(this.beds <=0 || this.beds>255){
+                                    return true
+                            }else {
+                                if(this.sm <=30 || this.sm>2000000){
+                                    return true
+                            }else {
+                                if(this.searchField <=0 || this.searchField>255){
+                                    return true
+                            }else {
+                                if(!this.services.length){
+                                    return true
+                            }else {
+                                if(!this.img_cover){
+                                    return true
+                            }else{
+                                    return false
+                                    }
+                                }
+                            }
+                            }}}}};
+
+                    }
+
+            
+                    
+                
+            },
+            methods: {
+                imgCoverChange(event){
+                    const chosenFiles = event.target.files
+                    this.img_cover = chosenFiles[0];
+
+                },
+                choosenAddress(i){
+                    const rawDiv = document.querySelector('.addressList')
+                    const tagA = document.querySelectorAll('.addressList > a');
+                    this.searchField = tagA[i].textContent;
+                    rawDiv.classList.add('d-none')
+
+                    
+                },
+                
+
+        
+
         async refreshSearch() {
             if (this.searchField) {
                 encodeURIComponent(this.searchField);
@@ -251,27 +283,13 @@
                     input.classList.remove('is-invalid')
                     errorDiv.classList.replace('d-block','d-none')
                 }
-            }
-
-
-            if(this.error && typeof(properties) === 'string'){
-                input.classList.add('is-invalid')
-                errorDiv.classList.replace('d-none','d-block')
-                addressList.classList.add('d-none')
-
-            }else if(typeof(properties) === 'string'){
-                for(let i= 0;i<specialCharacters.length;i++){
-                    if(properties.includes(specialCharacters[i])){
-                        input.classList.add('is-invalid')
-                        errorDiv.classList.replace('d-none','d-block')
-                        addressList.classList.replace('d-block','d-none')
-                        break;
-                    }else{
-                        input.classList.remove('is-invalid')
-                        errorDiv.classList.replace('d-block','d-none')
-                        addressList.classList.replace('d-none','d-block')
-                        
-                    }
+                });
+            inputsNumber.forEach((field,i) => {
+                
+                if (field.value < 0 && i != 3 || field.value >255  && i != 3){
+                    field.classList.add('is-invalid');
+                }else if(inputsNumber[3].value <0 || inputsNumber[3].value>8000000){
+                    inputsNumber[3].classList.add('is-invalid');
                 }
                 
             }
