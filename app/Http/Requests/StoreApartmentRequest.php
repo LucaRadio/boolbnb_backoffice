@@ -28,7 +28,7 @@ class StoreApartmentRequest extends FormRequest
             "n_beds" => "required|min:1|max:255|numeric",
             "square_meters" => "required|max:16777215|min:10",
             "address" => "required|string|max:255",
-            "visibility" => "required|boolean",
+            "visibility" => "string",
             "img_cover" => "required|max:255|file",
             "description" => "required|max: 65,535|string"
         ];

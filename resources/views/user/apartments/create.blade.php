@@ -5,7 +5,17 @@
         <div class="text-center pt-5">
             <h1>Inserisci il tuo Appartamento</h1>
         </div>
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                I dati inseriti non sono validi:
 
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
 
         <div class="text-center bg-white rounded-3 py-5" id="app">
             <form action="{{ route('user.apartments.store') }}"
@@ -145,7 +155,7 @@
             </form>
         </div>
     @endsection
-    {{-- 
+
     <script type="module">
     const {createApp} = Vue;
     createApp({
@@ -271,4 +281,4 @@
             
 }
         }).mount("#app");
-</script> --}}
+</script>
