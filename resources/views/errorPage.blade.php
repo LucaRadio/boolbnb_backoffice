@@ -9,5 +9,21 @@
             </div>
         </div>
         <h2 class="text-center">{{ $message }}</h2>
+        <div class="d-none align-items-center loader">
+            <strong>Redirecting...</strong>
+            <div class="spinner-border ms-auto" role="status" aria-hidden="true"></div>
+        </div>
     </div>
+
+    <script>
+        window.onload = function() {
+            setTimeout(() => {
+                const loader = document.querySelector('.loader');
+                loader.classList.replace('d-none', 'd-flex');
+            }, 1000);
+            setTimeout(() => {
+                window.location.href = "{{ url('user/dashboard') }}"
+            }, 2000);
+        }
+    </script>
 @endsection
