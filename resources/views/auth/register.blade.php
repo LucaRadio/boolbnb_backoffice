@@ -12,15 +12,25 @@
                                 <label for="name"
                                     class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
                                 <div class="col-md-6">
-                                    <input id="name" type="text" class="form-control">
+                                    <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}">
                                 </div>
+                                @error('name')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
                             </div>
                             <div class="mb-4 row">
                                 <label for="surname"
                                     class="col-md-4 col-form-label text-md-right">{{ __('Surname') }}</label>
                                 <div class="col-md-6">
-                                    <input id="surname" type="text" class="form-control">
+                                    <input id="surname" type="text" class="form-control @error('surname') is-invalid @enderror" value="{{ old('surname') }}">
                                 </div>
+                                @error('surname')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
                             </div>
                             <div class="mb-4 row">
                                 <label for="date_of_birth"
