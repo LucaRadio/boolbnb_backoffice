@@ -23,11 +23,12 @@ class UpdateApartmentRequest extends FormRequest
     {
         return [
             "title" => "required|min:1|max:255|string",
-            "n_rooms" => "required|min:1|max:3|numeric",
-            "n_bathrooms" => "required|min:1|max:3|numeric",
-            "n_beds" => "required|min:1|max:3|numeric",
+            "n_rooms" => "required|min:1|max:255|numeric",
+            "n_bathrooms" => "required|min:1|max:255|numeric",
+            "n_beds" => "required|min:1|max:255|numeric",
             "square_meters" => "required|min:2|max:4",
             "address" => "required|string|max:255",
+            "services" => "required|array",
             "visibility" => "string",
             "img_cover" => "required|max:255|file",
             "description" => "required|max:500|string",

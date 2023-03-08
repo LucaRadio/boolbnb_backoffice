@@ -5,6 +5,17 @@
    $apartmentServices = $apartment->services()->get()->toArray();
    $length = sizeOf($apartmentServices)
 @endphp
+@if ($errors->any())
+            <div class="alert alert-danger">
+                I dati inseriti non sono validi:
+
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
 <div class="container">
     <h1>Sezione edit</h1>
     <div class="text-center bg-white rounded-3 py-5">
