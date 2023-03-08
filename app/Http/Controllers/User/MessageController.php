@@ -17,8 +17,10 @@ class MessageController extends Controller
     {
         $user = Auth::user();
         $apartments = Apartment::where('user_id', $user->id)->get();
-        $user_id=$apartments[0]->user_id;
-        $messages = Message::where(, $user_id)->get();
+        $messages= [];
+        foreach ($apartments as $apartment){
+            $messages[]=$apartment->messages;
+        }    
 
         return view("user.messages.index", compact('messages'));
     }
