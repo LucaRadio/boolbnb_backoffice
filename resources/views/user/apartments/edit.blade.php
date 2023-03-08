@@ -167,14 +167,14 @@
     createApp({
         data() {
             return {
-                searchField: '',
+                searchField: <?php echo json_encode($apartment->address, JSON_HEX_TAG); ?>,
                 searchData: [],
-                apartmentName: '',
-                rooms:'',
-                bath:'',
-                beds:'',
-                sm:'',
-                apartmentDescription:'',
+                apartmentName: <?php echo json_encode($apartment->title, JSON_HEX_TAG); ?>,
+                rooms: <?php echo json_encode($apartment->n_rooms, JSON_HEX_TAG); ?>,
+                bath: <?php echo json_encode($apartment->n_bathrooms, JSON_HEX_TAG); ?>,
+                beds: <?php echo json_encode($apartment->n_beds, JSON_HEX_TAG); ?>,
+                sm: <?php echo json_encode($apartment->square_meters, JSON_HEX_TAG); ?>,
+                apartmentDescription: <?php echo json_encode($apartment->description, JSON_HEX_TAG); ?>,
                 services:[],
                 img_cover:'',
                 error:false
@@ -216,6 +216,9 @@
             
                     
                 
+            },
+            mounted(){
+                console.log(this.apartmentName);
             },
             methods: {
                 imgCoverChange(event){
