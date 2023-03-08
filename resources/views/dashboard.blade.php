@@ -24,6 +24,8 @@
                 <div class="p-3">
                     <h6>Visto che sei loggato, dai un'occhiata alla pagina dei tuoi appartamenti!</h6>
                     <button class="btn btn-primary btn-sm mb-3"><a href="{{route('user.apartments.index')}}" class="text-white text-decoration-none">Index</a></button> 
+                    <h6>Vuoi creare un appartamento? clicca qui!</h6>
+                    <button class="btn btn-primary btn-sm mb-3"><a href="{{route('user.apartments.create')}}" class="text-white text-decoration-none">create</a></button> 
                     <h6>Hai 
                         @foreach (Auth::user()->apartments as $apartment)
                            @php
