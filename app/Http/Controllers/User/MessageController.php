@@ -30,7 +30,7 @@ class MessageController extends Controller
      */
     public function show(Message $message)
     {
-        if (Auth::user()->id === $message->apartment[0]->user_id) {
+        if (Auth::user()->id === $message->apartment->user_id) {
             return view('user.messages.show', compact('message'));
         } else {
             return view('errorPage');
