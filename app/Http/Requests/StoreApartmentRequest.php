@@ -23,14 +23,14 @@ class StoreApartmentRequest extends FormRequest
     {
         return [
             "title" => "required|min:1|max:255|string",
-            "n_rooms" => "required|min:1|max:255|numeric",
-            "n_bathrooms" => "required|min:1|max:255|numeric",
-            "n_beds" => "required|min:1|max:255|numeric",
-            "square_meters" => "required|max:16777215|min:10",
+            "n_rooms" => "required|min:1|max:3|numeric",
+            "n_bathrooms" => "required|min:1|max:3|numeric",
+            "n_beds" => "required|min:1|max:3|numeric",
+            "square_meters" => "required|min:2|max:4",
             "address" => "required|string|max:255",
             "visibility" => "string",
             "img_cover" => "required|max:255|file",
-            "description" => "required|max: 65,535|string"
+            "description" => "required|max:500|string"
         ];
     }
 
@@ -50,8 +50,8 @@ class StoreApartmentRequest extends FormRequest
             "n_rooms.required" => "Il numero di stanze è obbligatorio.",
             "n_rooms.max" => "Hai superato il numero di stanze massimo.",
             "n_rooms.numeric" => "Il numero delle stanze deve essere un numero.",
-            "square_meter.required" => "Il numero di metri quadrati è obbligatorio",
-            "square_meter.max" => "Hai superato il numero di metri quadrati massimi",
+            "square_meters.required" => "Il numero di metri quadrati è obbligatorio",
+            "square_meters.max" => "Hai superato il numero di metri quadrati massimi",
             "square_meters.min" => "Sei sotto il numero di metri quadrati minimi.",
             "address.required" => "L'indirizzo è obbligatorio.",
             "address.string" => "L'indirizzo deve essere del testo.",
