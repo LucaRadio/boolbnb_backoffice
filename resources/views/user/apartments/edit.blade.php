@@ -27,8 +27,8 @@
             <div class="mb-3 apartmentName">
                 
                 <label class="form-label">Titolo appartemento</label>
-                <input @input='checkData(apartmentName,"apartmentName")' v-model='apartmentName' type="text" value="<?php $apartment->title ?>"
-                    class="form-control text-center w-75 mx-auto" name="title" minlength="1" required 
+                <input @input='checkData(apartmentName,"apartmentName")' v-model='apartmentName' type="text"
+                    class="form-control text-center w-75 mx-auto" name="title"  required
                     @error('title') is-invalid @elseif(old('title')) is-valid @enderror>
                 @error('title')
                     <div class="invalid-feedback">
@@ -117,33 +117,33 @@
                 <input type="radio" step="0.5" name="visibility" value="true" checked>
             </div>
 
-            {{-- <div class="services mb-3">
+             <div class="services mb-3">
                 <div class="rules"><span class="text-info fw-bold">N.B: </span>Devi selezionare almeno un servizio
                 </div>
                 @foreach ($services as $service)
                     <div class="form-check form-check-inline
               @error('services') is-invalid @enderror">
                         <input v-model='services' class="form-check-input @error('services') is-invalid @enderror"
-                            type="checkbox" id="serviceCheckbox_{{ $loop->index }}" value="{{ $service->id }}"
-                            name="services[]" {{ in_array($service->id, old('services', [])) ? 'checked' : '' }}>
+                            type="checkbox" id="serviceCheckbox_{{ $loop->index }}"
+                            name="services[]" v-if="">{{services}}
                         <label class="form-check-label"
                             for="serviceCheckbox_{{ $loop->index }}">{{ $service->name }}</label>
                     </div>
-                @endforeach --}}
-            <div class="mb-3">
+                @endforeach 
+   {{--         <div class="mb-3">
                 @foreach ($services as $service)
                     <div class="form-check form-check-inline
                 @error('services') is-invalid @enderror">
                         <input class="form-check-input @error('services') is-invalid @enderror" type="checkbox"
-                            id="serviceCheckbox{{ $loop->index }}" value="{{ $service->id }}" name="services[]"
-                                @for ($i=0; $i < $length; $i++) {{ 
-
-                                ($service->name === $apartment->services()->get()->toArray()[$i]['name']) ? 'checked' : '' }}@endfor>
+                            id="serviceCheckbox{{ $loop->index }}"  name="services[]" v-model="services"
+                               @if ($service)
+                               @endif>
                         <label class="form-check-label"
                             for="serviceCheckbox{{ $loop->index }}">{{ $service->name }}</label>
                     </div>
                 @endforeach
-            </div>
+              
+            </div>  --}}
 
             <div class="img_cover mb-3">
                 <label class="form-label">Carica l'immagine del progetto</label>
@@ -162,6 +162,7 @@
                 </form>
             </div>
 </div>
+@endsection
 <script type="module">
     const {createApp} = Vue;
     createApp({
@@ -175,22 +176,26 @@
                 beds: <?php echo json_encode($apartment->n_beds, JSON_HEX_TAG); ?>,
                 sm: <?php echo json_encode($apartment->square_meters, JSON_HEX_TAG); ?>,
                 apartmentDescription: <?php echo json_encode($apartment->description, JSON_HEX_TAG); ?>,
-                services:[],
+                services:<?php echo json_encode($apartment->services, JSON_HEX_TAG); ?>,
                 img_cover:'',
                 error:false
             }},
             computed:{
                 errorDigit: function (){
                     if(this.apartmentName.length <=0 || this.apartmentName.length>255){
+                     
                         return true
                         }else {
                             if(this.rooms <0 || this.rooms>255){
+                               
                                 return true
                             }else {
                                 if(this.bath <=0 || this.bath>255){
+                              
                                     return true
                             }else {
                                 if(this.beds <=0 || this.beds>255){
+                                  
                                     return true
                             }else {
                                 if(this.sm <=30 || this.sm>2000000){
@@ -345,4 +350,3 @@
 }
         }).mount("#app");
 </script>
-@endsection
