@@ -8,7 +8,12 @@
                 <div class="col col-sm-6 col-md-4">
                     <div class="col-content">
                         <div class="card" style="width: 18rem;">
-                            <img class="card-img-top" src={{ asset('storage/' . $item['img_cover']) }} alt="Card image cap">
+                            @if (str_contains($item->img_cover, 'https://picsum.photos'))
+                                <img class="card-img-top" src=" {{ $item['img_cover'] }}" alt="Card image cap">
+                            @else
+                                <img class="card-img-top" src="{{ asset('storage/' . $item['img_cover']) }}"
+                                    alt="Card image cap">
+                            @endif
                             <div class="card-body">
                                 <h5 class="card-title">{{ $item->title }}</h5>
                                 <p class="card-text">{{ $item->description }}</p>

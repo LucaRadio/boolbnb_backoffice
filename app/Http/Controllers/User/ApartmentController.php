@@ -48,7 +48,11 @@ class ApartmentController extends Controller
 
         //immagine
         if (key_exists('img_cover', $data)) {
-            $path = Storage::disk('public')->put('cover_img', $data['img_cover']);
+            if (str_contains($data['img_cover'], 'https://picsum.photos')) {
+                $path = $data['img_cover'];
+            } else {
+                $path = Storage::disk('public')->put('cover_img', $data['img_cover']);
+            }
         }
 
         //coordinate
@@ -117,6 +121,7 @@ class ApartmentController extends Controller
         $apartment->fill($data);
 
         if (key_exists('img_cover', $data)) {
+
             $path = Storage::disk('public')->put('cover_img', $data['img_cover']);
             Storage::delete($apartment->img_cover);
         }
