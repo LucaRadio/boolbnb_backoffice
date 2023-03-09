@@ -115,6 +115,13 @@ class ApartmentController extends Controller
 
         $data = $request->validated();
 
+        $user = Auth::user();
+        $via = urlencode($data['address']);
+        $rawData = file_get_contents("https://api.tomtom.com/search/2/geocode/" . $via . ".json?storeResult=false&view=Unified&limit=1&key=sGNJHBIkBGVklWlAnKDehryPD39qsJxn");
+        $rawData = json_decode($rawData);
+        $lat = $rawData->results[0]->position->lat;
+        $lon = $rawData->results[0]->position->lon;
+
 
 
         if ($data['visibility'] === true) {
@@ -123,16 +130,22 @@ class ApartmentController extends Controller
             $data['visibility'] = 0;
         }
 
-
-        $apartment->fill($data);
-
         if (key_exists('img_cover', $data)) {
             $path = Storage::disk('public')->put('cover_img', $data['img_cover']);
             Storage::delete($apartment->img_cover);
         }
 
+        $apartment->update([
+            ...$data,
+            'img_cover' => $path ?? $apartment->img_cover,
+            'user_id' => $user->id,
+            'latitude' => $lat,
+            'longitude' => $lon
+        ]);
 
-        $apartment->img_cover = $path ?? $apartment->img_cover;
+
+
+
 
 
         if ($request->has('services')) {
@@ -141,8 +154,6 @@ class ApartmentController extends Controller
             foreach ($data['services'] as $singleService) {
                 $servicesToSync[] = Service::findOrFail($singleService);
             }
-
-
 
             foreach ($servicesToSync as $sync) {
                 $apartment->services()->attach($sync);
