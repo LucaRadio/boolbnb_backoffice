@@ -169,15 +169,19 @@
             computed:{
                 errorDigit: function (){
                     if(this.apartmentName.length <=0 || this.apartmentName.length>255){
+                     
                         return true
                         }else {
                             if(this.rooms <0 || this.rooms>255){
+                               
                                 return true
                             }else {
                                 if(this.bath <=0 || this.bath>255){
+                              
                                     return true
                             }else {
                                 if(this.beds <=0 || this.beds>255){
+                                  
                                     return true
                             }else {
                                 if(this.sm <=30 || this.sm>2000000){
