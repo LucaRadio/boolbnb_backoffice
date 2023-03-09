@@ -17,7 +17,7 @@
             </div>
         @endif
 
-        <div class="text-center bg-white rounded-3 py-5" id="app">
+        <div class="text-center bg-white rounded-3 py-5" id="form">
             <form action="{{ route('user.apartments.store') }}"
                 class="form-group w-75 d-inline-block shadow rounded-3 p-3 py-5" method="POST" enctype="multipart/form-data">
                 @csrf
@@ -327,5 +327,5 @@
             
             
 }
-        }).mount("#app");
+        }).mount("#form");
 </script>

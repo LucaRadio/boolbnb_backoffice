@@ -3,8 +3,10 @@
 @section('content')
     <div class="container">
         <div class="container py-5">
+
             <div class="mb-3 d-flex justify-content-between align-items-center">
                 <div>
+                    <div class="id">{{ $apartment->id }}</div>
                     <h2 class="mb-3">{{ $apartment->title }}</h2>
                     <h3><span class="badge text-bg-success">{{ $apartment->address }}</span></h3>
                 </div>
@@ -61,6 +63,13 @@
                     </tr>
                 </tbody>
             </table>
+
+
+            <div id="map" ref="mapRef">
+                <div id="italy"></div>
+            </div>
+
+
         </div>
     </div>
 
@@ -73,5 +82,70 @@
                 form.submit();
             }
         })
+    </script>
+    <script type="module">
+        const {createApp,onMounted,ref} = Vue
+        createApp({
+            data() {
+                return {
+                    'apartmentList': []
+                }
+            },
+            name: 'Map',
+            mounted() {
+                const sizeMapModify = document.querySelector('#italy');
+                sizeMapModify.style= 'height:400px'
+            },
+
+            setup() {
+                const mapRef = ref('italy');
+
+
+                onMounted(async () => {
+                    let apartment;
+                    await axios.get(`http://127.0.0.1:8000/api/apartments/${window.location.href.slice(38)}`)
+                        .then(resp => {
+                            apartment = resp.data;
+                        });
+                        // console.log(apartment);
+                        const centerLat=apartment.latitude - 0.001
+                        const centerLon=apartment.longitude - 0.001
+                    const tt = window.tt;
+                    var map = tt.map({
+                        key: 'C1SeMZqi2HmD2jfTGWrbkAAknINrhUJ3',
+                        container: mapRef.value,
+                        style: 'tomtom://vector/1/basic-main/',
+                        zoom: 13,
+                        center: [centerLon, centerLat],
+                    });
+                    map.addControl(new tt.FullscreenControl());
+                    map.addControl(new tt.NavigationControl());
+
+                        addMarker(map, apartment.longitude, apartment.latitude, apartment.address);
+
+
+                })
+
+                function addMarker(map, longitude, latitude, address) {
+
+                    const tt = window.tt;
+                    var location = [longitude, latitude];
+                    var popupOffset = 25;
+
+                    var marker = new tt.Marker().setLngLat(location).addTo(map);
+                    var popup = new tt.Popup({
+                        offset: popupOffset
+                    }).setHTML(address);
+                    marker.setPopup(popup).togglePopup();
+
+                    const mapboxglPopupContent = document.querySelector('.mapboxgl-popup-content');
+                    mapboxglPopupContent.classList.add('text-black');
+                }
+
+                return {
+                    mapRef,
+                };
+            },
+        }).mount('#map')
     </script>
 @endsection
