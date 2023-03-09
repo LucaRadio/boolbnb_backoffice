@@ -28,10 +28,9 @@
                     <h1>Modifica il tuo appartamento</h1>
                 </div>
 
-                <div class="text-center bg-white rounded-3 py-5 card-body">
-                    <form action="{{ route('user.apartments.update', $apartment->id) }}"
-                        class="form-group d-inline-block" method="POST"
-                        enctype="multipart/form-data">
+                <div class="text-center bg-white py-5 card-body">
+                    <form action="{{ route('user.apartments.update', $apartment->id) }}" class="form-group d-inline-block"
+                        method="POST" enctype="multipart/form-data">
                         @csrf()
                         @method('PUT')
                         <div class="mb-3 apartmentName">
@@ -51,51 +50,58 @@
                             </div>
                         </div>
 
-                        <div class="rooms mb-3">
-                            <label class="form-label">Numero di stanze</label>
-                            <input @input='checkData(rooms,"rooms")' v-model='rooms' type="number" step="1"
-                                min="0" class="form-control text-center mx-auto" name="n_rooms">
-                            <div class="error d-none text-danger">
-                                C'è qualche problema con il numero delle stanze. Controlla che il numero sia compreso tra 1
-                                e 255.
-                            </div>
-                        </div>
+                        <div class="row">
 
-                        <div class="bath mb-3">
-                            <label class="form-label">Numero di bagni</label>
-                            <input @input='checkData(bath,"bath")' v-model='bath' type="number" step="1"
-                                min="0" class="form-control text-center mx-auto" name="n_bathrooms">
-                            <div class="error d-none text-danger">
-                                C'è qualche problema con il numero dei bagni. Controlla che il numero sia compreso tra 1 e
-                                255.
+                            <div class="rooms mb-3 col-sm-6 col-lg-3">
+                                <label class="form-label">Numero di stanze</label>
+                                <input @input='checkData(rooms,"rooms")' v-model='rooms' type="number" step="1"
+                                    min="0" class="form-control text-center mx-auto" name="n_rooms">
+                                <div class="error d-none text-danger">
+                                    C'è qualche problema con il numero delle stanze. Controlla che il numero sia compreso
+                                    tra 1
+                                    e 255.
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="beds mb-3">
-                            <label class="form-label">Numero di letti</label>
-                            <input @input='checkData(beds,"beds")' v-model='beds' type="number" step="1"
-                                min="0" class="form-control text-center mx-auto" name="n_beds">
-                            <div class="error d-none text-danger">
-                                C'è qualche problema con il numero dei letti. Controlla che il numero sia compreso tra 1 e
-                                255.
+                            <div class="bath mb-3 col-sm-6 col-lg-3">
+                                <label class="form-label">Numero di bagni</label>
+                                <input @input='checkData(bath,"bath")' v-model='bath' type="number" step="1"
+                                    min="0" class="form-control text-center mx-auto" name="n_bathrooms">
+                                <div class="error d-none text-danger">
+                                    C'è qualche problema con il numero dei bagni. Controlla che il numero sia compreso tra 1
+                                    e
+                                    255.
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="sm mb-3">
-                            <label class="form-label">Metri quadrati</label>
-                            <input @input='checkData(sm,"sm")' v-model='sm' type="number" step="0.5" min="30"
-                                class="form-control text-center mx-auto" name="square_meters">
-                            <div class="error d-none text-danger">
-                                C'è qualche problema con il numero dei metri quadrati. Controlla che il numero sia compreso
-                                tra 30 e
-                                2.000.000.
+                            <div class="beds mb-3 col-sm-6 col-lg-3">
+                                <label class="form-label">Numero di letti</label>
+                                <input @input='checkData(beds,"beds")' v-model='beds' type="number" step="1"
+                                    min="0" class="form-control text-center mx-auto" name="n_beds">
+                                <div class="error d-none text-danger">
+                                    C'è qualche problema con il numero dei letti. Controlla che il numero sia compreso tra 1
+                                    e
+                                    255.
+                                </div>
                             </div>
+
+                            <div class="sm mb-3 col-sm-6 col-lg-3">
+                                <label class="form-label">Metri quadrati</label>
+                                <input @input='checkData(sm,"sm")' v-model='sm' type="number" step="0.5"
+                                    min="30" class="form-control text-center mx-auto" name="square_meters">
+                                <div class="error d-none text-danger">
+                                    C'è qualche problema con il numero dei metri quadrati. Controlla che il numero sia
+                                    compreso
+                                    tra 30 e
+                                    2.000.000.
+                                </div>
+                            </div>
+
                         </div>
 
                         <div class="apartmentDescription mb-3">
                             <label class="form-label">Descrizione</label>
-                            <textarea v-model='apartmentDescription' name="description" cols="30" rows="5"
-                                class="form-control mx-auto">{{ $apartment->description }}</textarea>
+                            <textarea v-model='apartmentDescription' name="description" cols="30" rows="5" class="form-control mx-auto">{{ $apartment->description }}</textarea>
                         </div>
 
                         <div class="address mb-3">
@@ -118,10 +124,12 @@
 
                         <div class="visibility mb-3">
                             <label class="form-label">Visibilità</label>
-                            <label for="">No</label>
-                            <input type="radio" step="0.5" name="visibility" value="false">
-                            <label for="">Yes</label>
-                            <input type="radio" step="0.5" name="visibility" value="true" checked>
+                            <br>
+                            <label class="px-2" for="">Non Vsibile</label>
+                            <input class="px-2" type="radio" step="0.5" name="visibility" value="false">
+                            <br>
+                            <label class="px-2" for="">Visibile</label>
+                            <input class="px-2" type="radio" step="0.5" name="visibility" value="true" checked>
                         </div>
 
                         <div class="services mb-3">
