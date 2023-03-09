@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreApartmentRequest;
 use App\Http\Requests\UpdateApartmentRequest;
+use League\Flysystem\Visibility;
 
 class ApartmentController extends Controller
 {
@@ -114,6 +115,15 @@ class ApartmentController extends Controller
 
         $data = $request->validated();
 
+
+
+        if ($data['visibility'] === true) {
+            $data['visibility'] = 1;
+        } else {
+            $data['visibility'] = 0;
+        }
+
+
         $apartment->fill($data);
 
         if (key_exists('img_cover', $data)) {
@@ -124,12 +134,25 @@ class ApartmentController extends Controller
 
         $apartment->img_cover = $path ?? $apartment->img_cover;
 
+
         if ($request->has('services')) {
-            $apartment->services()->sync($data['services']);
+            $apartment->services()->detach();
+            $servicesToSync = [];
+            foreach ($data['services'] as $singleService) {
+                $servicesToSync[] = Service::findOrFail($singleService);
+            }
+
+
+
+            foreach ($servicesToSync as $sync) {
+                $apartment->services()->attach($sync);
+            }
         }
         if ($request->has('promotions')) {
             $apartment->promotions()->sync($data['promotions']);
         }
+
+
 
         $apartment->save();
 
