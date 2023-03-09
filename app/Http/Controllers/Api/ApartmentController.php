@@ -8,14 +8,22 @@ use Illuminate\Http\Request;
 
 class ApartmentController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $apartments = Apartment::all();
+        $sponsored = $request->input('sponsored');
+
+        if ($sponsored) {
+            $apartments = Apartment::with('promotions');
+        } else {
+            //aggiungere raggio default 20km?
+            $apartments = Apartment::with('services')->paginate(5);
+        }
         return response()->json($apartments);
     }
 
     public function show(Apartment $apartment)
     {
+        $apartment->load('services')->get();
         return response()->json($apartment);
     }
 }

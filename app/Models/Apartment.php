@@ -26,6 +26,15 @@ class Apartment extends Model
         'deleted_at'
     ];
 
+    protected $hidden = [
+        'id',
+        'visibility',
+        'created_at',
+        'updated_at',
+        'deleted_at',
+        'user_id',
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);
