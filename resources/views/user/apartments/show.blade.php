@@ -99,15 +99,15 @@
 
             setup() {
                 const mapRef = ref('italy');
-
+                const id = <?php echo json_encode($apartment->id, JSON_HEX_TAG); ?>;
+                
 
                 onMounted(async () => {
                     let apartment;
-                    await axios.get(`http://127.0.0.1:8000/api/apartments/${window.location.href.slice(38)}`)
+                    await axios.get(`${window.location.origin}/api/apartments/${id}`)
                         .then(resp => {
                             apartment = resp.data;
                         });
-                        // console.log(apartment);
                         const centerLat=apartment.latitude - 0.001
                         const centerLon=apartment.longitude - 0.001
                     const tt = window.tt;
@@ -121,7 +121,7 @@
                     map.addControl(new tt.FullscreenControl());
                     map.addControl(new tt.NavigationControl());
 
-                        addMarker(map, apartment.longitude, apartment.latitude, apartment.address);
+                    addMarker(map, apartment.longitude, apartment.latitude, apartment.address);
 
 
                 })
