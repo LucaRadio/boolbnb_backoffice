@@ -124,20 +124,24 @@
                             <input class="px-2" type="radio" step="0.5" name="visibility" value="true" checked>
                         </div>
 
-                        <div class="services mb-3">
+                        <div class="services mb-3 row px-3">
                             <div class="rules py-3"><span class="text-info fw-bold">N.B: </span>Devi selezionare almeno un
                                 servizio
                             </div>
                             @foreach ($services as $service)
-                                <div class="form-check form-check-inline
-                                        @error('services') is-invalid @enderror">
-                                    <input v-model='services'
-                                        class="form-check-input @error('services') is-invalid @enderror" type="checkbox"
-                                        id="serviceCheckbox_{{ $loop->index }}" value="{{ $service->id }}"
-                                        name="services[]"
-                                        {{ in_array($service->id, old('services', [])) ? 'checked' : '' }}>
-                                    <label class="form-check-label"
-                                        for="serviceCheckbox_{{ $loop->index }}">{{ $service->name }}</label>
+                                <div class="col-md-4 px-0 py-2 d-flex justify-content-start">
+                                    <div
+                                        class="m-0 form-check form-check-inline
+                                @error('services') is-invalid @enderror">
+                                        <i class="{{ $service->icon }} px-2 text-primary "></i>
+                                        <input v-model='services'
+                                            class="form-check-input @error('services') is-invalid @enderror"
+                                            type="checkbox" id="serviceCheckbox_{{ $loop->index }}"
+                                            value="{{ $service->id }}" name="services[]"
+                                            {{ in_array($service->id, old('services', [])) ? 'checked' : '' }}>
+                                        <label class="form-check-label"
+                                            for="serviceCheckbox_{{ $loop->index }}">{{ $service->name }}</label>
+                                    </div>
                                 </div>
                             @endforeach
                         </div>
