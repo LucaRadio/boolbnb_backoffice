@@ -132,20 +132,22 @@
                             <input class="px-2" type="radio" step="0.5" name="visibility" value="true" checked>
                         </div>
 
-                        <div class="services mb-3">
+                        <div class="services row px-3 mb-3">
                             <div class="rules"><span class="text-info fw-bold">N.B: </span>Devi selezionare almeno un
                                 servizio
                             </div>
                             @foreach ($services as $key => $service)
-                                <div class="form-check form-check-inline @error('services') is-invalid @enderror">
-                                    <input v-model='services{{ $loop->index }}'
-                                        class="form-check-input @error('services') is-invalid @enderror" type="checkbox"
-                                        name="services[]" value="{{ $service->id }}"
-                                        @foreach ($apartmentServices as $item)
-                    @if ($item['name'] === $service->name)
-                    checked='true'
-                    @endif @endforeach>
-                                    <label class="form-check-label">{{ $service->name }}</label>
+                                <div class="col-sm-6 col-md-4 px-0 py-2 d-flex justify-content-start">
+                                    <div class="form-check form-check-inline @error('services') is-invalid @enderror">
+                                        <input v-model='services{{ $loop->index }}'
+                                            class="form-check-input @error('services') is-invalid @enderror"
+                                            type="checkbox" name="services[]" value="{{ $service->id }}"
+                                            @foreach ($apartmentServices as $item)
+                                        @if ($item['name'] === $service->name)
+                                        checked='true'
+                                        @endif @endforeach>
+                                        <label class="form-check-label">{{ $service->name }}</label>
+                                    </div>
                                 </div>
                             @endforeach
                         </div>
