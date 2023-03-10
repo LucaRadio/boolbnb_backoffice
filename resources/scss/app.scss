@@ -1,6 +1,39 @@
 @import '~bootstrap/scss/bootstrap';
 
-.unauthorized_img{
+.unauthorized_img {
     max-width: 250px;
     object-fit: cover;
+}
+
+input.form-control {
+    border-color: #7d6c6c;
+    box-shadow: none !important;
+
+}
+
+.pw {
+    border-right: none;
+    display: flex;
+
+}
+
+.showpassword {
+
+    background-color: transparent;
+    color: #7d6c6c77;
+    border-left: none;
+}
+
+.showpassword:hover {
+    background-color: transparent;
+    color: #7d6c6c77;
+    border-left: none;
+
+}
+
+.btn:first-child:active {
+    background-color: transparent;
+    color: #7d6c6c77;
+    border-left: none;
+
 }

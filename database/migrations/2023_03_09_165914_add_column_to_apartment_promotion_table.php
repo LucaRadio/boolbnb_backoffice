@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('apartment_promotion', function (Blueprint $table) {
-            $table->dateTime('expired_at');
+            $table->dateTime('expired_at')->nullable();
         });
     }
 

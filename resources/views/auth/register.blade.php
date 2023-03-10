@@ -71,32 +71,55 @@
                             <div class="mb-4  row">
                                 <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}
                                     (*)</label>
-                                <div class="col-md-6 pw">
-                                    <input id="password" type="password" v-model='password'
-                                        v-on:focus='resetValidation("pw")'
-                                        class="form-control pw @error('password') is-invalid @enderror" name="password"
-                                        required autocomplete="new-password" minlength="8"
-                                        pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-                                        title="La password deve essere lunga almeno 8 caratteri e contenere, una lettera maiuscola, una lettera minuscola e un numero">
-                                    <div class="error d-none text-danger">Le 2 password non corrispondono. Ricontrolla!
+                                <div class="col-md-6">
+
+                                    <div class="input-group pw">
+                                        <input id="password" type="password" v-model='password'
+                                            v-on:focus='resetValidation("pw")'
+                                            class="form-control pw @error('password') is-invalid @enderror" name="password"
+                                            required autocomplete="new-password" minlength="8"
+                                            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                                            title="La password deve essere lunga almeno 8 caratteri e contenere, una lettera maiuscola, una lettera minuscola e un numero">
+                                        <div class="input-group-appetoggle">
+                                            <button @click='togglePassword("pw")'
+                                                class=" showpassword rounded-0 h-100 d-flex align-items-center rounded-end btn btn-secondary"
+                                                type="button">
+                                                <i v-if='show' class="fa-regular fa-eye-slash"></i>
+                                                <i v-else class="fa-regular fa-eye"></i>
+                                            </button>
+                                        </div>
+                                        <div class="error d-none text-danger">Le 2 password non corrispondono. Ricontrolla!
+                                        </div>
+                                        @error('password')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
-                                    @error('password')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
                                 </div>
                             </div>
                             <div class="mb-4 row">
                                 <label for="password-confirm"
                                     class="col-md-4 col-form-label text-md-right">{{ __('Conferma Password') }} (*)</label>
-                                <div class="col-md-6 confPw">
-                                    <input id="password-confirm" type="password" class="form-control " v-model='confPw'
-                                        v-on:focus='resetValidation("confPw")' name="password_confirmation" required
-                                        autocomplete="new-password" v-on:focusout='validatePassword("pw","confPw")'
-                                        minlength="8">
-                                    <div class="error d-none text-danger">Le 2 password non corrispondono. Ricontrolla!
+                                <div class="col-md-6">
+                                    <div class="input-group pw confpw">
+
+                                        <input id="password-confirm" type="password" class="form-control pw"
+                                            v-model='confPw' v-on:focus='resetValidation("confPw")'
+                                            name="password_confirmation" required autocomplete="new-password"
+                                            v-on:focusout='validatePassword("pw","confPw")' minlength="8">
+                                        <div class="input-group-appetoggle">
+                                            <button @click='togglePassword("confpw")'
+                                                class=" showpassword rounded-0 h-100 d-flex align-items-center rounded-end btn btn-secondary"
+                                                type="button">
+                                                <i v-if='showPw' class="fa-regular fa-eye-slash"></i>
+                                                <i v-else class="fa-regular fa-eye"></i>
+                                            </button>
+                                        </div>
+                                        <div class="error d-none text-danger">Le 2 password non corrispondono. Ricontrolla!
+                                        </div>
                                     </div>
+
 
                                 </div>
                             </div>
@@ -127,7 +150,9 @@
             return{
                 mail:'',
                 password:'',
-                confPw:''
+                confPw:'',
+                show:false,
+                showPw:false
             }
         },
         methods: {
@@ -150,7 +175,7 @@
                 resetValidation(component){
                     const rawDiv = document.querySelectorAll(`.${component}>*`)
                     const input = rawDiv[0];
-                    const error = rawDiv[1];
+                    const error = rawDiv[2];
                     if(this.mail.length){
                         input.classList.remove('is-invalid');
                         error.classList.replace('d-block','d-none')    
@@ -160,10 +185,12 @@
                 validatePassword(pw,confPw){
                     const rawDiv1 = document.querySelectorAll(`.${confPw}>*`);
                     const input1 = rawDiv1[0];
-                    const error1 = rawDiv1[1];
+                    const button1 = rawDiv1[1];
+                    const error1 = rawDiv1[2];
                     const rawDiv2 = document.querySelectorAll(`.${pw}>*`);
                     const input2 = rawDiv2[0];
-                    const error2 = rawDiv2[1];
+                    const button2 = rawDiv2[1];
+                    const error2 = rawDiv2[2];
                     if(this.password != this.confPw){
                         input1.classList.add('is-invalid');
                         error1.classList.replace('d-none','d-block')
@@ -174,6 +201,29 @@
                         error1.classList.replace('d-block','d-none')
                         input2.classList.remove('is-invalid');
                         error2.classList.replace('d-block','d-none')
+                    }
+                },
+                togglePassword(component){
+                    const rawDiv= document.querySelectorAll(`.${component}>*`);
+                    const input = rawDiv[0]
+                    const pw = component === 'pw' ? true : false;
+
+
+
+                    if(input.type === "password" && pw){
+                        input.type = "text"
+                        this.show= true
+                    }else if(input.type === "text" && pw){
+                        input.type = "password"
+                        this.show = false
+                    }
+
+                    if(input.type === "password" && !pw){
+                        input.type = "text"
+                        this.showPw= true
+                    }else if(input.type === "text" && !pw){
+                        input.type = "password"
+                        this.showPw = false
                     }
                 }
         },
