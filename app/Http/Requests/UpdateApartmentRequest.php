@@ -30,7 +30,7 @@ class UpdateApartmentRequest extends FormRequest
             "address" => "required|string|max:255",
             "services" => "required|array",
             "visibility" => "string",
-            "img_cover" => "required|file",
+            "img_cover" => "file",
             "description" => "max:500|string",
         ];
     }
@@ -58,7 +58,6 @@ class UpdateApartmentRequest extends FormRequest
             "address.string" => "L'indirizzo deve essere del testo.",
             "address.max" => "L'indirizzo deve essere più corto.",
             "visibility.required" => "La visibilità deve essere inserita.",
-            "img_cover.required" => "L'immagine è obbligatoria.",
             "img_cover.file" => "L'immagine deve essere un file.",
             "description.string" => "La descrizione deve essere del testo.",
             "description.max" => "Hai superato la lunghezza massima per la descrizione."

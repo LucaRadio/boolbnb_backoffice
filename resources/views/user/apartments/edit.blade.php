@@ -6,7 +6,6 @@
             ->services()
             ->get()
             ->toArray();
-        
     @endphp
     @if ($errors->any())
         <div class="alert alert-danger">
@@ -19,7 +18,6 @@
             </ul>
         </div>
     @endif
-
     <div class="container">
         <div class="row justify-content-center py-5">
             <div class="col col-lg-8 card p-0 g-3">
@@ -156,8 +154,9 @@
                             <label class="form-label">Carica l'immagine del progetto</label>
                             <input @change='imgCoverChange' type="file"
                                 class="form-control text-center mx-auto
-                    @error('img_cover') is-invalid @elseif(old('img_cover')) is-valid @enderror"
+                            @error('img_cover') is-invalid @elseif(old('img_cover')) is-valid @enderror"
                                 name="img_cover">
+                            <img src="{{ asset('storage') . '/' . $apartment->img_cover }}" class="img-thumbnail">
                             @error('img_cover')
                                 <div class="invalid-feedback">
                                     {{ $message }}
