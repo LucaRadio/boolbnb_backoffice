@@ -9,6 +9,13 @@ class Service extends Model
 {
     use HasFactory;
 
+    protected $hidden = [
+        'id',
+        'created_at',
+        'updated_at',
+        'pivot'
+    ];
+
     public function apartments()
     {
         return $this->belongsToMany(Apartment::class);
