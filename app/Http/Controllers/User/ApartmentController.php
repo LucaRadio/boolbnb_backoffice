@@ -114,7 +114,6 @@ class ApartmentController extends Controller
     {
 
         $data = $request->validated();
-
         $user = Auth::user();
         $via = urlencode($data['address']);
         $rawData = file_get_contents("https://api.tomtom.com/search/2/geocode/" . $via . ".json?storeResult=false&view=Unified&limit=1&key=sGNJHBIkBGVklWlAnKDehryPD39qsJxn");
