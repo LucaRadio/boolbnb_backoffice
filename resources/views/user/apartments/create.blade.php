@@ -22,12 +22,12 @@
                     </div>
                 @endif
 
-                <div class="text-center bg-white py-5 card-body" id="app">
+                <div class="text-center bg-white pyt-5 pb-2 card-body" id="app">
                     <form action="{{ route('user.apartments.store') }}" class="form-group d-inline-block" method="POST"
                         enctype="multipart/form-data" id="form">
                         @csrf
                         <div class="mb-3 apartmentName">
-                            <label class="form-label">Titolo appartemento</label>
+                            <label class="form-label">Titolo appartemento (*)</label>
                             <input @input='checkData(apartmentName,"apartmentName")' v-model='apartmentName' type="text"
                                 class="form-control text-center mx-auto" name="title" minlength="1" required
                                 @error('title') is-invalid @elseif(old('title')) is-valid @enderror>
@@ -45,7 +45,7 @@
                         </div>
                         <div class="row">
                             <div class="rooms mb-3 col-sm-6 col-lg-3">
-                                <label class="form-label">Numero di stanze</label>
+                                <label class="form-label">Numero di stanze (*)</label>
                                 <input @input='checkData(rooms,"rooms")' v-model='rooms' type="number" step="1"
                                     min="0" class="form-control text-center mx-auto" name="n_rooms">
                                 <div class="error d-none text-danger">
@@ -58,7 +58,7 @@
                             </div>
 
                             <div class="bath mb-3 col-sm-6 col-lg-3">
-                                <label class="form-label">Numero di bagni</label>
+                                <label class="form-label">Numero di bagni (*)</label>
                                 <input @input='checkData(bath,"bath")' v-model='bath' type="number" step="1"
                                     min="0" class="form-control text-center mx-auto" name="n_bathrooms">
                                 <div class="error d-none text-danger">
@@ -70,7 +70,7 @@
                             </div>
 
                             <div class="beds mb-3 col-sm-6 col-lg-3">
-                                <label class="form-label">Numero di letti</label>
+                                <label class="form-label">Numero di letti (*)</label>
                                 <input @input='checkData(beds,"beds")' v-model='beds' type="number" step="1"
                                     min="0" class="form-control text-center mx-auto" name="n_beds">
                                 <div class="error d-none text-danger">
@@ -82,7 +82,7 @@
                             </div>
 
                             <div class="sm mb-3 col-sm-6 col-lg-3">
-                                <label class="form-label">Metri quadrati</label>
+                                <label class="form-label">Metri quadrati (*)</label>
                                 <input @input='checkData(sm,"sm")' v-model='sm' type="number" step="0.5"
                                     min="30" class="form-control text-center mx-auto" name="square_meters">
                                 <div class="error d-none text-danger">
@@ -101,14 +101,14 @@
                         </div>
 
                         <div class="address mb-3">
-                            <label class="form-label">Indirizzo</label>
+                            <label class="form-label">Indirizzo (*)</label>
                             <input @input='checkData(searchField,"address")' type="text" step="0.5"
                                 autocomplete="off" class="form-control text-center mx-auto" name="address"
                                 v-model="searchField" @keyup="refreshSearch">
                             <div class="error d-none text-danger">
                                 C'è qualche problema con il tuo indirizzo, assicurati che non abbia caratteri speciali e che
                                 tu
-                                abbia selezionato l'indirizzo cliccandolo dal menù a tendina.
+                                abbia selezionato l'indirizzo cliccandolo dal meno a tendina.
                             </div>
                             <div class="list-group addressList">
                                 <a :value='i' v-for='(item,i) in searchData'
@@ -119,7 +119,7 @@
                         </div>
 
                         <div class="visibility mb-3">
-                            <label class="form-label px-2">Visibilità</label>
+                            <label class="form-label px-2">Visibilità (*)</label>
                             <br>
                             <label class="px-2" for="">Non Visibile</label>
                             <input class="px-2" type="radio" step="0.5" name="visibility" value="false">
@@ -143,15 +143,17 @@
                                             type="checkbox" id="serviceCheckbox_{{ $loop->index }}"
                                             value="{{ $service->id }}" name="services[]"
                                             {{ in_array($service->id, old('services', [])) ? 'checked' : '' }}>
-                                        <label class="form-check-label text-start" for="serviceCheckbox_{{ $loop->index }}">
-                                            <i class="{{ $service->icon }} text-primary px-1"></i><span class="">{{ $service->name }}</span></label>
+                                        <label class="form-check-label text-start"
+                                            for="serviceCheckbox_{{ $loop->index }}">
+                                            <i class="{{ $service->icon }} text-primary px-1"></i><span
+                                                class="">{{ $service->name }}</span></label>
                                     </div>
                                 </div>
                             @endforeach
                         </div>
 
                         <div class="img_cover mb-3">
-                            <label class="form-label">Carica l'immagine del progetto</label>
+                            <label class="form-label">Carica l'immagine del progetto (*)</label>
                             <input @change='imgCoverChange' type="file"
                                 class="form-control text-center mx-auto
                                 @error('img_cover') is-invalid @elseif(old('img_cover')) is-valid @enderror"
@@ -166,6 +168,9 @@
                         <button :disabled='errorDigit' class="btn btn-lg btn-outline-dark mt-4" type="submit">Salva
                             Progetto</button>
                     </form>
+                    <div class="container text-start">
+                        (*) = Campo Obbligatorio
+                    </div>
                 </div>
             </div>
         </div>
@@ -209,7 +214,7 @@
                                 if(this.beds <=0 || this.beds>255){
                                     return true
                             }else {
-                                if(this.sm <=30 || this.sm>2000000){
+                                if(this.sm <30 || this.sm>2000000){
                                     return true
                             }else {
                                 if(this.searchField <=0 || this.searchField>255){
@@ -311,6 +316,7 @@
             const addressList = document.querySelector('.addressList')
             if(typeof(properties) === 'number' && input.getAttribute('name') != 'square_meters'){
                 if( properties <= 0 || properties >255){
+                    console.log(input.classList);
                 input.classList.add('is-invalid')
                 errorDiv.classList.replace('d-none','d-block')
                 }
@@ -334,24 +340,15 @@
                 input.classList.add('is-invalid')
                 errorDiv.classList.replace('d-none','d-block')
                 addressList.classList.add('d-none')
-
-            }else if(typeof(properties) === 'string'){
-                for(let i= 0;i<specialCharacters.length;i++){
-                    if(properties.includes(specialCharacters[i])){
-                        input.classList.add('is-invalid')
-                        errorDiv.classList.replace('d-none','d-block')
-                        addressList?.classList.add('d-none')
-                        break;
-                    }else{
-                        input.classList.remove('is-invalid')
-                        errorDiv.classList.replace('d-block','d-none')
-                        addressList?.classList.replace('d-none','d-block')
-                        
-                    }
-                }
+            }else if(!this.error && typeof(properties) === 'string' && !properties === 'addressList'){
+                input.classList.remove('is-invalid')
+                errorDiv.classList.replace('d-block','d-none')
+                addressList?.classList.replace('d-none','d-block')
+            }
+                
                 
             }
-            }
+            
            
             
             
