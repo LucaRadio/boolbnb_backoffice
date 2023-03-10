@@ -12,12 +12,11 @@
                 </div>
                 <div class="d-flex gap-2">
                     <a class="btn btn-info" href="{{ route('user.apartments.edit', $apartment) }}">Edit</a>
-                    <form action="{{ route('user.apartments.destroy', $apartment->id) }}" method="POST"
-                        class="delete_apartment">
-                        @csrf
-                        @method('delete')
-                        <button class="btn btn-danger">Delete</button>
-                    </form>
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-apartment">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                    
+                    
                 </div>
             </div>
             <div class="row mb-3">
@@ -72,16 +71,36 @@
 
         </div>
     </div>
+    <div class="modal fade" id="delete-apartment" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
+                    role="dialog" aria-labelledby="delete-apartment" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="delete-apartment">Cancella appartamento</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h2 class="text-lg font-medium text-gray-900">
+                        Sei sicuro di voler cancellare il tuo appartamento?
+                    </h2>
+                    <p class="mt-1 text-sm text-gray-600">
+                        Una volta che il tuo appartamento sarà cancellato, i dati relativi saranno cancellati definitivamente ti covniene pensarci due volte!
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>                         
+                    <form action="{{ route('user.apartments.destroy', $apartment->id) }}" method="POST"
+                        class="delete_apartment">
+                        @csrf
+                        @method('delete')
+                        <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script>
-        const form = document.querySelector('.delete_apartment')
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const confirm_del = confirm('Sicuro di voler eliminare questo appartamento?');
-            if (confirm_del) {
-                form.submit();
-            }
-        })
     </script>
     <script type="module">
         const {createApp,onMounted,ref} = Vue
