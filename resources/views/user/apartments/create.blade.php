@@ -108,7 +108,7 @@
                             <div class="error d-none text-danger">
                                 C'è qualche problema con il tuo indirizzo, assicurati che non abbia caratteri speciali e che
                                 tu
-                                abbia selezionato l'indirizzo cliccandolo dal meno a tendina.
+                                abbia selezionato l'indirizzo cliccandolo dal menù a tendina.
                             </div>
                             <div class="list-group addressList">
                                 <a :value='i' v-for='(item,i) in searchData'
