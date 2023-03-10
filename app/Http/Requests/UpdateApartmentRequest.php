@@ -31,7 +31,7 @@ class UpdateApartmentRequest extends FormRequest
             "services" => "required|array",
             "visibility" => "string",
             "img_cover" => "required|file",
-            "description" => "required|max:500|string",
+            "description" => "max:500|string",
         ];
     }
 
@@ -60,7 +60,6 @@ class UpdateApartmentRequest extends FormRequest
             "visibility.required" => "La visibilità deve essere inserita.",
             "img_cover.required" => "L'immagine è obbligatoria.",
             "img_cover.file" => "L'immagine deve essere un file.",
-            "description.required" => "La descrizione deve essere unserita.",
             "description.string" => "La descrizione deve essere del testo.",
             "description.max" => "Hai superato la lunghezza massima per la descrizione."
 
