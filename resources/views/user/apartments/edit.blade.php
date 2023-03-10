@@ -133,7 +133,7 @@
                         </div>
 
                         <div class="services row px-3 mb-3">
-                            <div class="rules"><span class="text-info fw-bold">N.B: </span>Devi selezionare almeno un
+                            <div class="rules py-3"><span class="text-info fw-bold">N.B: </span>Devi selezionare almeno un
                                 servizio
                             </div>
                             @foreach ($services as $key => $service)
