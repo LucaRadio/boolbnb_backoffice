@@ -32,9 +32,9 @@ return [
     ],
 
     'braintree' => [
-        'environment'=> env('BY_ENVIRONMENT', 'sanbox'),
-        'merchantId'=> env('BY_MERCHANT_ID'),
-        'publicKey'=> env('BY_PUBLIC_KEY'),
-        'privateKey'=> env('BY_PRIVATE_KEY')
+        'environment'=> env('BT_ENVIRONMENT', 'sandbox'),
+        'merchantId'=> env('BT_MERCHANT_ID'),
+        'publicKey'=> env('BT_PUBLIC_KEY'),
+        'privateKey'=> env('BT_PRIVATE_KEY')
     ]
 ];
