@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-<form method="post" id="payment-form" action="#">
+<form method="post" id="payment-form" action="{{url('/user/checkout')}}">
     @csrf
                 <section>
                     <label for="amount">

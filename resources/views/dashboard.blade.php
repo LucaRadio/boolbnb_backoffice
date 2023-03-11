@@ -19,6 +19,12 @@
                     </div>
                     @endif
 
+                    @if (session('message'))
+                    <div class="alert alert-success" role="alert">
+                        {{session('message')}}
+                    </div>
+                    @endif
+
                    <h4>Bentrornato {{ Auth::user()->name}}!</h4>
                 </div>
                 <div class="p-3">
