@@ -16,7 +16,7 @@ class ApartmentController extends Controller
         $allCoordinates = Apartment::select('latitude', 'longitude')->get()->toArray();
 
         $sponsored = $request->input('sponsored');
-        $nearest = $request->input('input');
+        $nearest = $request->input('city');
 
         if ($sponsored) {
             foreach ($allApartments as $item) {
@@ -29,7 +29,7 @@ class ApartmentController extends Controller
         } else if ($nearest) {
             //trasforma input in coordinate
             $via = urlencode($nearest);
-            $rawData = file_get_contents("https://api.tomtom.com/search/2/geocode/" . $via . ".json?storeResult=false&view=Unified&limit=1&key=sGNJHBIkBGVklWlAnKDehryPD39qsJxn");
+            $rawData = file_get_contents("https://api.tomtom.com/search/2/geocode/" . $via . ".json?storeResult=false&countrySet=IT&view=Unified&limit=1&key=sGNJHBIkBGVklWlAnKDehryPD39qsJxn");
             $rawData = json_decode($rawData);
             $lat = $rawData->results[0]->position->lat;
             $lon = $rawData->results[0]->position->lon;
@@ -41,12 +41,15 @@ class ApartmentController extends Controller
                 $radiusSearch = json_decode($radiusSearch);
 
                 if (!empty($radiusSearch->results)) {
-                    array_push($nearestApartments, $radiusSearch->results[0]->position);
+                    array_push($nearestApartments, Apartment::where([
+                        ['latitude', $radiusSearch->results[0]->position->lat],
+                        ['longitude', $radiusSearch->results[0]->position->lon]
+                    ])
+                        ->with('services')
+                        ->get());
                 }
             }
-            foreach ($nearestApartments as $apartment) {
-                $apartments[] = Apartment::where([['latitude', $apartment->lat], ['longitude', $apartment->lon]])->get();
-            }
+            $apartments = $nearestApartments;
         } else {
             $apartments = Apartment::with('services')->paginate(5);
         }
