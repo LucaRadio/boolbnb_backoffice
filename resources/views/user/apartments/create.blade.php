@@ -156,8 +156,8 @@
                                         <label class="form-label px-2">Visibilità *</label>
                                         <br>
                                         <label class="px-2 form-check-label" for="">Non Visibile</label>
-                                        <input class="px-2 form-check-input" type="radio" step="0.5" name="visibility"
-                                            value="false">
+                                        <input class="px-2 form-check-input" type="radio" step="0.5"
+                                            name="visibility" value="false">
                                         <br>
                                         <label class="px-2 form-check-label" for="">Visibile</label>
                                         <input class="px-2 form-check-input" type="radio" step="0.5"
@@ -173,7 +173,7 @@
                                         @foreach ($services as $service)
                                             <div class="col-sm-6 col-md-4 px-0 py-1 d-flex justify-content-start">
                                                 <div
-                                                    class="m-0 form-check form-check-inline
+                                                    class="m-0 form-check form-switch
                                                 @error('services') is-invalid @enderror">
 
                                                     <input v-model='services'
@@ -183,7 +183,7 @@
                                                         {{ in_array($service->id, old('services', [])) ? 'checked' : '' }}>
                                                     <label class="form-check-label text-start"
                                                         for="serviceCheckbox_{{ $loop->index }}">
-                                                        <i class="{{ $service->icon }} text-primary px-1"></i><span
+                                                        <span><i class="{{ $service->icon }} text-primary px-1"></i></span><span
                                                             class="">{{ $service->name }}</span></label>
                                                 </div>
                                             </div>
