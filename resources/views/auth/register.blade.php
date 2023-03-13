@@ -50,14 +50,14 @@
                                     </span>
                                 @enderror
                             </div>
-                            <div class="mb-4 
-                                        row">
+                            <div class="mb-4 row">
                                 <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail') }}
                                     (*)</label>
                                 <div class="col-md-6 mail">
                                     <input id="email" type="email" v-model='mail' v-on:focus='resetValidation("mail")'
-                                        v-on:focusout='validateEmail(mail)'
+                                        v-on:focusout='validateEmail()'
                                         class="form-control @error('email') is-invalid @enderror" name="email" autofocus>
+                                    <input type="hidden">
                                     <div class="error d-none text-danger">Sembra che la tua mail non abbia i requisiti per
                                         esserlo.
                                     </div>
@@ -75,11 +75,12 @@
 
                                     <div class="input-group pw">
                                         <input id="password" type="password" v-model='pw'
-                                            v-on:focus='resetValidation("pw")' v-on:focusout='validatePassword(pw)'
+                                            v-on:focus='resetValidation("pw")'
+                                            v-on:focusout='validatePassword(),validateConfPassword()'
                                             :class='error ? "border-danger" : ""'
                                             class="form-control pw @error('password') is-invalid @enderror" name="password"
                                             required autocomplete="new-password" minlength="8"
-                                            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                                            pattern="(?=.*[0-9])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}"
                                             title="La password deve essere lunga almeno 8 caratteri e contenere, una lettera maiuscola, una lettera minuscola e un numero">
                                         <div class="input-group-appetoggle">
                                             <button @click='togglePassword("pw")'
@@ -106,21 +107,21 @@
                                 <label for="password-confirm"
                                     class="col-md-4 col-form-label text-md-right">{{ __('Conferma Password') }} (*)</label>
                                 <div class="col-md-6">
-                                    <div class="input-group pw confpw">
-
+                                    <div class="input-group confpw pw">
                                         <input id="password-confirm" type="password" class="form-control pw"
                                             v-model='confPw' v-on:focus='resetValidation("confPw")'
-                                            name="password_confirmation" required autocomplete="new-password"
-                                            v-on:focusout='validateConfPassword(confPw)' minlength="8">
+                                            name="password_confirmation" required :class='error ? "border-danger" : ""'
+                                            v-on:focusout='validateConfPassword()' minlength="8">
                                         <div class="input-group-appetoggle">
                                             <button @click='togglePassword("confPw")'
                                                 :class="error ? 'btn-danger' : 'btn-secondary'"
-                                                class=" showpassword rounded-0 h-100 d-flex align-items-center rounded-end btn "
+                                                class=" showpassword rounded-0 h-100 d-flex align-items-center rounded-end btn btn-secondary"
                                                 type="button">
                                                 <i v-if='showPw' class="fa-regular fa-eye-slash"></i>
                                                 <i v-else class="fa-regular fa-eye"></i>
                                             </button>
                                         </div>
+                                        <br>
                                         <div class="error d-none text-danger">Le due password non corrispondo. Ricontrolla!
                                         </div>
                                     </div>
@@ -130,7 +131,7 @@
                             </div>
                             <div class="mb-4 row mb-0">
                                 <div class="col-md-6 offset-md-4">
-                                    <button @click.prevent='' type="submit" class="btn btn-primary">
+                                    <button :disabled='errorDigit' type="submit" class="btn btn-primary">
                                         {{ __('Registrati') }}
                                     </button>
                                 </div>
@@ -161,65 +162,77 @@
                 error: false
             }
         },
+        computed:{
+                errorDigit: function(){
+                    if(this.validateEmail(this.mail) && this.validatePassword(this.pw) && this.validateConfPassword(this.confPw)){
+                            return true
+                        }else{
+                             return false
+                        }
+                
+                }
+        },
         methods: {
-            validateEmail(mail) {
-                    const rawDiv = document.querySelectorAll('.mail>*')
+            validateEmail() {
+                    const rawDiv = document.querySelectorAll(`.mail>*`)
                     const input = rawDiv[0];
                     const error = rawDiv[1];
 
 
 
-                 if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.mail)){
-                    input.classList.add('is-invalid');
-                    error.classList.replace('d-none','d-block')
+                 if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.mail) ){
+                    input?.classList.add('is-invalid');
+                    error?.classList.replace('d-none','d-block')
+                    return true
                    
                   }else{
-                      input.classList.remove('is-invalid');
-                      error.classList.replace('d-block','d-none')
-
+                      input?.classList.remove('is-invalid');
+                      error?.classList.replace('d-block','d-none')
+                      return false
                   }
 
                 },
                 resetValidation(component){
-                    const rawDiv = document.querySelectorAll(`.mail>*`)
+                    const rawDiv = document.querySelectorAll(`.${component}>*`)
                     const input = rawDiv[0];
-                    const error = rawDiv[1];
-                    input.classList.remove('is-invalid');
-                    error.classList.replace('d-block','d-none')    
+                    const error = rawDiv[2];
+                    console.log(error);
+                    input?.classList.remove('is-invalid');
+                    error?.classList.replace('d-block','d-none')    
                     
                 },
-                validatePassword(pw){
-
+                validatePassword(){
                     const rawDiv = document.querySelectorAll(`.pw>*`)
-                    // const rawDiv2 = document.querySelectorAll(`.${pw}>*`);
                     const input = rawDiv[0];
-                    const button = rawDiv[1];
                     const error = rawDiv[2];
-                    if(!/^(?=.*[0-9])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/.test(pw)){
-                        input.classList.add('is-invalid');
-                        error.classList.replace('d-none','d-block')
+                    if(!/^(?=.*[0-9])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/.test(this.pw)){
+                        input?.classList.add('is-invalid');
+                        error?.classList.replace('d-none','d-block')
                         this.error = true
+                        return true
                     }else{
-                        input.classList.remove('is-invalid');
-                        error.classList.replace('d-block','d-none')
+                        input?.classList.remove('is-invalid');
+                        error?.classList.replace('d-block','d-none')
                         this.error = false
+                        return false
                     }
                 },
-                validateConfPassword(confPw){
+                validateConfPassword(){
 
                     const rawDiv = document.querySelectorAll(`.confPw>*`)
-                    // const rawDiv2 = document.querySelectorAll(`.${pw}>*`);
+
                     const input = rawDiv[0];
-                    const button = rawDiv[1];
                     const error = rawDiv[2];
                     if(this.pw !== this.confPw){
-                        input.classList.add('is-invalid');
-                        error.classList.replace('d-none','d-block')
+                        input?.classList.add('is-invalid');
+                        error?.classList.replace('d-none','d-block')
                         this.error = true
+                        return true
                     }else{
-                        input.classList.remove('is-invalid');
-                        error.classList.replace('d-block','d-none')
+                        input?.classList.remove('is-invalid');
+                        error?.classList.replace('d-block','d-none')
                         this.error = false
+                        return false
                     }
                 },
                 togglePassword(component){

@@ -232,11 +232,7 @@
                             }
                             }}}}};
 
-                    }
-
-            
-                    
-                
+                    } 
             },
             methods: {
                 imgCoverChange(event){
