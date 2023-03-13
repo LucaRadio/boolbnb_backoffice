@@ -1,10 +1,26 @@
-@extends('layouts.app')
+@extends('layouts.profile')
 @section('content')
-    <div class="container mt-4">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">{{ __('Registrazione') }}</div>
+    <div class="d-flex">
+
+        <div class="left-side">
+            <div class="text-black text p-5">
+                <div class="hi display-1 mb-5">Login</div>
+                <div class="welcome fw-bold display-4 text-center">Accedi tramite il form accanto per visualizzare i tuoi
+                    appartamenti
+                </div>
+                .
+            </div>
+            <div class="img d-flex justify-content-center align-items-center">
+            </div>
+            <div class="login"></div>
+            <div class="register"></div>
+
+        </div>
+
+        <div class="row align-content-center row-reg m-0 justify-content-center">
+            <div class="col-md-8 m-0 pt-3">
+                <div class="card m-0">
+                    <div class="card-header m-0">{{ __('Registrazione') }}</div>
                     <div class="card-body">
                         <form method="POST" action="{{ route('register') }}" id='register'>
                             @csrf
@@ -56,9 +72,10 @@
                                 <div class="col-md-6 mail">
                                     <input id="email" type="email" v-model='mail' v-on:focus='resetValidation("mail")'
                                         v-on:focusout='validateEmail()'
-                                        class="form-control @error('email') is-invalid @enderror" name="email" autofocus>
+                                        class="form-control @error('email') is-invalid @enderror" name="email">
                                     <input type="hidden">
-                                    <div class="error d-none text-danger">Sembra che la tua mail non abbia i requisiti per
+                                    <div class="error d-none text-danger">Sembra che la tua mail non abbia i requisiti
+                                        per
                                         esserlo.
                                     </div>
                                     @error('email')
@@ -79,7 +96,7 @@
                                             v-on:focusout='validatePassword(),validateConfPassword()'
                                             :class='error ? "border-danger" : ""'
                                             class="form-control pw @error('password') is-invalid @enderror" name="password"
-                                            required autocomplete="new-password" minlength="8"
+                                            required minlength="8"
                                             pattern="(?=.*[0-9])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}"
                                             title="La password deve essere lunga almeno 8 caratteri e contenere, una lettera maiuscola, una lettera minuscola e un numero">
                                         <div class="input-group-appetoggle">
@@ -91,8 +108,10 @@
                                                 <i v-else class="fa-regular fa-eye"></i>
                                             </button>
                                         </div>
-                                        <div class="error d-none text-danger">Assicurati che la password abbia almeno una
-                                            lettera maiuscola,una lettera minuscola,un carattere speciale,un numero e che
+                                        <div class="error d-none text-danger">Assicurati che la password abbia almeno
+                                            una
+                                            lettera maiuscola,una lettera minuscola,un carattere speciale,un numero e
+                                            che
                                             sia lunga almeno 8 caratteri
                                         </div>
                                         @error('password')
@@ -105,12 +124,13 @@
                             </div>
                             <div class="mb-4 row">
                                 <label for="password-confirm"
-                                    class="col-md-4 col-form-label text-md-right">{{ __('Conferma Password') }} (*)</label>
+                                    class="col-md-4 col-form-label text-md-right">{{ __('Conferma Password') }}
+                                    (*)</label>
                                 <div class="col-md-6">
                                     <div class="input-group confpw pw">
                                         <input id="password-confirm" type="password" class="form-control pw"
-                                            v-model='confPw' v-on:focus='resetValidation("confPw")'
-                                            name="password_confirmation" required :class='error ? "border-danger" : ""'
+                                            v-model='confPw' name="password_confirmation" required
+                                            :class='error ? "border-danger" : ""' v-on:focus='resetValidation("confPw")'
                                             v-on:focusout='validateConfPassword()' minlength="8">
                                         <div class="input-group-appetoggle">
                                             <button @click='togglePassword("confPw")'
@@ -122,7 +142,8 @@
                                             </button>
                                         </div>
                                         <br>
-                                        <div class="error d-none text-danger">Le due password non corrispondo. Ricontrolla!
+                                        <div class="error d-none text-danger">Le due password non corrispondo.
+                                            Ricontrolla!
                                         </div>
                                     </div>
 
@@ -164,11 +185,21 @@
         },
         computed:{
                 errorDigit: function(){
-                    if(this.validateEmail(this.mail) && this.validatePassword(this.pw) && this.validateConfPassword(this.confPw)){
+                    if(this.validateEmail(this.mail)){
+                        return true
+                    }else{
+                        if(this.validatePassword(this.pw)){
                             return true
                         }else{
-                             return false
+                            if(this.validateConfPassword(this.confPw)){
+                                return true
+                            }else{
+                                return false
+                            }
                         }
+                    }
+                            
+            
                 
                 }
         },
@@ -178,17 +209,15 @@
                     const input = rawDiv[0];
                     const error = rawDiv[1];
 
-
-
                  if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.mail) ){
                     input?.classList.add('is-invalid');
-                    error?.classList.replace('d-none','d-block')
-                    return true
+                    error?.classList.replace('d-none','d-block');
+                    return true;
                    
                   }else{
                       input?.classList.remove('is-invalid');
-                      error?.classList.replace('d-block','d-none')
-                      return false
+                      error?.classList.replace('d-block','d-none');
+                      return false;
                   }
 
                 },
