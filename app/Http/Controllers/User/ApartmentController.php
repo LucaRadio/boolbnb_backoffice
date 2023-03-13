@@ -177,8 +177,8 @@ class ApartmentController extends Controller
         $apartment->services()->detach();
         $apartment->promotions()->detach();
         $apartment->user()->dissociate();
+        Storage::delete($apartment->img_cover);
         $apartment->delete();
-
         return redirect()->route("user.dashboard");
     }
 }
