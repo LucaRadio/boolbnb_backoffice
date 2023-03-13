@@ -133,14 +133,14 @@
                                     </div>
                                 </div>
 
-                                <div class="visibility mb-3">
+                                <div class="visibility mb-3 form-check form-switch">
                                     <label class="form-label px-2">Visibilità *</label>
                                     <br>
-                                    <label class="px-2 " for="">Non Visibile</label>
-                                    <input class="px-2 " type="radio" step="0.5" name="visibility" value="false">
+                                    <label class="px-2 form-check-label" for="">Non Visibile</label>
+                                    <input class="px-2 form-check-input" type="radio" step="0.5" name="visibility" value="false">
                                     <br>
-                                    <label class="px-2" for="">Visibile</label>
-                                    <input class="px-2" type="radio" step="0.5" name="visibility" value="true"
+                                    <label class="px-2 form-check-label" for="">Visibile</label>
+                                    <input class="px-2 form-check-input" type="radio" step="0.5" name="visibility" value="true"
                                         checked>
                                 </div>
 
