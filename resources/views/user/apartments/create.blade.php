@@ -337,16 +337,19 @@
 
 
             if(this.error && typeof(properties) === 'string'){
+                if(properties === 'addressList' ){
+                    addressList.classList.replace('d-block','d-none');
+                }
                 input.classList.add('is-invalid')
                 errorDiv.classList.replace('d-none','d-block')
-                addressList.classList.add('d-none')
-            }else if(!this.error && typeof(properties) === 'string' && !properties === 'addressList'){
+            }else if(!this.error && typeof(properties) === 'string'){
+                if(!properties === 'addressList'){
+                    addressList.classList.replace('d-none','d-block')
+                }
                 input.classList.remove('is-invalid')
-                errorDiv.classList.replace('d-block','d-none')
-                addressList?.classList.replace('d-none','d-block')
+                errorDiv.classList.replace('d-block','d-none') 
             }
-                
-                
+                     
             }
             
            

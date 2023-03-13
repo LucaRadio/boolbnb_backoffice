@@ -30,7 +30,7 @@ class StoreApartmentRequest extends FormRequest
             "address" => "required|string|max:255",
             "visibility" => "string",
             "img_cover" => "required|file",
-            "description" => "max:500|string",
+            "description" => "max:500",
             "services" => "required|array",
         ];
     }
@@ -60,7 +60,6 @@ class StoreApartmentRequest extends FormRequest
             "visibility.required" => "La visibilità deve essere inserita.",
             "img_cover.required" => "L'immagine è obbligatoria.",
             "img_cover.file" => "L'immagine deve essere un file.",
-            "description.string" => "La descrizione deve essere del testo.",
             "description.max" => "Hai superato la lunghezza massima per la descrizione."
 
         ];
