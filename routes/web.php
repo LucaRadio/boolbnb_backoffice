@@ -100,7 +100,7 @@ Route::middleware(['auth', 'verified'])
                     $errorString .= 'Error: ' . $error->code . ": " . $error->message . "\n";
                 }
             
-                return back()->withErrors('La transazione è fallita.');
+                return redirect()->route("user.dashboard")->with('message', 'pagamento fallito.');
             }
         });
         
