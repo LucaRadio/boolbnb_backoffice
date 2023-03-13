@@ -7,6 +7,7 @@ use App\Models\Apartment;
 use App\Models\Promotion;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ApartmentController extends Controller
 {
@@ -40,6 +41,8 @@ class ApartmentController extends Controller
             foreach ($allCoordinates as $coordinates) {
                 $radiusSearch =  file_get_contents("https://api.tomtom.com/search/2/geometryFilter.json?geometryList=%5B%7B%22type%22%3A%22CIRCLE%22%2C%20%22position%22%3A%22" . $lat . "%2C%20" . $lon . "%22%2C%20%22radius%22%3A20000%7D%5D&poiList=%5B%7B%22position%22%3A%7B%22lat%22%3A" . $coordinates['latitude'] . "%2C%22lon%22%3A" . $coordinates['longitude'] . "%7D%7D%5D&key=1p9OyCRm8S7icw73fBmkTYDlXYJGPO9O");
                 $radiusSearch = json_decode($radiusSearch);
+                // dump($radiusSearch);
+
                 //se c'è un match pusho coordinate e relativo appart. in array
                 if (!empty($radiusSearch->results)) {
                     array_push($nearestApartments, Apartment::where([
@@ -47,6 +50,7 @@ class ApartmentController extends Controller
                         ['longitude', $radiusSearch->results[0]->position->lon]
                     ])
                         ->with('services')
+                        ->orderBy(DB::raw("3959 * acos( cos( radians({$lat}) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(-{$lon}) ) + sin( radians({$lat}) ) * sin(radians(latitude)) )"), 'DESC')
                         ->get());
                 }
             }
