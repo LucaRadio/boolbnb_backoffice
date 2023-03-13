@@ -74,21 +74,25 @@
                                 <div class="col-md-6">
 
                                     <div class="input-group pw">
-                                        <input id="password" type="password" v-model='password'
-                                            v-on:focus='resetValidation("pw")'
+                                        <input id="password" type="password" v-model='pw'
+                                            v-on:focus='resetValidation("pw")' v-on:focusout='validatePassword(pw)'
+                                            :class='error ? "border-danger" : ""'
                                             class="form-control pw @error('password') is-invalid @enderror" name="password"
                                             required autocomplete="new-password" minlength="8"
                                             pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
                                             title="La password deve essere lunga almeno 8 caratteri e contenere, una lettera maiuscola, una lettera minuscola e un numero">
                                         <div class="input-group-appetoggle">
                                             <button @click='togglePassword("pw")'
+                                                :class="error ? 'btn-danger' : 'btn-secondary'"
                                                 class=" showpassword rounded-0 h-100 d-flex align-items-center rounded-end btn btn-secondary"
                                                 type="button">
                                                 <i v-if='show' class="fa-regular fa-eye-slash"></i>
                                                 <i v-else class="fa-regular fa-eye"></i>
                                             </button>
                                         </div>
-                                        <div class="error d-none text-danger">Le 2 password non corrispondono. Ricontrolla!
+                                        <div class="error d-none text-danger">Assicurati che la password abbia almeno una
+                                            lettera maiuscola,una lettera minuscola,un carattere speciale,un numero e che
+                                            sia lunga almeno 8 caratteri
                                         </div>
                                         @error('password')
                                             <span class="invalid-feedback" role="alert">
@@ -107,16 +111,17 @@
                                         <input id="password-confirm" type="password" class="form-control pw"
                                             v-model='confPw' v-on:focus='resetValidation("confPw")'
                                             name="password_confirmation" required autocomplete="new-password"
-                                            v-on:focusout='validatePassword("pw","confPw")' minlength="8">
+                                            v-on:focusout='validateConfPassword(confPw)' minlength="8">
                                         <div class="input-group-appetoggle">
-                                            <button @click='togglePassword("confpw")'
-                                                class=" showpassword rounded-0 h-100 d-flex align-items-center rounded-end btn btn-secondary"
+                                            <button @click='togglePassword("confPw")'
+                                                :class="error ? 'btn-danger' : 'btn-secondary'"
+                                                class=" showpassword rounded-0 h-100 d-flex align-items-center rounded-end btn "
                                                 type="button">
                                                 <i v-if='showPw' class="fa-regular fa-eye-slash"></i>
                                                 <i v-else class="fa-regular fa-eye"></i>
                                             </button>
                                         </div>
-                                        <div class="error d-none text-danger">Le 2 password non corrispondono. Ricontrolla!
+                                        <div class="error d-none text-danger">Le due password non corrispondo. Ricontrolla!
                                         </div>
                                     </div>
 
@@ -149,10 +154,11 @@
         data(){
             return{
                 mail:'',
-                password:'',
+                pw:'',
                 confPw:'',
                 show:false,
-                showPw:false
+                showPw:false,
+                error: false
             }
         },
         methods: {
@@ -161,7 +167,9 @@
                     const input = rawDiv[0];
                     const error = rawDiv[1];
 
-                 if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)){
+
+
+                 if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.mail)){
                     input.classList.add('is-invalid');
                     error.classList.replace('d-none','d-block')
                    
@@ -173,34 +181,45 @@
 
                 },
                 resetValidation(component){
-                    const rawDiv = document.querySelectorAll(`.${component}>*`)
+                    const rawDiv = document.querySelectorAll(`.mail>*`)
                     const input = rawDiv[0];
-                    const error = rawDiv[2];
-                    if(this.mail.length){
-                        input.classList.remove('is-invalid');
-                        error.classList.replace('d-block','d-none')    
-                    }
+                    const error = rawDiv[1];
+                    input.classList.remove('is-invalid');
+                    error.classList.replace('d-block','d-none')    
                     
                 },
-                validatePassword(pw,confPw){
-                    const rawDiv1 = document.querySelectorAll(`.${confPw}>*`);
-                    const input1 = rawDiv1[0];
-                    const button1 = rawDiv1[1];
-                    const error1 = rawDiv1[2];
-                    const rawDiv2 = document.querySelectorAll(`.${pw}>*`);
-                    const input2 = rawDiv2[0];
-                    const button2 = rawDiv2[1];
-                    const error2 = rawDiv2[2];
-                    if(this.password != this.confPw){
-                        input1.classList.add('is-invalid');
-                        error1.classList.replace('d-none','d-block')
-                        input2.classList.add('is-invalid');
-                        error2.classList.replace('d-none','d-block')
+                validatePassword(pw){
+
+                    const rawDiv = document.querySelectorAll(`.pw>*`)
+                    // const rawDiv2 = document.querySelectorAll(`.${pw}>*`);
+                    const input = rawDiv[0];
+                    const button = rawDiv[1];
+                    const error = rawDiv[2];
+                    if(!/^(?=.*[0-9])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/.test(pw)){
+                        input.classList.add('is-invalid');
+                        error.classList.replace('d-none','d-block')
+                        this.error = true
                     }else{
-                        input1.classList.remove('is-invalid');
-                        error1.classList.replace('d-block','d-none')
-                        input2.classList.remove('is-invalid');
-                        error2.classList.replace('d-block','d-none')
+                        input.classList.remove('is-invalid');
+                        error.classList.replace('d-block','d-none')
+                        this.error = false
+                    }
+                },
+                validateConfPassword(confPw){
+
+                    const rawDiv = document.querySelectorAll(`.confPw>*`)
+                    // const rawDiv2 = document.querySelectorAll(`.${pw}>*`);
+                    const input = rawDiv[0];
+                    const button = rawDiv[1];
+                    const error = rawDiv[2];
+                    if(this.pw !== this.confPw){
+                        input.classList.add('is-invalid');
+                        error.classList.replace('d-none','d-block')
+                        this.error = true
+                    }else{
+                        input.classList.remove('is-invalid');
+                        error.classList.replace('d-block','d-none')
+                        this.error = false
                     }
                 },
                 togglePassword(component){
