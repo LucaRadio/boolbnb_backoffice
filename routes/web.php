@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\User\ApartmentController;
 use App\Http\Controllers\User\MessageController;
 use App\Http\Controllers\User\PromotionController;
+use App\Http\Controllers\User\BraintreeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Requests\PaymentRequest;
 
