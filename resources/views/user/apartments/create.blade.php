@@ -5,10 +5,10 @@
     <div class="bg-img-form">
         <div class="container">
             <div class="row justify-content-center py-5">
-                <div class="col col-lg-4 p-0 g-3">
+                <div class="col col-lg-4 p-0 g-3 my-card p-3">
 
                     <div class="text-center">
-                        <h1>Titolo Appartamento</h1>
+                        <h1>Inserisci Appartamento</h1>
                     </div>
 
 
@@ -31,7 +31,7 @@
                             <div class="mb-3 apartmentName">
                                 <label class="form-label">Titolo appartemento (*)</label>
                                 <input @input='checkData(apartmentName,"apartmentName")' v-model='apartmentName'
-                                    type="text" class="form-control text-center mx-auto" name="title" minlength="1"
+                                    type="text" class="form-control mx-auto rounded-5" name="title" minlength="1"
                                     required
                                     @error('title') is-invalid @elseif(old('title')) is-valid @enderror>
                                 @error('title')
@@ -50,7 +50,7 @@
                                 <div class="rooms mb-3 col-sm-6">
                                     <label class="form-label">Numero di stanze (*)</label>
                                     <input @input='checkData(rooms,"rooms")' v-model='rooms' type="number" step="1"
-                                        min="0" class="form-control text-center mx-auto" name="n_rooms">
+                                        min="0" class="form-control mx-auto rounded-5" name="n_rooms">
                                     <div class="error d-none text-danger">
                                         C'è qualche problema con il numero delle stanze. Controlla che il numero sia
                                         compreso
@@ -64,7 +64,7 @@
                                 <div class="bath mb-3 col-sm-6">
                                     <label class="form-label">Numero di bagni (*)</label>
                                     <input @input='checkData(bath,"bath")' v-model='bath' type="number" step="1"
-                                        min="0" class="form-control text-center mx-auto" name="n_bathrooms">
+                                        min="0" class="form-control mx-auto rounded-5" name="n_bathrooms">
                                     <div class="error d-none text-danger">
                                         C'è qualche problema con il numero dei bagni. Controlla che il numero sia compreso
                                         tra 1
@@ -77,7 +77,7 @@
                                 <div class="beds mb-3 col-sm-6">
                                     <label class="form-label">Numero di letti (*)</label>
                                     <input @input='checkData(beds,"beds")' v-model='beds' type="number" step="1"
-                                        min="0" class="form-control text-center mx-auto" name="n_beds">
+                                        min="0" class="form-control mx-auto rounded-5" name="n_beds">
                                     <div class="error d-none text-danger">
                                         C'è qualche problema con il numero dei letti. Controlla che il numero sia compreso
                                         tra 1
@@ -90,7 +90,7 @@
                                 <div class="sm mb-3 col-sm-6">
                                     <label class="form-label">Metri quadrati (*)</label>
                                     <input @input='checkData(sm,"sm")' v-model='sm' type="number" step="0.5"
-                                        min="30" class="form-control text-center mx-auto" name="square_meters">
+                                        min="30" class="form-control mx-auto rounded-5" name="square_meters">
                                     <div class="error d-none text-danger">
                                         C'è qualche problema con il numero dei metri quadrati. Controlla che il numero sia
                                         compreso
@@ -103,13 +103,13 @@
                             </div>
                             <div class="apartmentDescription mb-3">
                                 <label class="form-label">Descrizione</label>
-                                <textarea v-model='apartmentDescription' name="description" cols="30" rows="5" class="form-control mx-auto"></textarea>
+                                <textarea v-model='apartmentDescription' name="description" cols="30" rows="5" class="form-control mx-auto rounded-5"></textarea>
                             </div>
 
                             <div class="address mb-3">
                                 <label class="form-label">Indirizzo (*)</label>
                                 <input @input='checkData(searchField,"address")' type="text" step="0.5"
-                                    autocomplete="off" class="form-control text-center mx-auto" name="address"
+                                    autocomplete="off" class="form-control mx-auto rounded-5" name="address"
                                     v-model="searchField" @keyup="refreshSearch">
                                 <div class="error d-none text-danger">
                                     C'è qualche problema con il tuo indirizzo, assicurati che non abbia caratteri speciali e
@@ -164,7 +164,7 @@
                             <div class="img_cover mb-3">
                                 <label class="form-label">Carica l'immagine del progetto (*)</label>
                                 <input @change='imgCoverChange' type="file"
-                                    class="form-control text-center mx-auto
+                                    class="rounded-5 form-control  mx-auto
                                 @error('img_cover') is-invalid @elseif(old('img_cover')) is-valid @enderror"
                                     name="img_cover">
                                 @error('img_cover')
@@ -174,7 +174,7 @@
                                 @enderror
                             </div>
 
-                            <button :disabled='errorDigit' class="btn btn-lg btn-outline-dark mt-4" type="submit">Salva
+                            <button :disabled='errorDigit' class="btn btn-lg btn-outline-dark mt-4 rounded-5" type="submit">Salva
                                 Progetto</button>
                         </form>
                         <div class="container text-start">

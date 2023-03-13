@@ -6,15 +6,19 @@
 }
 
 .bg-img-form{
-    background-image: url(https://img.freepik.com/premium-vector/skyblue-gradient-background-advertisers-gradient-hq-wallpaper_189959-513.jpg);
+    background-image: url(https://thumbs.dreamstime.com/b/sfondo-verticale-di-faro-che-sovrasta-il-mare-italia-184443830.jpg);
 }
 
-.rounded-form{
-    border-radius: 20px;
+.rounded-10{
+    border-radius: 20%;
 }
 
 .my-card{
-    border-radius: 20px;
-    background-image: url(https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.advtraining.it%2Fnews%2F63216-tour2000americalatina-collezione-spiagge-da-sogno&psig=AOvVaw1-TYpLnLJU-h9xUFs8en4-&ust=1678535255262000&source=images&cd=vfe&ved=0CA0QjRxqFwoTCNjn16Gl0f0CFQAAAAAdAAAAABAD);
-    background-position: cover;
+    border: 1px solid green;
+    border-radius: 8px;
+    background-image: url(https://img.freepik.com/premium-vector/skyblue-gradient-background-advertisers-gradient-hq-wallpaper_189959-513.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    backdrop-filter: blur(30px);
 }
