@@ -2,13 +2,13 @@
 
 @section('content')
 <div class="container">
-<form method="post" id="payment-form" action="{{url('/user/checkout')}}">
+<form method="post" id="payment-form" action="{{route('user.checkout', ['promotion'=>$promotion, 'apartment'=>$apartment])}}">
     @csrf
                 <section>
                     <label for="amount">
-                        <span class="input-label">Amount</span>
+                        <span class="input-label d-none">Amount</span>
                         <div class="input-wrapper amount-wrapper">
-                            <input id="amount" name="amount" type="tel" min="1" placeholder="Amount" value="10">
+                            <input class="d-none" id="amount" name="amount" type="tel" min="1" placeholder="Amount" value="{{$promotion->price}}">
                         </div>
                     </label>
 

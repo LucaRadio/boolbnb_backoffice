@@ -40,7 +40,7 @@
                                                         {{ $promotion->duration}} h
 
                                                     </p>
-                                                    <a class="btn btn-primary" href="{{route('user.promotions.payment', $promotion->id, $apartment->id)}}" >Acquista</a>
+                                                    <a class="btn btn-primary" href="{{route('user.braintree', ['promotion'=>$promotion, 'apartment'=>$apartment])}}" >Acquista</a>
                                                 </div>
                                             </div>
                                         </div>

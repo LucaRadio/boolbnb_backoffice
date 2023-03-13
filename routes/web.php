@@ -7,6 +7,9 @@ use App\Http\Controllers\User\PromotionController;
 use App\Http\Controllers\User\BraintreeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Requests\PaymentRequest;
+use App\Models\Apartment;
+use App\Models\Promotion;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,7 +55,13 @@ Route::middleware(['auth', 'verified'])
                 Route::get('{promotion}/apartments/{apartment}', [BraintreeController::class, 'payment'])->name('payment');
             });
 
-        Route::get('/braintree', function () {
+
+        Route::get('/braintree', function (Request $request) {
+
+            $data=$request->all();
+
+            $promotion=Promotion::findOrFail($data['promotion']);
+            $apartment=Apartment::findOrFail($data['apartment']);
 
             $gateway = new Braintree\Gateway([
                 'environment' => config('services.braintree.environment'),
@@ -60,15 +69,20 @@ Route::middleware(['auth', 'verified'])
                 'publicKey' => config('services.braintree.publicKey'),
                 'privateKey' => config('services.braintree.privateKey')
             ]);
+
+            
         
             $token = $gateway->ClientToken()->generate();
             return view('user.apartments.braintree',[
-                'token'=>$token
+                'token'=>$token,
+                'apartment'=>$apartment,
+                'promotion'=>$promotion
             ]);
             
         })->name("braintree");
 
-        Route::post('/checkout', function (PaymentRequest $request) {
+
+        Route::post('/checkout', function (Request $request) {
             
             $gateway = new Braintree\Gateway([
                 'environment' => config('services.braintree.environment'),
@@ -76,7 +90,12 @@ Route::middleware(['auth', 'verified'])
                 'publicKey' => config('services.braintree.publicKey'),
                 'privateKey' => config('services.braintree.privateKey')
             ]);
-            
+
+            $data=$request->all();
+
+            $promotion=Promotion::findOrFail($data['promotion']);
+            $apartment=Apartment::findOrFail($data['apartment']);
+
 
             $amount = $request->amount;
             $nonce = $request->payment_method_nonce;
@@ -90,9 +109,10 @@ Route::middleware(['auth', 'verified'])
                     'submitForSettlement' => true
                 ]
             ]);
-
+            
             
             if ($result->success) {
+                $apartment->promotions()->attach($data['promotion']);
                 $transaction = $result->transaction;
                 return redirect()->route("user.dashboard")->with('message', 'pagamento effettuato');
             } else {
@@ -104,7 +124,7 @@ Route::middleware(['auth', 'verified'])
             
                 return redirect()->route("user.dashboard")->with('message', 'pagamento fallito.');
             }
-        });
+        })->name("checkout");
         
     });
 
