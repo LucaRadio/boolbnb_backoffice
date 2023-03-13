@@ -5,7 +5,7 @@
     <div class="bg-img-form">
         <div class="container">
             <div class="row justify-content-center py-5">
-                <div class="col col-lg-4 p-0 g-3 my-card p-3">
+                <div class="col col-lg-8 p-0 g-3 my-card p-3">
 
                     <div class="text-center">
                         <h1>Inserisci Appartamento</h1>
@@ -28,157 +28,166 @@
                         <form action="{{ route('user.apartments.store') }}" class="form-group d-inline-block" method="POST"
                             enctype="multipart/form-data" id="form">
                             @csrf
-                            <div class="mb-3 apartmentName">
-                                <label class="form-label">Titolo appartemento (*)</label>
-                                <input @input='checkData(apartmentName,"apartmentName")' v-model='apartmentName'
-                                    type="text" class="form-control mx-auto rounded-5" name="title" minlength="1"
-                                    required
-                                    @error('title') is-invalid @elseif(old('title')) is-valid @enderror>
-                                @error('title')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                                <div class="error d-none text-danger">
-                                    C'è qualche problema con il tuo nome. Ti consigliamo di controllare che non ci siano
-                                    caratteri
-                                    speciali.
-                                </div>
-
-                            </div>
-                            <div class="row">
-                                <div class="rooms mb-3 col-sm-6">
-                                    <label class="form-label">Numero di stanze (*)</label>
-                                    <input @input='checkData(rooms,"rooms")' v-model='rooms' type="number" step="1"
-                                        min="0" class="form-control mx-auto rounded-5" name="n_rooms">
+                            <div class="col-sm-5">
+                                <div class="mb-3 apartmentName">
+                                    <label class="form-label">Titolo appartemento *</label>
+                                    <input @input='checkData(apartmentName,"apartmentName")' v-model='apartmentName'
+                                        type="text" class="form-control mx-auto rounded-5" name="title" minlength="1"
+                                        required
+                                        @error('title') is-invalid @elseif(old('title')) is-valid @enderror>
+                                    @error('title')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                     <div class="error d-none text-danger">
-                                        C'è qualche problema con il numero delle stanze. Controlla che il numero sia
-                                        compreso
-                                        tra 1
-                                        e
-                                        255.
+                                        C'è qualche problema con il tuo nome. Ti consigliamo di controllare che non ci siano
+                                        caratteri
+                                        speciali.
                                     </div>
 
                                 </div>
+                                <div class="row">
+                                    <div class="rooms mb-3 col-sm-6">
+                                        <label class="form-label">Numero di stanze *</label>
+                                        <input @input='checkData(rooms,"rooms")' v-model='rooms' type="number"
+                                            step="1" min="0" class="form-control mx-auto rounded-5"
+                                            name="n_rooms">
+                                        <div class="error d-none text-danger">
+                                            C'è qualche problema con il numero delle stanze. Controlla che il numero sia
+                                            compreso
+                                            tra 1
+                                            e
+                                            255.
+                                        </div>
 
-                                <div class="bath mb-3 col-sm-6">
-                                    <label class="form-label">Numero di bagni (*)</label>
-                                    <input @input='checkData(bath,"bath")' v-model='bath' type="number" step="1"
-                                        min="0" class="form-control mx-auto rounded-5" name="n_bathrooms">
+                                    </div>
+
+                                    <div class="bath mb-3 col-sm-6">
+                                        <label class="form-label">Numero di bagni *</label>
+                                        <input @input='checkData(bath,"bath")' v-model='bath' type="number" step="1"
+                                            min="0" class="form-control mx-auto rounded-5" name="n_bathrooms">
+                                        <div class="error d-none text-danger">
+                                            C'è qualche problema con il numero dei bagni. Controlla che il numero sia
+                                            compreso
+                                            tra 1
+                                            e
+                                            255.
+                                        </div>
+
+                                    </div>
+
+                                    <div class="beds mb-3 col-sm-6">
+                                        <label class="form-label">Numero di letti *</label>
+                                        <input @input='checkData(beds,"beds")' v-model='beds' type="number" step="1"
+                                            min="0" class="form-control mx-auto rounded-5" name="n_beds">
+                                        <div class="error d-none text-danger">
+                                            C'è qualche problema con il numero dei letti. Controlla che il numero sia
+                                            compreso
+                                            tra 1
+                                            e
+                                            255.
+                                        </div>
+
+                                    </div>
+
+                                    <div class="sm mb-3 col-sm-6">
+                                        <label class="form-label">Metri quadrati *</label>
+                                        <input @input='checkData(sm,"sm")' v-model='sm' type="number" step="0.5"
+                                            min="30" class="form-control mx-auto rounded-5" name="square_meters">
+                                        <div class="error d-none text-danger">
+                                            C'è qualche problema con il numero dei metri quadrati. Controlla che il numero
+                                            sia
+                                            compreso
+                                            tra
+                                            30 e
+                                            2.000.000.
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="apartmentDescription mb-3">
+                                    <label class="form-label">Descrizione</label>
+                                    <textarea v-model='apartmentDescription' name="description" cols="30" rows="5"
+                                        class="form-control mx-auto rounded-5"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-sm-5">
+                                <div class="address mb-3">
+                                    <label class="form-label">Indirizzo *</label>
+                                    <input @input='checkData(searchField,"address")' type="text" step="0.5"
+                                        autocomplete="off" class="form-control mx-auto rounded-5" name="address"
+                                        v-model="searchField" @keyup="refreshSearch">
                                     <div class="error d-none text-danger">
-                                        C'è qualche problema con il numero dei bagni. Controlla che il numero sia compreso
-                                        tra 1
-                                        e
-                                        255.
+                                        C'è qualche problema con il tuo indirizzo, assicurati che non abbia caratteri
+                                        speciali e
+                                        che
+                                        tu
+                                        abbia selezionato l'indirizzo cliccandolo dal meno a tendina.
                                     </div>
-
-                                </div>
-
-                                <div class="beds mb-3 col-sm-6">
-                                    <label class="form-label">Numero di letti (*)</label>
-                                    <input @input='checkData(beds,"beds")' v-model='beds' type="number" step="1"
-                                        min="0" class="form-control mx-auto rounded-5" name="n_beds">
-                                    <div class="error d-none text-danger">
-                                        C'è qualche problema con il numero dei letti. Controlla che il numero sia compreso
-                                        tra 1
-                                        e
-                                        255.
+                                    <div class="list-group addressList">
+                                        <a :value='i' v-for='(item,i) in searchData'
+                                            class="list-group-item list-group-item-action" @click='choosenAddress(i)'>
+                                            @{{ item.address.freeformAddress }}
+                                        </a>
                                     </div>
-
                                 </div>
 
-                                <div class="sm mb-3 col-sm-6">
-                                    <label class="form-label">Metri quadrati (*)</label>
-                                    <input @input='checkData(sm,"sm")' v-model='sm' type="number" step="0.5"
-                                        min="30" class="form-control mx-auto rounded-5" name="square_meters">
-                                    <div class="error d-none text-danger">
-                                        C'è qualche problema con il numero dei metri quadrati. Controlla che il numero sia
-                                        compreso
-                                        tra
-                                        30 e
-                                        2.000.000.
+                                <div class="visibility mb-3">
+                                    <label class="form-label px-2">Visibilità *</label>
+                                    <br>
+                                    <label class="px-2 " for="">Non Visibile</label>
+                                    <input class="px-2 " type="radio" step="0.5" name="visibility" value="false">
+                                    <br>
+                                    <label class="px-2" for="">Visibile</label>
+                                    <input class="px-2" type="radio" step="0.5" name="visibility" value="true"
+                                        checked>
+                                </div>
+
+                                <div class="services mb-3 row px-3">
+                                    <div class="rules py-3"><span class="text-info fw-bold">N.B: </span>Devi selezionare
+                                        almeno un
+                                        servizio
                                     </div>
-
-                                </div>
-                            </div>
-                            <div class="apartmentDescription mb-3">
-                                <label class="form-label">Descrizione</label>
-                                <textarea v-model='apartmentDescription' name="description" cols="30" rows="5" class="form-control mx-auto rounded-5"></textarea>
-                            </div>
-
-                            <div class="address mb-3">
-                                <label class="form-label">Indirizzo (*)</label>
-                                <input @input='checkData(searchField,"address")' type="text" step="0.5"
-                                    autocomplete="off" class="form-control mx-auto rounded-5" name="address"
-                                    v-model="searchField" @keyup="refreshSearch">
-                                <div class="error d-none text-danger">
-                                    C'è qualche problema con il tuo indirizzo, assicurati che non abbia caratteri speciali e
-                                    che
-                                    tu
-                                    abbia selezionato l'indirizzo cliccandolo dal meno a tendina.
-                                </div>
-                                <div class="list-group addressList">
-                                    <a :value='i' v-for='(item,i) in searchData'
-                                        class="list-group-item list-group-item-action" @click='choosenAddress(i)'>
-                                        @{{ item.address.freeformAddress }}
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div class="visibility mb-3">
-                                <label class="form-label px-2">Visibilità (*)</label>
-                                <br>
-                                <label class="px-2" for="">Non Visibile</label>
-                                <input class="px-2" type="radio" step="0.5" name="visibility" value="false">
-                                <br>
-                                <label class="px-2" for="">Visibile</label>
-                                <input class="px-2" type="radio" step="0.5" name="visibility" value="true"
-                                    checked>
-                            </div>
-
-                            <div class="services mb-3 row px-3">
-                                <div class="rules py-3"><span class="text-info fw-bold">N.B: </span>Devi selezionare
-                                    almeno un
-                                    servizio
-                                </div>
-                                @foreach ($services as $service)
-                                    <div class="col-sm-6 col-md-4 px-0 py-2 d-flex justify-content-start">
-                                        <div
-                                            class="m-0 form-check form-check-inline
+                                    @foreach ($services as $service)
+                                        <div class="col-sm-6 col-md-4 px-0 py-2 d-flex justify-content-start">
+                                            <div
+                                                class="m-0 form-check form-check-inline
                                 @error('services') is-invalid @enderror">
 
-                                            <input v-model='services'
-                                                class="form-check-input @error('services') is-invalid @enderror"
-                                                type="checkbox" id="serviceCheckbox_{{ $loop->index }}"
-                                                value="{{ $service->id }}" name="services[]"
-                                                {{ in_array($service->id, old('services', [])) ? 'checked' : '' }}>
-                                            <label class="form-check-label text-start"
-                                                for="serviceCheckbox_{{ $loop->index }}">
-                                                <i class="{{ $service->icon }} text-primary px-1"></i><span
-                                                    class="">{{ $service->name }}</span></label>
+                                                <input v-model='services'
+                                                    class="form-check-input @error('services') is-invalid @enderror"
+                                                    type="checkbox" id="serviceCheckbox_{{ $loop->index }}"
+                                                    value="{{ $service->id }}" name="services[]"
+                                                    {{ in_array($service->id, old('services', [])) ? 'checked' : '' }}>
+                                                <label class="form-check-label text-start"
+                                                    for="serviceCheckbox_{{ $loop->index }}">
+                                                    <i class="{{ $service->icon }} text-primary px-1"></i><span
+                                                        class="">{{ $service->name }}</span></label>
+                                            </div>
                                         </div>
-                                    </div>
-                                @endforeach
-                            </div>
+                                    @endforeach
+                                </div>
 
-                            <div class="img_cover mb-3">
-                                <label class="form-label">Carica l'immagine del progetto (*)</label>
-                                <input @change='imgCoverChange' type="file"
-                                    class="rounded-5 form-control  mx-auto
+                                <div class="img_cover mb-3">
+                                    <label class="form-label">Carica l'immagine del progetto *</label>
+                                    <input @change='imgCoverChange' type="file"
+                                        class="rounded-5 form-control  mx-auto
                                 @error('img_cover') is-invalid @elseif(old('img_cover')) is-valid @enderror"
-                                    name="img_cover">
-                                @error('img_cover')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
+                                        name="img_cover">
+                                    @error('img_cover')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
                             </div>
-
-                            <button :disabled='errorDigit' class="btn btn-lg btn-outline-dark mt-4 rounded-5" type="submit">Salva
+                            <button :disabled='errorDigit' class="btn btn-lg btn-outline-dark mt-4 rounded-5"
+                                type="submit">Salva
                                 Progetto</button>
                         </form>
-                        <div class="container text-start">
-                            (*) = Campo Obbligatorio
+                        <div class="container text-start small">
+                            * Campi Obbligatori
                         </div>
                     </div>
                 </div>
