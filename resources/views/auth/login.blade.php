@@ -23,9 +23,9 @@
         </div>
         <div class="right-side d-flex align-items-center" id="login">
             <div class="row m-0 row-reg justify-content-center">
-                <div class="col-md-8">
-                    <div class="card border-dark">
-                        <div class="card-header fw-bold border-dark bg-warning">{{ __('Login') }}</div>
+                <div class="col-md-10">
+                    <div class="card card-shadow border-dark">
+                        <div class="card-header card-login fw-bold border-dark bg-warning">{{ __('Login') }}</div>
 
                         <div class="card-body position-relative">
                             <div class="wrapper">
@@ -65,7 +65,7 @@
 
                                     <div class="mb-4 row mb-0">
                                         <div class="col-md-8 offset-md-4 text-end">
-                                            <button type="submit" class="btn btn-warning">
+                                            <button type="submit" class="btn btn-login btn-warning">
                                                 {{ __('Login') }}
                                             </button>
                                         </div>
