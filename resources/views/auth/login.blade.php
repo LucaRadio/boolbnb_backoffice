@@ -3,14 +3,11 @@
 @stop
 @section('content')
     {{-- <link rel="stylesheet" href="C:\Users\luca1\Boolean\boolbnb_backoffice\resources\scss\profile.scss" /> --}}
-    <div class="d-flex">
-
-
-
+    <div class="d-flex change">
         <div class="left-side">
             <div class="text-black text p-5">
                 <div class="hi display-1 mb-5">Login</div>
-                <div class="welcome fw-bold display-4 text-center">Accedi tramite il form per visualizzare i tuoi
+                <div class="welcome fw-bold display-5 text-center">Accedi tramite il form per visualizzare i tuoi
                     appartamenti
                 </div>
             </div>
@@ -21,9 +18,10 @@
             <a href='{{ route('register') }}' class="register ">
                 Register</a>
         </div>
-        <div class="right-side d-flex align-items-center" id="login">
+        <div class="right-side" id="login">
+            <img src="/logo_nobg.png">
             <div class="row m-0 row-reg justify-content-center">
-                <div class="col-md-10">
+                <div class="col-md-8 col-sm-8 col">
                     <div class="card card-shadow border-dark">
                         <div class="card-header card-login fw-bold border-dark bg-warning">{{ __('Login') }}</div>
 
@@ -104,3 +102,13 @@
         },
     }).mount('#login')
 </script>
+
+<style scoped>
+    @media only screen and (max-width: 925px) {
+        .change {
+            flex-direction: column;
+        }
+
+
+    }
+</style>

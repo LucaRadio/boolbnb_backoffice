@@ -45,6 +45,13 @@ input.form-control {
     position: relative;
 }
 
+.right-side {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 50px;
+}
+
 .img {
     background-image: url('/public/HotelsBackground.jpg');
     background-repeat: no-repeat;
@@ -121,10 +128,11 @@ input.form-control {
 // VARIABLES // ============================== //
 .wrapper {
     $bg-color: white;
+    margin: auto;
     $hl-color: #ffc400;
     $muted-color: mix(black, $bg-color, 70%);
     $trans-time: 300ms;
-    $width: 320px;
+    $width: 85%;
 
     body {
         background: $bg-color;
@@ -170,6 +178,7 @@ input.form-control {
     // INPUTS // ============================== //
 
     input {
+        margin: auto;
         background: none;
         color: $muted-color;
         font-size: 18px;
@@ -201,6 +210,7 @@ input.form-control {
     }
 
     label {
+        margin: auto;
         color: $muted-color;
         font-size: 16px;
         font-weight: normal;
