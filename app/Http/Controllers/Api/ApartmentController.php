@@ -59,22 +59,27 @@ class ApartmentController extends Controller
             }, $allCoordinates));
             $url = file_get_contents('https://api.tomtom.com/search/2/geometryFilter.json?geometryList=[{"type":"CIRCLE","position":"' . $coordinates['lat'] . ',' . $coordinates['lon'] . '","radius":20000}]&poiList=' . $poisJson . '&key=1p9OyCRm8S7icw73fBmkTYDlXYJGPO9O');
             $radiusSearch = json_decode($url, true);
-            //rimappa array restituito da tomtom
-            $poiCoordinates = array_map(function ($poi) {
-                return [
-                    'latitude' => $poi['position']['lat'],
-                    'longitude' => $poi['position']['lon']
-                ];
-            }, $radiusSearch['results']);
-            //carica dati degli appartamenti
-            $query = Apartment::with('services');
-            foreach ($poiCoordinates as $coordinates) {
-                $query->orWhere(function ($q) use ($coordinates) {
-                    $q->where('latitude', $coordinates['latitude'])
-                        ->where('longitude', $coordinates['longitude']);
-                });
+
+            if (!empty($radiusSearch['results'])) {
+                //rimappa array restituito da tomtom
+                $poiCoordinates = array_map(function ($poi) {
+                    return [
+                        'latitude' => $poi['position']['lat'],
+                        'longitude' => $poi['position']['lon']
+                    ];
+                }, $radiusSearch['results']);
+                //carica dati degli appartamenti
+                $query = Apartment::with('services');
+                foreach ($poiCoordinates as $coordinates) {
+                    $query->orWhere(function ($q) use ($coordinates) {
+                        $q->where('latitude', $coordinates['latitude'])
+                            ->where('longitude', $coordinates['longitude']);
+                    });
+                }
+                $apartments = $query->get();
+            } else {
+                $apartments = 'Non ci sono risultati per questa ricerca';
             }
-            $apartments = $query->get();
         } else if ($advancedSearch) {
             //$requestedServices = json_decode($advancedSearch['services']);
             // dd($apartmentServices);
@@ -113,22 +118,27 @@ class ApartmentController extends Controller
             }, $allCoordinates));
             $url = file_get_contents('https://api.tomtom.com/search/2/geometryFilter.json?geometryList=[{"type":"CIRCLE","position":"' . $coordinates['lat'] . ',' . $coordinates['lon'] . '","radius":' . $advancedSearch['radius'] . '}]&poiList=' . $poisJson . '&key=1p9OyCRm8S7icw73fBmkTYDlXYJGPO9O');
             $radiusSearch = json_decode($url, true);
-            //rimappa array restituito da tomtom
-            $poiCoordinates = array_map(function ($poi) {
-                return [
-                    'latitude' => $poi['position']['lat'],
-                    'longitude' => $poi['position']['lon']
-                ];
-            }, $radiusSearch['results']);
-            //carica dati degli appartamenti
-            $query = Apartment::with('services');
-            foreach ($poiCoordinates as $coordinates) {
-                $query->orWhere(function ($q) use ($coordinates) {
-                    $q->where('latitude', $coordinates['latitude'])
-                        ->where('longitude', $coordinates['longitude']);
-                });
+
+            if (!empty($radiusSearch['results'])) {
+                //rimappa array restituito da tomtom
+                $poiCoordinates = array_map(function ($poi) {
+                    return [
+                        'latitude' => $poi['position']['lat'],
+                        'longitude' => $poi['position']['lon']
+                    ];
+                }, $radiusSearch['results']);
+                //carica dati degli appartamenti
+                $query = Apartment::with('services');
+                foreach ($poiCoordinates as $coordinates) {
+                    $query->orWhere(function ($q) use ($coordinates) {
+                        $q->where('latitude', $coordinates['latitude'])
+                            ->where('longitude', $coordinates['longitude']);
+                    });
+                }
+                $apartments = $query->get();
+            } else {
+                $apartments = 'Non ci sono risultati per questa ricerca';
             }
-            $apartments = $query->get();
         } else {
             $apartments = Apartment::with('services')->paginate(5);
         }
