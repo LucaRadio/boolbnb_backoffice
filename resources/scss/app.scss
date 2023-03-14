@@ -52,6 +52,16 @@ input.form-control {
 .my-card{
     border: 1px solid green;
     border-radius: 8px;
-    background-image: url(https://img.freepik.com/premium-vector/skyblue-gradient-background-advertisers-gradient-hq-wallpaper_189959-513.jpg);
+    background-image: url(https://media.istockphoto.com/id/1395428189/it/vettoriale/verde-menta-chiaro-colore-gradiente-sfocato-sfocato-movimento-astratto-vettoriale-di.jpg?s=612x612&w=0&k=20&c=JX2UE2xtyJnavZRiCEkqANCe1ukKzOSMvKCSk29qT1w=);
+    background-size: cover;
+    background-position: initial;
+    background-repeat: no-repeat;
+}
 
+.icon-width {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

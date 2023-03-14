@@ -5,7 +5,7 @@
     <div class="bg-img-form">
         <div class="container">
             <div class="row justify-content-center py-5">
-                <div class="col col-lg-10 p-0 g-3 my-card p-3 pb-0">
+                <div class="col col-lg-8 p-0 g-3 my-card p-3 pb-0">
 
                     <div class="text-center py-4">
                         <h1>Crea Appartamento</h1>
@@ -29,7 +29,7 @@
                             enctype="multipart/form-data" id="form">
                             @csrf
                             <div class="row">
-                                <div class="col-sm-6">
+                                <div class="col-md-6">
                                     <div class="mb-3 apartmentName">
                                         <label class="form-label">Titolo appartemento *</label>
                                         <input @input='checkData(apartmentName,"apartmentName")' v-model='apartmentName'
@@ -138,7 +138,7 @@
                                     </div>
 
                                 </div>
-                                <div class="col-sm-6">
+                                <div class="col-md-6">
                                     <div class="img_cover mb-3">
                                         <label class="form-label">Carica l'immagine del progetto *</label>
                                         <input @change='imgCoverChange' type="file"
@@ -165,27 +165,20 @@
                                     </div>
 
                                     <div class="services mb-3 row px-3">
-                                        <div class="rules py-3"><span class="text-info fw-bold">N.B: </span>Devi
-                                            selezionare
-                                            almeno un
-                                            servizio
-                                        </div>
+                                        <div class="rules">Servizi *</div>
                                         @foreach ($services as $service)
                                             <div class="col-sm-6 col-md-6 px-0 py-1 d-flex justify-content-start">
-                                                <div
-                                                    class="m-0 form-check form-switch
-                                                @error('services') is-invalid @enderror">
-
+                                                <div class="m-0 form-check form-switch @error('services') is-invalid @enderror d-flex justify-content-center align-items-center">
                                                     <input v-model='services'
                                                         class="form-check-input @error('services') is-invalid @enderror"
                                                         type="checkbox" id="serviceCheckbox_{{ $loop->index }}"
                                                         value="{{ $service->id }}" name="services[]"
                                                         {{ in_array($service->id, old('services', [])) ? 'checked' : '' }}>
-                                                    <label class="form-check-label text-start"
+                                                        <label class="form-check-label text-start"
                                                         for="serviceCheckbox_{{ $loop->index }}">
                                                         <div class="d-flex justify-content-center align-items-center ">
-                                                            <div>
-                                                                <i class="{{ $service->icon }} text-primary px-2"></i>
+                                                            <div class="icon-width">
+                                                                <i class="{{ $service->icon }} text-primary px-3"></i>
                                                             </div>
                                                             <div class="">{{ $service->name }}</div>
                                                         </div>
@@ -199,7 +192,7 @@
                                 </div>
                             </div>
                             <div class="text-center">
-                                <button :disabled='errorDigit' class="btn btn-lg btn-outline-dark mt-4 rounded-5"
+                                <button :disabled='errorDigit' class="btn btn-lg btn-outline-dark mt-1 rounded-5"
                                     type="submit">Salva
                                     Appartamento</button>
                             </div>
