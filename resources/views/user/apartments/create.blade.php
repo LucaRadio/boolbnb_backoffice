@@ -5,7 +5,7 @@
     <div class="bg-img-form">
         <div class="container">
             <div class="row justify-content-center py-5">
-                <div class="col col-lg-8 p-0 g-3 my-card p-3 pb-0">
+                <div class="col col-md-8 p-0 g-3 my-card p-3 pb-0">
 
                     <div class="text-center py-4">
                         <h1>Crea Appartamento</h1>
@@ -165,7 +165,7 @@
                                     </div>
 
                                     <div class="services mb-3 row px-3">
-                                        <div class="rules">Servizi *</div>
+                                        <div class="rules p-0">Servizi *</div>
                                         @foreach ($services as $service)
                                             <div class="col-sm-6 col-md-6 px-0 py-1 d-flex justify-content-start">
                                                 <div class="m-0 form-check form-switch @error('services') is-invalid @enderror d-flex justify-content-center align-items-center">
