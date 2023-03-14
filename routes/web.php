@@ -4,7 +4,12 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\User\ApartmentController;
 use App\Http\Controllers\User\MessageController;
 use App\Http\Controllers\User\PromotionController;
+use App\Http\Controllers\User\BraintreeController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Requests\PaymentRequest;
+use App\Models\Apartment;
+use App\Models\Promotion;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,7 +52,80 @@ Route::middleware(['auth', 'verified'])
             ->prefix('promotions')
             ->group(function () {
                 Route::get('/index', [PromotionController::class, 'index'])->name('index');
+                Route::get('{promotion}/apartments/{apartment}', [BraintreeController::class, 'payment'])->name('payment');
             });
+
+
+        Route::get('/braintree', function (Request $request) {
+
+            $data=$request->all();
+
+            $promotion=Promotion::findOrFail($data['promotion']);
+            $apartment=Apartment::findOrFail($data['apartment']);
+
+            $gateway = new Braintree\Gateway([
+                'environment' => config('services.braintree.environment'),
+                'merchantId' => config('services.braintree.merchantId'),
+                'publicKey' => config('services.braintree.publicKey'),
+                'privateKey' => config('services.braintree.privateKey')
+            ]);
+
+            
+        
+            $token = $gateway->ClientToken()->generate();
+            return view('user.apartments.braintree',[
+                'token'=>$token,
+                'apartment'=>$apartment,
+                'promotion'=>$promotion
+            ]);
+            
+        })->name("braintree");
+
+
+        Route::post('/checkout', function (Request $request) {
+            
+            $gateway = new Braintree\Gateway([
+                'environment' => config('services.braintree.environment'),
+                'merchantId' => config('services.braintree.merchantId'),
+                'publicKey' => config('services.braintree.publicKey'),
+                'privateKey' => config('services.braintree.privateKey')
+            ]);
+
+            $data=$request->all();
+
+            $promotion=Promotion::findOrFail($data['promotion']);
+            $apartment=Apartment::findOrFail($data['apartment']);
+
+
+            $amount = $request->amount;
+            $nonce = $request->payment_method_nonce;
+            
+            
+                    
+            $result = $gateway->transaction()->sale([
+                'amount' => $amount,
+                'paymentMethodNonce' => "fake-valid-nonce",
+                'options' => [
+                    'submitForSettlement' => true
+                ]
+            ]);
+            
+            
+            if ($result->success) {
+                $apartment->promotions()->attach($data['promotion']);
+                $transaction = $result->transaction;
+                return redirect()->route("user.dashboard")->with('message', 'pagamento effettuato');
+            } else {
+                $errorString = "";
+            
+                foreach($result->errors->deepAll() as $error) {
+                    $errorString .= 'Error: ' . $error->code . ": " . $error->message . "\n";
+                }
+            
+                return redirect()->route("user.dashboard")->with('message', 'pagamento fallito.');
+            }
+        })->name("checkout");
+        
     });
 
 require __DIR__ . '/auth.php';
