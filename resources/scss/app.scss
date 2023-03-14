@@ -224,8 +224,14 @@ input.form-control {
             position: absolute;
             background: $hl-color;
             transition: $trans-time ease all;
-            left: 0%;
+            left: 0;
         }
+    }
+
+    .focused {
+        top: -14px;
+        font-size: 12px;
+        color: $hl-color;
     }
 
 }

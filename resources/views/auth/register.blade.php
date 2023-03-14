@@ -132,10 +132,10 @@
                                     (*)</label>
                                 <div class="col-md-6">
                                     <div class="input-group confpw pw">
-                                        <input id="password-confirm" type="password" class="form-control pw"
-                                            v-model='confPw' name="password_confirmation" required
-                                            :class='error ? "border-danger" : ""' v-on:focus='resetValidation("confPw")'
-                                            v-on:focusout='validateConfPassword()' minlength="8">
+                                        <input id="password-confirm" type="password" class="form-control" v-model='confPw'
+                                            name="password_confirmation" required :class='error ? "border-danger" : ""'
+                                            v-on:focus='resetValidation("confPw")' v-on:focusout='validateConfPassword()'
+                                            minlength="8">
                                         <div class="input-group-appetoggle">
                                             <button @click='togglePassword("confPw")'
                                                 :class="error ? 'btn-danger' : 'btn-secondary'"

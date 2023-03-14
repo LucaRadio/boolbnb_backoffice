@@ -6,6 +6,7 @@
     <div class="d-flex">
 
 
+
         <div class="left-side">
             <div class="text-black text p-5">
                 <div class="hi display-1 mb-5">Login</div>
@@ -20,90 +21,57 @@
             <a href='{{ route('register') }}' class="register ">
                 Register</a>
         </div>
-        <div class="right-side d-flex align-items-center">
+        <div class="right-side d-flex align-items-center" id="login">
             <div class="row m-0 row-reg justify-content-center">
                 <div class="col-md-8">
                     <div class="card border-dark">
                         <div class="card-header fw-bold border-dark bg-warning">{{ __('Login') }}</div>
 
                         <div class="card-body position-relative">
-                            <form method="POST" action="{{ route('login') }}">
-                                @csrf
+                            <div class="wrapper">
+                                <form method="POST" action="{{ route('login') }}">
+                                    @csrf
+                                    @if ($errors->any())
+                                        @foreach ($errors->all() as $error)
+                                            <div class="alert alert-danger">
+                                                {{ $error }}
+                                            </div>
+                                        @endforeach
+                                    @endif
 
 
-                                <div class="wrapper">
-                                    <form>
-
-                                        <div class="group">
-                                            <input type="text" required="required" /><span class="highlight"></span><span
-                                                class="bar"></span>
-                                            <label>Email</label>
-                                        </div>
-                                        <div class="group">
-                                            <input type="password" required="required" /><span
-                                                class="highlight"></span><span class="bar"></span>
-                                            <label>Password</label>
-                                        </div>
-
-                                    </form>
-                                </div>
-
-                                {{--                                 
-                                <div class="mb-4 row">
-                                    <label for="email"
-                                        class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                                    <div class="col-md-6">
-                                        <input id="email" type="email"
-                                            class="form-control @error('email') is-invalid @enderror" name="email"
-                                            value="{{ old('email') }}" required autocomplete="email" autofocus>
-
+                                    <div class="group mail">
+                                        <input @input='labelBug()' name="email" v-model='mail' type="email"
+                                            required="required" /><span class="highlight"></span><span
+                                            class="bar"></span>
+                                        <label>Email</label>
                                         @error('email')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
                                     </div>
-                                </div>
-
-                                <div class="mb-4 row">
-                                    <label for="password"
-                                        class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                                    <div class="col-md-6">
-                                        <input id="password" type="password"
-                                            class="form-control @error('password') is-invalid @enderror" name="password"
-                                            required autocomplete="current-password">
-
+                                    <div class="group password">
+                                        <input name="password" type="password" required="required" />
+                                        <span class="highlight"></span>
+                                        <span class="bar"></span>
+                                        <label>Password</label>
                                         @error('password')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
                                     </div>
-                                </div>
 
-                                <div class="mb-4 row">
-                                    <div class="col-md-6 offset-md-4">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="remember" id="remember"
-                                                {{ old('remember') ? 'checked' : '' }}>
-
-                                            <label class="form-check-label" for="remember">
-                                                {{ __('Remember Me') }}
-                                            </label>
+                                    <div class="mb-4 row mb-0">
+                                        <div class="col-md-8 offset-md-4 text-end">
+                                            <button type="submit" class="btn btn-warning">
+                                                {{ __('Login') }}
+                                            </button>
                                         </div>
                                     </div>
-                                </div> --}}
-
-                                <div class="mb-4 row mb-0">
-                                    <div class="col-md-8 offset-md-4 text-end">
-                                        <button type="submit" class="btn btn-warning">
-                                            {{ __('Login') }}
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -111,6 +79,28 @@
         </div>
     </div>
 @endsection
-<style lang="scss">
-    @import "C:\Users\luca1\Boolean\boolbnb_backoffice\resources\scss\profile.scss"
-</style>
+<script type="module">
+    const {createApp} = Vue;
+    createApp({
+        data(){
+            return{
+                mail:''
+            }
+        },
+        methods: {
+            labelBug(){
+                const rawDiv = document.querySelectorAll('.mail>*');
+                const input = rawDiv[1]
+                const label = rawDiv[3]
+
+                if(this.mail != ''){
+                    label.classList.add('focused');
+                    }
+                    else{
+                        label.classList.remove('focused');
+                    }
+                }
+                
+        },
+    }).mount('#login')
+</script>

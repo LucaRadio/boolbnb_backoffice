@@ -23,38 +23,6 @@
 
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
-    {{-- TomTom --}}
-    <link rel='stylesheet' type='text/css' href='https://api.tomtom.com/maps-sdk-for-web/cdn/5.x/5.64.0/maps/maps.css'>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
-    <script>
-        (function() {
-            window.SS = window.SS || {};
-            SS.Require = function(callback) {
-                if (typeof callback === 'function') {
-                    if (window.SS && SS.EventTrack) {
-                        callback();
-                    } else {
-                        var siteSpect = document.getElementById('siteSpectLibraries');
-                        var head = document.getElementsByTagName('head')[0];
-                        if (siteSpect === null && typeof head !== 'undefined') {
-                            siteSpect = document.createElement('script');
-                            siteSpect.type = 'text/javascript';
-                            siteSpect.src = '/__ssobj/core.js+ssdomvar.js+generic-adapter.js';
-                            siteSpect.async = true;
-                            siteSpect.id = 'siteSpectLibraries';
-                            head.appendChild(siteSpect);
-                        }
-                        if (window.addEventListener) {
-                            siteSpect.addEventListener('load', callback, false);
-                        } else {
-                            siteSpect.attachEvent('onload', callback, false);
-                        }
-                    }
-                }
-            };
-        })();
-    </script>
-
     <!-- Usando Vite -->
     @vite(['resources/js/app.js'])
 </head>
@@ -141,9 +109,6 @@
         </main>
     </div>
 
-    {{-- TomTom --}}
-    <script src="https://api.tomtom.com/maps-sdk-for-web/cdn/5.x/5.64.0/maps/maps-web.min.js"></script>
-    <script src="https://api.tomtom.com/maps-sdk-for-web/cdn/5.x/5.64.0/services/services-web.min.js"></script>
 </body>
 
 </html>
