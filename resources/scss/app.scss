@@ -37,3 +37,21 @@ input.form-control {
     border-left: none;
 
 }
+.bg-img-form{
+    background-image: url(https://strapi-imaginary.weroad.it/resource/cover/4495/viaggi-itinerari-thailandia-weroad.jpg);
+    background-size: cover;
+    background-position: initial;
+    background-repeat: no-repeat;
+    backdrop-filter: blur(30px);
+}
+
+.rounded-10{
+    border-radius: 20%;
+}
+
+.my-card{
+    border: 1px solid green;
+    border-radius: 8px;
+    background-image: url(https://img.freepik.com/premium-vector/skyblue-gradient-background-advertisers-gradient-hq-wallpaper_189959-513.jpg);
+
+}
