@@ -171,7 +171,7 @@
                                             servizio
                                         </div>
                                         @foreach ($services as $service)
-                                            <div class="col-sm-6 col-md-4 px-0 py-1 d-flex justify-content-start">
+                                            <div class="col-sm-6 col-md-6 px-0 py-1 d-flex justify-content-start">
                                                 <div
                                                     class="m-0 form-check form-switch
                                                 @error('services') is-invalid @enderror">
@@ -183,8 +183,13 @@
                                                         {{ in_array($service->id, old('services', [])) ? 'checked' : '' }}>
                                                     <label class="form-check-label text-start"
                                                         for="serviceCheckbox_{{ $loop->index }}">
-                                                        <span><i class="{{ $service->icon }} text-primary px-1"></i></span><span
-                                                            class="">{{ $service->name }}</span></label>
+                                                        <div class="d-flex justify-content-center align-items-center ">
+                                                            <div>
+                                                                <i class="{{ $service->icon }} text-primary px-2"></i>
+                                                            </div>
+                                                            <div class="">{{ $service->name }}</div>
+                                                        </div>
+                                                    </label>
                                                 </div>
                                             </div>
                                         @endforeach
