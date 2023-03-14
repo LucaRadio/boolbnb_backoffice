@@ -1,19 +1,23 @@
 @extends('layouts.profile')
+@section('styles')
+    <link href="{{ asset('resources/scss/profile.scss') }}" />
+@stop
 @section('content')
     <div class="d-flex">
 
         <div class="left-side">
             <div class="text-black text p-5">
-                <div class="hi display-1 mb-5">Login</div>
-                <div class="welcome fw-bold display-4 text-center">Accedi tramite il form accanto per visualizzare i tuoi
+                <div class="hi display-1 mb-5">Registrazione</div>
+                <div class="welcome fw-bold display-4 text-center">Registrati tramite il form per aggiungere e
+                    gestire i tuoi
                     appartamenti
                 </div>
                 .
             </div>
             <div class="img d-flex justify-content-center align-items-center">
             </div>
-            <div class="login"></div>
-            <div class="register"></div>
+            <a href="{{ route('login') }}" class="login">Login</a>
+            <a class="register selected">Register</a>
 
         </div>
 
