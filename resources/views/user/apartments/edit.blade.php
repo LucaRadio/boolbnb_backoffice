@@ -20,13 +20,13 @@
     @endif
     <div class="container">
         <div class="row justify-content-center py-5">
-            <div class="col col-lg-8 card p-0 g-3">
+            <div class="col col-md-8 p-0 g-3 my-card p-3 pb-0">
 
-                <div class="text-center card-header bg-success">
+                <div class="text-center py-4">
                     <h1>Modifica il tuo appartamento</h1>
                 </div>
 
-                <div class="text-center bg-white py-5 card-body">
+                <div class="text-center  py-5">
                     <form action="{{ route('user.apartments.update', $apartment->id) }}" class="form-group d-inline-block"
                         method="POST" enctype="multipart/form-data">
                         @csrf()
