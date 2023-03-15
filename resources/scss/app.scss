@@ -126,6 +126,14 @@ input.form-control {
     color: black;
 }
 
+input[type='date']:required:invalid::-webkit-datetime-edit {
+    color: transparent;
+}
+
+input[type='date']:focus::-webkit-datetime-edit {
+    color: black !important;
+}
+
 
 // VARIABLES // ============================== //
 .wrapper {
@@ -135,6 +143,7 @@ input.form-control {
     $muted-color: mix(black, $bg-color, 70%);
     $trans-time: 300ms;
     $width: 300px;
+
 
     body {
         background: $bg-color;
@@ -195,8 +204,7 @@ input.form-control {
             outline: none;
         }
 
-        &:focus~label,
-        &:valid~label {
+        &:focus~label {
             top: -14px;
             font-size: 12px;
             color: $hl-color;
@@ -207,7 +215,7 @@ input.form-control {
         }
     }
 
-    input[type="password"] {
+    hi input[type="password"] {
         letter-spacing: 0.3em;
     }
 
@@ -256,7 +264,7 @@ input.form-control {
     background: #fbe292 !important;
 }
 
-.btn-login {
+.btn-color {
     background-color: #fbe292;
 }
 

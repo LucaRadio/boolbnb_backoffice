@@ -80,42 +80,58 @@
                                             </span>
                                         @enderror
                                     </div> --}}
+                                    <div class="group name">
+                                        <input v-on:focus='resetValidation("name")' v-on:focusout="reset('name')"
+                                            name="name" type="text" />
+                                        <span class="d-block highlight"></span><span class="bar"></span>
+                                        <label>Nome</label>
+                                    </div>
+                                    <div class="group surname">
+                                        <input v-on:focus='resetValidation("surname")' v-on:focusout="reset('surname')"
+                                            name="surname" type="text" />
+                                        <span class="d-block highlight"></span><span class="bar"></span>
+                                        <label>Cognome</label>
+                                    </div>
+                                    <div class="group date_of_birth">
+                                        <input v-on:focus='resetValidation("date_of_birth")'
+                                            v-on:focusout="reset('date_of_birth')" name="date_of_birth" type="text" />
+                                        <span class="d-block highlight"></span><span class="bar"></span>
+                                        <label>Data di nascita</label>
+                                    </div>
+
+
+
                                     <div class="group mail">
                                         <input v-on:focusout='validateEmail()' v-on:focus='resetValidation("mail")'
-                                            v-model='mail' @input='labelBug()' name="email" v-model='mail' type="email"
-                                            required="required" /><span class="highlight"></span><span
-                                            class="bar @error('email') is-invalid @enderror" name="email"></span>
-                                        <label>Email</label>
+                                            v-model='mail' name="email" v-model='mail' type="email"
+                                            required="required" /><span class="d-block highlight"></span><span
+                                            class="bar" name="email"></span>
+                                        <label>Email *</label>
                                         <div class="error d-none text-danger">Sembra che la tua mail non abbia i
                                             requisiti
                                             per
                                             esserlo.
                                         </div>
-                                        @error('email')
+                                    </div>
+
+
+
+                                    <div class="group flex-column pw">
+                                        <input v-on:focusout='validatePassword(),validateConfPassword()'
+                                            v-on:focus="resetValidation('pw')" name="password" type="password" />
+                                        <span class="d-block highlight"></span><span class="bar"></span>
+                                        <label>Password</label>
+                                        <div class="error d-none text-danger">Sembra che la tua password non abbia i
+                                            requisiti necessari. Controlla che abbia almeno una letta maiuscola,una lettera
+                                            minuscola,un numero ,e un carattere speciale.
+                                        </div>
+                                        @error('password')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
                                     </div>
 
-
-                                    {{-- <div class="mb-4 row">
-                                        <label for="email"
-                                            class="col-md-4 col-form-label text-md-right">{{ __('E-Mail') }}
-                                            (*)
-                                        </label>
-                                        <div class="col-md-6 mail">
-                                            <input id="email" type="email" v-model='mail'
-                                                v-on:focus='resetValidation("mail")' v-on:focusout='validateEmail()'
-                                                class="form-control @error('email') is-invalid @enderror" name="email">
-                                            <input type="hidden">
-                                            @error('email')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    </div> --}}
                                     {{-- <div class="mb-4  row">
                                         <label for="password"
                                             class="col-md-4 col-form-label text-md-right">{{ __('Password') }}
@@ -187,7 +203,7 @@
                                     </div> --}}
                                     <div class="mb-4 row mb-0">
                                         <div class="col-md-6 offset-md-4">
-                                            <button :disabled='errorDigit' type="submit" class="btn btn-primary">
+                                            <button :disabled='errorDigit' type="submit" class="btn btn-warning">
                                                 {{ __('Registrati') }}
                                             </button>
                                         </div>
@@ -195,7 +211,7 @@
                                 </form>
                             </div>
                             <div class="container">
-                                (*) = Campo obbligatorio
+                                * = Campo obbligatorio
                             </div>
                         </div>
                     </div>
@@ -241,44 +257,95 @@
                 // }
         },
         methods: {
+            reset(component){
+                const rawDiv = document.querySelectorAll(`.${component}>*`)
+                const input = rawDiv[0];
+                const highlight = rawDiv[1];
+                const label = rawDiv[3];
+                if(component === 'date_of_birth'){
+                        input.type = 'text'
+                    }
+                if(input.value != ''){
+                    label.classList.add('focused')
+                }else{
+                    label.classList.remove('focused')
+                }
+
+            },
             validateEmail() {
                     const rawDiv = document.querySelectorAll(`.mail>*`)
                     const input = rawDiv[0];
-                    const error = rawDiv[1];
-
+                    const highlight = rawDiv[1];
+                    const label = rawDiv[3]
+                    const error = rawDiv[4];
                  if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.mail) ){
                     input?.classList.add('invalid');
+                    input?.classList.add('border-0');
+                    label?.classList.add('text-danger');
+                    highlight?.classList.add('bg-danger,w-100');
+                    highlight?.setAttribute('style','height:2px;background-color:crimson')
                     error?.classList.replace('d-none','d-block');
                     return true;
                    
                   }else{
-                      input?.classList.remove('invalid');
-                      error?.classList.replace('d-block','d-none');
+                    input?.classList.remove('invalid');
+                    input?.classList.remove('border-0');
+                    label?.classList.remove('text-danger');
+                    label?.classList.add('focused');
+                    highlight?.classList.remove('bg-danger,w-100');
+                    highlight?.setAttribute('style','height:0px;')
+                    error?.classList.replace('d-block','d-none');
                       return false;
                   }
 
                 },
                 resetValidation(component){
+                    // const rawDiv = document.querySelectorAll(`.${component}>*`)
+                    // const input = rawDiv[0];
+                    // const error = rawDiv[2];
+                    // input?.classList.remove('invalid');
+                    // error?.classList.replace('d-block','d-none')
                     const rawDiv = document.querySelectorAll(`.${component}>*`)
                     const input = rawDiv[0];
-                    const error = rawDiv[2];
-                    console.log(error);
+                    const highlight = rawDiv[1];
+                    const label = rawDiv[3]
+                    const error = rawDiv[4];
+                    if(component === 'date_of_birth'){
+                        input.type = 'date'
+                    }
+
                     input?.classList.remove('invalid');
-                    error?.classList.replace('d-block','d-none')    
+                    input?.classList.remove('border-0');
+                    label?.classList.remove('text-danger');
+                    label?.classList.add('focused');
+                    highlight?.classList.remove('bg-danger,w-100');
+                    highlight?.setAttribute('style','height:0px;')
+                    error?.classList.replace('d-block','d-none');
                     
                 },
                 validatePassword(){
                     const rawDiv = document.querySelectorAll(`.pw>*`)
                     const input = rawDiv[0];
-                    const error = rawDiv[2];
+                    const highlight = rawDiv[1];
+                    const label = rawDiv[3]
+                    const error = rawDiv[4];
                     if(!/^(?=.*[0-9])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/.test(this.pw)){
-                        input?.classList.add('is-invalid');
-                        error?.classList.replace('d-none','d-block')
+                        input?.classList.add('invalid');
+                        input?.classList.add('border-0');
+                        label?.classList.add('text-danger');
+                        highlight?.classList.add('bg-danger,w-100');
+                        highlight?.setAttribute('style','height:2px;background-color:crimson')
+                        error?.classList.replace('d-none','d-block');
                         this.error = true
                         return true
                     }else{
-                        input?.classList.remove('is-invalid');
-                        error?.classList.replace('d-block','d-none')
+                        input?.classList.remove('invalid');
+                        input?.classList.remove('border-0');
+                        label?.classList.remove('text-danger');
+                        label?.classList.add('focused');
+                        highlight?.classList.remove('bg-danger,w-100');
+                        highlight?.setAttribute('style','height:0px;')
+                        error?.classList.replace('d-block','d-none');
                         this.error = false
                         return false
                     }
