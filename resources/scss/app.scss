@@ -1,4 +1,4 @@
-@import '~bootstrap/scss/bootstrap';
+@import "~bootstrap/scss/bootstrap";
 
 .unauthorized_img {
     max-width: 250px;
@@ -8,17 +8,14 @@
 input.form-control {
     border-color: #7d6c6c;
     box-shadow: none !important;
-
 }
 
 .pw {
     border-right: none;
     display: flex;
-
 }
 
 .showpassword {
-
     background-color: transparent;
     color: #7d6c6c77;
     border-left: none;
@@ -28,32 +25,35 @@ input.form-control {
     background-color: transparent;
     color: #7d6c6c77;
     border-left: none;
-
 }
 
 .btn:first-child:active {
     background-color: transparent;
     color: #7d6c6c77;
     border-left: none;
-
 }
-.bg-img-form{
-    height: 100wh;
-    background-image: url(https://strapi-imaginary.weroad.it/resource/cover/4495/viaggi-itinerari-thailandia-weroad.jpg);
+.bg-img-form {
+    background-image: url(https://images.pexels.com/photos/130879/pexels-photo-130879.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2);
     background-size: cover;
-    background-position: initial;
+    background-position: center;
     background-repeat: no-repeat;
     backdrop-filter: blur(30px);
 }
 
-.rounded-10{
+.rounded-10 {
     border-radius: 20%;
 }
 
-.my-card{
+.my-card {
     border: 1px solid green;
     border-radius: 8px;
-    background-image: url(https://media.istockphoto.com/id/1395428189/it/vettoriale/verde-menta-chiaro-colore-gradiente-sfocato-sfocato-movimento-astratto-vettoriale-di.jpg?s=612x612&w=0&k=20&c=JX2UE2xtyJnavZRiCEkqANCe1ukKzOSMvKCSk29qT1w=);
+    background: rgb(251, 226, 146);
+    background: radial-gradient(
+        circle,
+        rgba(251, 226, 146, 1) 3%,
+        rgba(255, 215, 85, 1) 51%,
+        rgba(215, 177, 57, 1) 69%
+    );
     background-size: cover;
     background-position: initial;
     background-repeat: no-repeat;

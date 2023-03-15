@@ -5,7 +5,11 @@
     <div class="bg-img-form">
         <div class="container">
             <div class="row justify-content-center py-5">
-                <div class="col col-md-8 p-0 g-3 my-card p-3 pb-0">
+                <div class="col col-md-8 p-0 g-3 my-card p-1 pb-0">
+
+                    <div class="d-flex justify-content-end">
+                        <a class="btn btn-outline-light rounded-5 border-0 fs-4" href="#"><i class="fa-solid fa-x"></i></a>
+                    </div>
 
                     <div class="text-center py-4">
                         <h1>Crea Appartamento</h1>
@@ -24,7 +28,7 @@
                         </div>
                     @endif
 
-                    <div class=" pyt-5 pb-2" id="app">
+                    <div class="pb-2" id="app">
                         <form action="{{ route('user.apartments.store') }}" class="form-group d-inline-block" method="POST"
                             enctype="multipart/form-data" id="form">
                             @csrf
@@ -127,7 +131,7 @@
                                             speciali e
                                             che
                                             tu
-                                            abbia selezionato l'indirizzo cliccandolo dal meno a tendina.
+                                            abbia selezionato l'indirizzo cliccandolo dal menù a tendina.
                                         </div>
                                         <div class="list-group addressList">
                                             <a :value='i' v-for='(item,i) in searchData'
@@ -167,7 +171,7 @@
                                     <div class="services mb-3 row px-3">
                                         <div class="rules p-0">Servizi *</div>
                                         @foreach ($services as $service)
-                                            <div class="col-sm-6 col-md-6 px-0 py-1 d-flex justify-content-start">
+                                            <div class="col-sm-6 col-md-6 px-0 d-flex justify-content-start">
                                                 <div class="m-0 form-check form-switch @error('services') is-invalid @enderror d-flex justify-content-center align-items-center">
                                                     <input v-model='services'
                                                         class="form-check-input @error('services') is-invalid @enderror"
