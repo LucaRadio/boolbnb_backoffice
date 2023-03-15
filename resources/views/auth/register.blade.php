@@ -90,7 +90,8 @@
                                             </button>
                                         </div>
                                     </div>
-                                    <div class="error d-none text-danger">Sembra che la tua password non abbia i
+                                    <div class="error d-none text-danger">Sembra che la tua password non
+                                        abbia i
                                         requisiti necessari. Controlla che abbia almeno una letta maiuscola,una lettera
                                         minuscola,un numero ,e un carattere speciale.
                                     </div>
@@ -159,26 +160,12 @@
                 confPw:'',
                 show:false,
                 showPw:false,
-                error:false,
+                error:false
 
             }
         },
         computed:{
-                // errorDigit: function(){
-                //     if(this.validateEmail(this.mail)){
-                //         return true
-                //     }else{
-                //         if(this.validatePassword(this.pw)){
-                //             return true
-                //         }else{
-                //             if(this.validateConfPassword(this.confPw)){
-                //                 return true
-                //             }else{
-                //                 return false
-                //             }
-                //         }
-                //     }    
-                // }
+                
         },
         methods: {
             reset(component){
@@ -204,10 +191,11 @@
                     const error = rawDiv[4];
                  if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.mail) ){
                     this.isInvalid(input,label,highlight,error);
-
-                   
-                  }else{
+                    console.log('invalido,true');
+                    
+                }else{
                     this.isValid(input,label,highlight,error);
+                    console.log('valido,false');
 
                   }
 
