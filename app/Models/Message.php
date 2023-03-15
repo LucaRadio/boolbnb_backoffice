@@ -8,7 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Message extends Model
 {
     use HasFactory;
-    protected $fillable = ['apartment_id'];
+    protected $fillable = [
+        'apartment_id',
+        'email',
+        'message',
+        'sender_name'
+    ];
 
     public function apartment()
     {
