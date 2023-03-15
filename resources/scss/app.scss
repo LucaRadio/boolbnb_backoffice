@@ -40,6 +40,7 @@ input.form-control {
 
 .left-side {
     flex-grow: 1;
+    max-width: 60%;
     height: 100vh;
     background-color: #fbe292;
     position: relative;
@@ -47,9 +48,12 @@ input.form-control {
 
 .right-side {
     display: flex;
-    align-items: center;
+    align-items: stretch;
     flex-direction: column;
     padding-top: 50px;
+    padding-bottom: 50px;
+    flex-grow: 1;
+
 }
 
 .img {
@@ -82,9 +86,7 @@ input.form-control {
     z-index: 1;
 }
 
-.row-reg {
-    width: 600px;
-}
+
 
 .login,
 .register {
@@ -132,7 +134,7 @@ input.form-control {
     $hl-color: #ffc400;
     $muted-color: mix(black, $bg-color, 70%);
     $trans-time: 300ms;
-    $width: 85%;
+    $width: 300px;
 
     body {
         background: $bg-color;
@@ -250,10 +252,14 @@ input.form-control {
     box-shadow: rgba(0, 0, 0, 0.22) 0px 16px 20px;
 }
 
-.card-login {
+.card-bg {
     background: #fbe292 !important;
 }
 
 .btn-login {
     background-color: #fbe292;
+}
+
+.invalid {
+    background-color: red;
 }

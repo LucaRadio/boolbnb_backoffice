@@ -1,8 +1,6 @@
 @extends('layouts.profile')
-@section('styles')
-@stop
+
 @section('content')
-    {{-- <link rel="stylesheet" href="C:\Users\luca1\Boolean\boolbnb_backoffice\resources\scss\profile.scss" /> --}}
     <div class="d-flex change">
         <div class="left-side">
             <div class="text-black text p-5">
@@ -19,11 +17,13 @@
                 Register</a>
         </div>
         <div class="right-side" id="login">
-            <img src="/logo_nobg.png">
+            <div class="img-container text-center">
+                <img src="/logo_nobg.png">
+            </div>
             <div class="row m-0 row-reg justify-content-center">
                 <div class="col-md-8 col-sm-8 col">
                     <div class="card card-shadow border-dark">
-                        <div class="card-header card-login fw-bold border-dark bg-warning">{{ __('Login') }}</div>
+                        <div class="card-header card-bg fw-bold border-dark bg-warning">{{ __('Login') }}</div>
 
                         <div class="card-body position-relative">
                             <div class="wrapper">
@@ -103,10 +103,21 @@
     }).mount('#login')
 </script>
 
-<style scoped>
+<style scoped lang='scss'>
     @media only screen and (max-width: 925px) {
         .change {
             flex-direction: column;
+        }
+
+        .register,
+        .login {
+            right: 0;
+            padding-right: 1rem !important;
+            margin-right: .65rem
+        }
+
+        .left-side {
+            max-width: 100% !important
         }
 
 
