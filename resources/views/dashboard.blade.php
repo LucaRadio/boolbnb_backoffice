@@ -4,13 +4,13 @@
 @endphp
 @section('content')
     <div class="container">
-        <h2 class="fs-4 text-secondary my-4">
-            {{ __('Dashboard') }}
-        </h2>
         <div class="row justify-content-center">
-            <div class="col">
+            <div class="col-md-6 m-auto mb-5">
+                <h2 class="fs-4 text-secondary my-4">
+                    {{ __('Dashboard') }}
+                </h2>
                 <div class="card">
-                    <div class="card-header">{{ __('User Dashboard') }}</div>
+                    <h4 class="card-header">Bentornato {{ Auth::user()->name }}!</h4>
 
                     <div class="card-body">
                         @if (session('status'))
@@ -25,32 +25,52 @@
                             </div>
                         @endif
 
-                        <h4>Bentornato {{ Auth::user()->name }}!</h4>
-                    </div>
-                    <div class="p-3">
-                        <h6>Visto che sei loggato, dai un'occhiata alla pagina dei tuoi appartamenti!</h6>
-                        <button class="btn btn-primary btn-sm mb-3"><a href="{{ route('user.apartments.index') }}"
-                                class="text-white text-decoration-none">Index</a></button>
-                        <h6>Vuoi creare un appartamento? clicca qui!</h6>
-                        <button class="btn btn-primary btn-sm mb-3"><a href="{{ route('user.apartments.create') }}"
-                                class="text-white text-decoration-none">create</a></button>
-                        <h6>Hai
-                            @foreach (Auth::user()->apartments as $apartment)
-                                @php
-                                    $messaggi = $messaggi + $apartment->messages->count();
-                                @endphp
-                            @endforeach
-                            @if ($messaggi === 1)
-                                {{ $messaggi }} messaggio
-                            @else
-                                {{ $messaggi }} messaggi
-                            @endif
-                        </h6>
-                        <button class="btn btn-primary btn-sm mb-3"><a href="{{ route('user.messages.index') }}"
-                                class="text-white text-decoration-none">Messaggi</a></button>
-                        <h6>Dai un'occhiata alle nostre promozioni per la sponsorizzazione</h6>
-                        <button class="btn btn-primary btn-sm mb-3"><a href="{{ route('user.promotions.index') }}"
-                                class="text-white text-decoration-none">Promozioni</a></button>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="card p-3 mb-3">
+                                    <a href="{{ route('user.messages.index') }} " class="text-decoration-none text-black">
+                                        <span>Hai
+                                            @foreach (Auth::user()->apartments as $apartment)
+                                                @php
+                                                    $messaggi = $messaggi + $apartment->messages->count();
+                                                @endphp
+                                            @endforeach
+                                            @if ($messaggi === 1)
+                                                {{ $messaggi }} messaggio
+                                            @else
+                                                {{ $messaggi }} messaggi
+                                            @endif
+                                        </span>
+                                        <img src="{{ url('/1.png') }}" alt="" class="img-fluid">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="card p-3 mb-3">
+                                    <a href="{{ route('user.apartments.index') }}" class="text-decoration-none text-black">
+                                        <span class="">I tuoi appartamenti</span>
+                                        <img src="{{ url('/3.png') }}" alt="" class="img-fluid">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="card  p-3 mb-3">
+                                    <a href="#" class="text-decoration-none text-black">
+                                        <span class="">Statistiche</span>
+                                        <img src="{{ url('/2.png') }}" alt="" class="img-fluid">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="card p-3 mb-3">
+                                    <a href="{{ route('user.apartments.create') }}"
+                                        class="text-decoration-none text-black">
+                                        <span class="">Crea un appartamento</span>
+                                        <img src="{{ url('/4.png') }}" alt="" class="img-fluid">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
