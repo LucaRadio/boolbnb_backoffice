@@ -30,21 +30,26 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        $data = $request->all();
+        if ($request->has('date_of_birth')) {
+            $data['date_of_birth'] = date("Y-m-d", strtotime($request->date_of_birth));
+        }
+
         $request->validate([
-            'name' => ['string', 'max:255'],
-            'surname' => ['string', 'max:255'],
+            'name' => ['max:255'],
+            'surname' => ['max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'date_of_birth' => ['date']
+            'date_of_birth' => ['exclude_unless:has_date_of_birth,true', 'date']
 
         ]);
 
         $user = User::create([
-            'name' => $request->name,
-            'surname' => $request->surname,
+            'name' => $request->name ?? '',
+            'surname' => $request->surname ?? '',
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'date_of_birth' => date("Y-m-d", strtotime($request->date_of_birth)),
+            'date_of_birth' => $request->date_of_birth ?? null,
         ]);
 
         event(new Registered($user));

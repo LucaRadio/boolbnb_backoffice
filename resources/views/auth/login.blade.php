@@ -117,7 +117,11 @@
         }
 
         .left-side {
-            max-width: 100% !important
+            max-width: 100% !important;
+        }
+
+        .right-side {
+            padding-bottom: 1rem;
         }
 
 

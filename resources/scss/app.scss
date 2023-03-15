@@ -12,7 +12,8 @@ input.form-control {
 
 }
 
-.pw {
+.pw,
+.confPw {
     border-right: none;
     display: flex;
 }
@@ -50,8 +51,6 @@ input.form-control {
     display: flex;
     align-items: stretch;
     flex-direction: column;
-    padding-top: 50px;
-    padding-bottom: 50px;
     flex-grow: 1;
 
 }
@@ -152,7 +151,7 @@ input[type='date']:focus::-webkit-datetime-edit {
     // FORM // ============================== //
     form {
         width: $width;
-        margin: 45px auto;
+        margin: auto;
 
         h1 {
             font-size: 3em;
@@ -183,8 +182,10 @@ input[type='date']:focus::-webkit-datetime-edit {
 
     .group {
         position: relative;
-        margin: 45px 0;
+        margin-top: 2rem;
     }
+
+
 
     // INPUTS // ============================== //
 
@@ -270,4 +271,11 @@ input[type='date']:focus::-webkit-datetime-edit {
 
 .invalid {
     background-color: red;
+}
+
+.eye {
+    position: absolute;
+    height: 100%;
+    right: 0;
+    top: 0
 }
