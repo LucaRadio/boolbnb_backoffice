@@ -1,5 +1,17 @@
 @import "~bootstrap/scss/bootstrap";
+nav.navbar{
+    position:sticky;
+    top:0;
+    left: 0;
+    right: 0;
+}
 
+.dashboard_container{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
 
 .unauthorized_img {
     max-width: 250px;

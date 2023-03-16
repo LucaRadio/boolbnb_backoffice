@@ -5,7 +5,7 @@
 @section('content')
     <div class="container dashboard_container">
         <div class="row justify-content-center">
-            <div class="col-md-8 m-auto mb-5">
+            <div class="col-md-10 m-auto mb-5">
                 <h2 class="fs-4 text-secondary my-4">
                     {{ __('Dashboard') }}
                 </h2>
