@@ -1,13 +1,14 @@
 @import "~bootstrap/scss/bootstrap";
-nav.navbar{
-    position:sticky;
-    top:0;
+
+nav.navbar {
+    position: sticky;
+    top: 0;
     left: 0;
     right: 0;
     z-index: 999;
 }
 
-.dashboard_container{
+.dashboard_container {
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -87,10 +88,14 @@ input.form-control {
     max-width: 60%;
     background-color: #fbe292;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
 }
 
 .right-side {
     display: flex;
+    height: 100vh;
     align-items: stretch;
     flex-direction: column;
     flex-grow: 1;
