@@ -196,9 +196,11 @@
                                 </div>
                             </div>
                             <div class="text-center">
-                                <button :disabled='errorDigit' class="btn btn-lg btn-outline-dark mt-1 rounded-5"
+                                <button :disabled='errorDigit' class="btn btn-lg btn-outline-light mt-1 rounded-5"
                                     type="submit">Salva
                                     Appartamento</button>
+                                    <button class="btn btn-lg btn-outline-light mt-1 rounded-5 mx-3"
+                                    type="reset">Svuota Campi</button>
                             </div>
                         </form>
                         <div class="container text-start text-small">
