@@ -72,7 +72,6 @@ input.form-control {
 .left-side {
     flex-grow: 1;
     max-width: 60%;
-    height: 100vh;
     background-color: #fbe292;
     position: relative;
 }
@@ -82,6 +81,7 @@ input.form-control {
     align-items: stretch;
     flex-direction: column;
     flex-grow: 1;
+    padding-bottom: 1rem;
 
 }
 
