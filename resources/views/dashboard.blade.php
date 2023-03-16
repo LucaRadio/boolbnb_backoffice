@@ -34,16 +34,7 @@
                                             <div class="card p-3">
                                                 <div class="card_title">
                                                     <h5>Hai
-                                                        @foreach (Auth::user()->apartments as $apartment)
-                                                            @php
-                                                                $messaggi = $messaggi + $apartment->messages->count();
-                                                            @endphp
-                                                        @endforeach
-                                                        @if ($messaggi === 1)
-                                                            {{ $messaggi }} messaggio
-                                                        @else
-                                                            {{ $messaggi }} messaggi
-                                                        @endif
+                                                        {{count($messages)}} messaggi
                                                     </h5>
                                                 </div>
                                                 <div class="card_img d-flex justify-content-center">
@@ -97,3 +88,13 @@
         </div>
     </div>
 @endsection
+
+<script type="module">
+    const {createApp} = Vue;
+    createApp({
+            mounted(){
+            const loader = document.querySelector('.whole-page-overlay')
+            loader.classList.replace('d-block','d-none')
+        }
+    }).mount(".dashboard_container");
+</script>

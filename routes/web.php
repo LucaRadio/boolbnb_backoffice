@@ -40,7 +40,15 @@ Route::middleware(['auth', 'verified'])
     ->prefix('user')
     ->group(function () {
         Route::get('/dashboard', function () {
-            return view('dashboard');
+            $user = Auth::user();
+            $apartments = Apartment::where('user_id', $user->id)->get();
+            $messages = [];
+            foreach ($apartments as $apartment) {
+                if (count($apartment->messages)) {
+                    $messages[] = $apartment->messages;
+                }
+            }
+            return view('dashboard', compact("messages"));
         })->name("dashboard");
         Route::resource('/apartments', ApartmentController::class);
         Route::name('messages.')
