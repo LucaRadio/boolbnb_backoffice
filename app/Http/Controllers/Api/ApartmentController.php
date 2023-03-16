@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Apartment;
 use App\Models\Promotion;
 use Carbon\Carbon;
+use Error;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -75,7 +76,7 @@ class ApartmentController extends Controller
         } else if ($advancedSearch) {
             //$requestedServices = json_decode($advancedSearch['services']);
             // dd($apartmentServices);
-            $requestedServices = $advancedSearch['services'];
+            //$requestedServices = $advancedSearch['services'];
 
             //trasforma input in coordinate
             $response = file_get_contents('https://api.tomtom.com/search/2/geocode/' . urlencode($advancedSearch['place']) . '.json?storeResult=false&countrySet=IT&view=Unified&limit=1&key=sGNJHBIkBGVklWlAnKDehryPD39qsJxn');
@@ -96,7 +97,7 @@ class ApartmentController extends Controller
                 //carica dati degli appartamenti
                 $query = Apartment::with('services');
                 foreach ($poiCoordinates as $coordinates) {
-                    $query->orWhere(function ($q) use ($coordinates, $advancedSearch, $requestedServices) {
+                    $query->orWhere(function ($q) use ($coordinates, $advancedSearch) {
                         $q->where('latitude', $coordinates['latitude'])
                             ->where('longitude', $coordinates['longitude'])
                             ->where('visibility', 1)
