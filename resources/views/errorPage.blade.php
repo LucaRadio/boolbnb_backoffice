@@ -9,8 +9,8 @@
             </div>
         </div>
         <h2 class="text-center">{{ $message }}</h2>
-        <div class="d-none align-items-center loader">
-            <strong>Redirecting...</strong>
+        <div class="loader text-center d-none">
+            <p><strong>Redirecting...</strong></p>
             <div class="spinner-border ms-auto" role="status" aria-hidden="true"></div>
         </div>
     </div>
@@ -19,11 +19,11 @@
         window.onload = function() {
             setTimeout(() => {
                 const loader = document.querySelector('.loader');
-                loader.classList.replace('d-none', 'd-flex');
+                loader.classList.replace('d-none', 'd-block');
             }, 1000);
             setTimeout(() => {
                 window.location.href = "{{ url('user/dashboard') }}"
-            }, 2000);
+            }, 3000);
         }
     </script>
 @endsection

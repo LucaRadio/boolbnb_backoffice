@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'BoolBnb') }}</title>
 
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 
