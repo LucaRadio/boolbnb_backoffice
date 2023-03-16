@@ -13,8 +13,19 @@ class ApartmentController extends Controller
 {
     public function index(Request $request)
     {
-        $allApartments = Apartment::all();
-
+        $allApartments = Apartment::all()->where('visibility', 1);
+        $allCoordinates = Apartment::select('latitude', 'longitude')
+            ->get()
+            ->toArray();
+        //mappa array per mandarlo a tomtom
+        $poisJson = json_encode(array_map(function ($poi) {
+            return [
+                'position' => [
+                    'lat' => $poi['latitude'],
+                    'lon' => $poi['longitude']
+                ]
+            ];
+        }, $allCoordinates));
         $sponsored = $request->input('sponsored');
         $simpleSearch = $request->input('city');
         $advancedSearch = $request->all('place', 'radius', 'rooms', 'beds', 'sqrMeters', 'services');
@@ -32,30 +43,8 @@ class ApartmentController extends Controller
             $response = file_get_contents('https://api.tomtom.com/search/2/geocode/' . urlencode($simpleSearch) . '.json?storeResult=false&countrySet=IT&view=Unified&limit=1&key=sGNJHBIkBGVklWlAnKDehryPD39qsJxn');
             $coordinates = json_decode($response, true)['results'][0]['position'];
 
-            //ordina tutti gli appartamenti a db a distanza crescente da input utente
-            $allCoordinates = Apartment::select('latitude', 'longitude', 'address')
-                ->selectRaw('(6371 * acos (
-                    cos ( radians(?) )
-                    * cos( radians( latitude ) )
-                    * cos( radians( longitude ) - radians(?) )
-                    + sin ( radians(?) )
-                    * sin( radians( latitude )))) AS distance', [
-                    $coordinates['lat'],
-                    $coordinates['lon'],
-                    $coordinates['lat'],
-                ])
-                ->orderBy('distance', 'ASC')
-                ->get()
-                ->toArray();
-            //mappa array per mandarlo a tomtom
-            $poisJson = json_encode(array_map(function ($poi) {
-                return [
-                    'position' => [
-                        'lat' => $poi['latitude'],
-                        'lon' => $poi['longitude']
-                    ]
-                ];
-            }, $allCoordinates));
+            $distanceFormula = "(6371 * acos(cos(radians({$coordinates['lat']})) * cos(radians(latitude)) * cos(radians(longitude) - radians({$coordinates['lon']})) + sin(radians({$coordinates['lat']})) * sin(radians(latitude))))";
+
             $url = file_get_contents('https://api.tomtom.com/search/2/geometryFilter.json?geometryList=[{"type":"CIRCLE","position":"' . $coordinates['lat'] . ',' . $coordinates['lon'] . '","radius":20000}]&poiList=' . $poisJson . '&key=1p9OyCRm8S7icw73fBmkTYDlXYJGPO9O');
             $radiusSearch = json_decode($url, true);
 
@@ -72,9 +61,13 @@ class ApartmentController extends Controller
                 foreach ($poiCoordinates as $coordinates) {
                     $query->orWhere(function ($q) use ($coordinates) {
                         $q->where('latitude', $coordinates['latitude'])
-                            ->where('longitude', $coordinates['longitude']);
+                            ->where('longitude', $coordinates['longitude'])
+                            ->where('visibility', 1);
                     });
                 }
+                $query
+                    ->select('*', DB::raw("$distanceFormula as distance"))
+                    ->orderByRaw("distance ASC");
                 $apartments = $query->get();
             } else {
                 $apartments = 'Non ci sono risultati per questa ricerca';
@@ -82,39 +75,13 @@ class ApartmentController extends Controller
         } else if ($advancedSearch) {
             //$requestedServices = json_decode($advancedSearch['services']);
             // dd($apartmentServices);
+            $requestedServices = $advancedSearch['services'];
 
             //trasforma input in coordinate
             $response = file_get_contents('https://api.tomtom.com/search/2/geocode/' . urlencode($advancedSearch['place']) . '.json?storeResult=false&countrySet=IT&view=Unified&limit=1&key=sGNJHBIkBGVklWlAnKDehryPD39qsJxn');
             $coordinates = json_decode($response, true)['results'][0]['position'];
+            $distanceFormula = "(6371 * acos(cos(radians({$coordinates['lat']})) * cos(radians(latitude)) * cos(radians(longitude) - radians({$coordinates['lon']})) + sin(radians({$coordinates['lat']})) * sin(radians(latitude))))";
 
-            $allCoordinates = Apartment::select('latitude', 'longitude')
-                ->selectRaw('(6371 * acos (
-                    cos ( radians(?) )
-                    * cos( radians( latitude ) )
-                    * cos( radians( longitude ) - radians(?) )
-                    + sin ( radians(?) )
-                    * sin( radians( latitude )))) AS distance', [
-                    $coordinates['lat'],
-                    $coordinates['lon'],
-                    $coordinates['lat'],
-                ])
-                ->where([
-                    ['n_rooms', '>=', $advancedSearch['rooms']],
-                    ['n_beds', '>=', $advancedSearch['beds']],
-                    ['square_meters', '>=', $advancedSearch['sqrMeters']]
-                ])
-                ->orderBy('distance', 'ASC')
-                ->get()
-                ->toArray();
-            //mappa array per mandarlo a tomtom
-            $poisJson = json_encode(array_map(function ($poi) {
-                return [
-                    'position' => [
-                        'lat' => $poi['latitude'],
-                        'lon' => $poi['longitude']
-                    ]
-                ];
-            }, $allCoordinates));
             $url = file_get_contents('https://api.tomtom.com/search/2/geometryFilter.json?geometryList=[{"type":"CIRCLE","position":"' . $coordinates['lat'] . ',' . $coordinates['lon'] . '","radius":' . $advancedSearch['radius'] . '}]&poiList=' . $poisJson . '&key=1p9OyCRm8S7icw73fBmkTYDlXYJGPO9O');
             $radiusSearch = json_decode($url, true);
 
@@ -129,17 +96,26 @@ class ApartmentController extends Controller
                 //carica dati degli appartamenti
                 $query = Apartment::with('services');
                 foreach ($poiCoordinates as $coordinates) {
-                    $query->orWhere(function ($q) use ($coordinates) {
+                    $query->orWhere(function ($q) use ($coordinates, $advancedSearch, $requestedServices) {
                         $q->where('latitude', $coordinates['latitude'])
-                            ->where('longitude', $coordinates['longitude']);
+                            ->where('longitude', $coordinates['longitude'])
+                            ->where('visibility', 1)
+                            ->where('n_rooms', '>=', $advancedSearch['rooms'])
+                            ->where('n_beds', '>=', $advancedSearch['beds'])
+                            ->where('square_meters', '>=', $advancedSearch['sqrMeters']);
+                        // ->whereHas('services', function ($query) use ($requestedServices) {
+                        //     $query->where('name', $requestedServices);
+                        // });
                     });
                 }
+                $query->select('*', DB::raw("$distanceFormula as distance"))
+                    ->orderByRaw("distance ASC");
                 $apartments = $query->get();
             } else {
                 $apartments = 'Non ci sono risultati per questa ricerca';
             }
         } else {
-            $apartments = Apartment::with('services')->paginate(5);
+            $apartments = Apartment::with('services')->where('visibility', 1)->paginate(5);
         }
         return response()->json($apartments);
     }
