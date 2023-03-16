@@ -24,7 +24,7 @@
                 <div class="col col-md-8 p-0 g-3 my-card p-1 pb-0">
 
                     <div class="d-flex justify-content-end">
-                        <a class="btn btn-outline-light rounded-5 border-0 fs-4" href="#"><i class="fa-solid fa-x"></i></a>
+                        <a class="btn btn-outline-light rounded-5 border-0 fs-4" href="{{ route('user.apartments.update', $apartment->id) }}"><i class="fa-solid fa-x"></i></a>
                     </div>
 
                     <div class="text-center py-4">
