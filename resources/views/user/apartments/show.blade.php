@@ -162,8 +162,7 @@
             },
             name: 'Map',
             mounted() {
-                const loader = document.querySelector('.whole-page-overlay')
-                loader.classList.replace('d-block','d-none')
+
                 const sizeMapModify = document.querySelector('#italy');
                 sizeMapModify.style= 'height:400px'
 

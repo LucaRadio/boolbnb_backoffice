@@ -238,10 +238,7 @@
 
 
             }},
-            mounted(){
-            const loader = document.querySelector('.whole-page-overlay')
-            loader.classList.replace('d-block','d-none')
-        },
+
             computed:{
                 errorDigit: function (){
                     if(this.apartmentName.length <=0 || this.apartmentName.length>255){
