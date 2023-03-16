@@ -43,7 +43,6 @@ class ApartmentController extends Controller
     {
         // validazione fatta da StoreApartmentRequest
         $data = $request->validated();
-
         //utente loggato
         $user = Auth::user();
 
@@ -87,7 +86,7 @@ class ApartmentController extends Controller
     public function show(Apartment $apartment)
     {
 
-        $promotions=Promotion::all();
+        $promotions = Promotion::all();
         // passare anche promozione attiva su quest'appartamento
         if (Auth::user()->id === $apartment->user_id) {
             return view("user.apartments.show", compact("apartment", "promotions"));

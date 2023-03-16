@@ -52,7 +52,7 @@ class Apartment extends Model
 
     public function promotions()
     {
-        return $this->belongsToMany(Promotion::class);
+        return $this->belongsToMany(Promotion::class)->withTimestamps();
     }
 
     public function services()
