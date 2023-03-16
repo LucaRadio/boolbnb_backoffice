@@ -3,7 +3,7 @@
     $messaggi = 0;
 @endphp
 @section('content')
-    <div class="container dashboard_container">
+    <div class="container dashboard_container py-4">
         <div class="row justify-content-center">
             <div class="col-md-10 m-auto mb-5">
                 <h2 class="fs-4 text-secondary my-4">
