@@ -12,34 +12,34 @@
 
     <div class="pt-4">
         @if ($messages)
-        <ul class="list-group">
-        
-        
-        <li class="titolo list-group-item"> 
-            Titolo
-        </li>
-        @foreach ($messages as $item)
-        @php
-           $item = $item->toArray() 
-        @endphp
-        
+            <ul class="list-group">
 
-        <li class="list-group-item">
-            <div class="d-flex align-items-center justify-content-between">
-                <div>
-                    <h6 class="m-0">{{$item[0]['sender_name']}}</h6>
 
-                    <span class="email">{{$item[0]['email']}}</span>
+            <li class="titolo list-group-item"> 
+                Titolo
+            </li>
+            @foreach ($messages as $item)
+            @php
+               $item = $item->toArray() 
+            @endphp
+
+
+            <li class="list-group-item">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div>
+                        <h6 class="m-0">{{$item[0]['sender_name']}}</h6>
+
+                        <span class="email">{{$item[0]['email']}}</span>
+                    </div>
+
+                    <button class="btn btn-warning"><a href={{route('user.messages.show', $item[0]["id"])}} class="text-decoration-none text-white">Leggi</a></button>
                 </div>
+            </li>
 
-                <button class="btn btn-warning"><a href={{route('user.messages.show', $item[0]["id"])}} class="text-decoration-none text-white">Leggi</a></button>
-            </div>
-        </li>
-        
-        
-        @endforeach
+
+            @endforeach
+            </ul>
         @endif
-        </ul>
     </div>
     
         
