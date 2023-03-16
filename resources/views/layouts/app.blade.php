@@ -60,15 +60,15 @@
 </head>
 
 <body>
-    <div class="whole-page-overlay d-block" id="whole_page_loader">
-        <div class="img-container w-100 h-100">
-            <div class="cover"></div>
-            <img class="center-loader w-100 h-100 img-fluid"
-                src="https://cdn.dribbble.com/users/729829/screenshots/3499449/media/fb22fc6c15045b2a7e5bb6329965e574.gif" />
-        </div>
-    </div>
     <div id="app">
 
+        <div class="whole-page-overlay d-block" id="whole_page_loader">
+            <div class="img-container w-100 h-100">
+                <div class="cover"></div>
+                <img class="center-loader w-100 h-100 img-fluid"
+                    src="https://cdn.dribbble.com/users/729829/screenshots/3499449/media/fb22fc6c15045b2a7e5bb6329965e574.gif" />
+            </div>
+        </div>
 
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
@@ -144,3 +144,43 @@
 </body>
 
 </html>
+
+<style lang="scss">
+    .whole-page-overlay {
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        position: fixed;
+        width: 100%;
+        height: 100% !important;
+        z-index: 1050;
+        background-color: #efefef;
+
+
+    }
+
+    .img-container {
+        display: flex;
+        justify-content: center;
+        align-items: stretch;
+        position: relative;
+    }
+
+    .cover {
+        align-self: end;
+        height: 20%;
+        position: absolute;
+        background: #efefef;
+        right: 0px;
+        width: 100%;
+    }
+
+
+    @media only screen and (max-width: 576px) {
+        .cover {
+            height: 30%;
+        }
+
+    }
+</style>

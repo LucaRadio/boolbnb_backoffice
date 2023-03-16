@@ -59,10 +59,21 @@ Route::middleware(['auth', 'verified'])
 
         Route::get('/braintree', function (Request $request) {
 
+
+
+
             $data = $request->all();
+
+            if (!key_exists('promotion', $data) || !key_exists('apartment', $data)) {
+                return view('errorPage', ['message' => 'Non sei autorizzato a vedere questo appartamento']);
+            }
+
+
 
             $promotion = Promotion::findOrFail($data['promotion']);
             $apartment = Apartment::findOrFail($data['apartment']);
+
+
 
             $gateway = new Braintree\Gateway([
                 'environment' => config('services.braintree.environment'),

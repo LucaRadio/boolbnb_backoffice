@@ -269,7 +269,7 @@
             mounted(){
             const loader = document.querySelector('.whole-page-overlay')
             loader.classList.replace('d-block','d-none')
-        },,
+        },
             methods: {
                 imgCoverChange(event){
                     const chosenFiles = event.target.files
