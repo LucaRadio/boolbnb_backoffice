@@ -2,25 +2,57 @@
 
 @section('content')
 
-<div class="container">
+<div class="container mt-4">
     
-    <h1>Index messaggi</h1>
+    <h1>I tuoi messaggi</h1>
+
     @if (!$messages)
         <h4 class="text-warning">Non hai nuovi messaggi</h4>
     @endif
-        @foreach ($messages as $item)
-        @php
-           $item = $item->toArray() 
-        @endphp
-        @if (!empty($item))
-            
-        <ul>
-            <li><h4>Messaggio da {{$item[0]['sender_name']}}</h4></li>
-            <li>Testo: {{$item[0]['message']}}</li>
-        </ul>
-        <button class="btn btn-primary"><a href={{route('user.messages.show', $item[0]["id"])}} class="text-decoration-none text-white">Link allo show</a></button>
+
+    <div class="pt-4">
+        @if ($messages)
+            <ul class="list-group">
+
+
+            <li class="titolo list-group-item"> 
+                Titolo
+            </li>
+            @foreach ($messages as $item)
+            @php
+               $item = $item->toArray() 
+            @endphp
+
+
+            <li class="list-group-item">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div>
+                        <h6 class="m-0">{{$item[0]['sender_name']}}</h6>
+
+                        <span class="email">{{$item[0]['email']}}</span>
+                    </div>
+
+                    <button class="btn btn-warning"><a href={{route('user.messages.show', $item[0]["id"])}} class="text-decoration-none text-white">Leggi</a></button>
+                </div>
+            </li>
+
+
+            @endforeach
+            </ul>
         @endif
-        @endforeach
+    </div>
+    
+        
 </div>
 
 @endsection
+
+<style scoped lang="scss">
+.titolo{
+    background-color: rgb(251, 226, 146) !important;
+}
+
+.email{
+    color: darkgray;
+}
+</style>

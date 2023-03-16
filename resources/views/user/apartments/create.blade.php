@@ -8,7 +8,8 @@
                 <div class="col col-md-8 p-0 g-3 my-card p-1 pb-0">
 
                     <div class="d-flex justify-content-end">
-                        <a class="btn btn-outline-light rounded-5 border-0 fs-4" href="{{ route('user.dashboard') }}"><i class="fa-solid fa-x"></i></a>
+                        <a class="btn btn-outline-light rounded-5 border-0 fs-4" href="{{ route('user.dashboard') }}"><i
+                                class="fa-solid fa-x"></i></a>
                     </div>
 
                     <div class="text-center py-4">
@@ -172,13 +173,14 @@
                                         <div class="rules p-0">Servizi *</div>
                                         @foreach ($services as $service)
                                             <div class="col-sm-6 col-md-6 px-0 d-flex justify-content-start">
-                                                <div class="m-0 form-check form-switch @error('services') is-invalid @enderror d-flex justify-content-center align-items-center">
+                                                <div
+                                                    class="m-0 form-check form-switch @error('services') is-invalid @enderror d-flex justify-content-center align-items-center">
                                                     <input v-model='services'
                                                         class="form-check-input @error('services') is-invalid @enderror"
                                                         type="checkbox" id="serviceCheckbox_{{ $loop->index }}"
                                                         value="{{ $service->id }}" name="services[]"
                                                         {{ in_array($service->id, old('services', [])) ? 'checked' : '' }}>
-                                                        <label class="form-check-label text-start"
+                                                    <label class="form-check-label text-start"
                                                         for="serviceCheckbox_{{ $loop->index }}">
                                                         <div class="d-flex justify-content-center align-items-center ">
                                                             <div class="icon-width">
@@ -199,8 +201,8 @@
                                 <button :disabled='errorDigit' class="btn btn-lg btn-outline-light mt-1 rounded-5"
                                     type="submit">Salva
                                     Appartamento</button>
-                                    <button class="btn btn-lg btn-outline-light mt-1 rounded-5 mx-3"
-                                    type="reset">Svuota Campi</button>
+                                <button class="btn btn-lg btn-outline-light mt-1 rounded-5 mx-3" type="reset">Svuota
+                                    Campi</button>
                             </div>
                         </form>
                         <div class="container text-start text-small">
@@ -236,6 +238,7 @@
 
 
             }},
+
             computed:{
                 errorDigit: function (){
                     if(this.apartmentName.length <=0 || this.apartmentName.length>255){

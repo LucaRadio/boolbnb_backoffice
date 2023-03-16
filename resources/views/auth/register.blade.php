@@ -163,8 +163,9 @@
 
             }
         },
-        computed:{
-
+        mounted(){
+            const loader = document.querySelector('.whole-page-overlay')
+            loader.classList.replace('d-block','d-none')
         },
         methods: {
             reset(component){

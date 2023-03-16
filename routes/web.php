@@ -11,6 +11,7 @@ use App\Models\Apartment;
 use App\Models\Promotion;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 /*
@@ -40,7 +41,15 @@ Route::middleware(['auth', 'verified'])
     ->prefix('user')
     ->group(function () {
         Route::get('/dashboard', function () {
-            return view('dashboard');
+            $user = Auth::user();
+            $apartments = Apartment::where('user_id', $user->id)->get();
+            $messages = [];
+            foreach ($apartments as $apartment) {
+                if (count($apartment->messages)) {
+                    $messages[] = $apartment->messages;
+                }
+            }
+            return view('dashboard', compact("messages"));
         })->name("dashboard");
         Route::resource('/apartments', ApartmentController::class);
         Route::name('messages.')
@@ -59,10 +68,21 @@ Route::middleware(['auth', 'verified'])
 
         Route::get('/braintree', function (Request $request) {
 
+
+
+
             $data = $request->all();
+
+            if (!key_exists('promotion', $data) || !key_exists('apartment', $data)) {
+                return view('errorPage', ['message' => 'Non sei autorizzato a vedere questo appartamento']);
+            }
+
+
 
             $promotion = Promotion::findOrFail($data['promotion']);
             $apartment = Apartment::findOrFail($data['apartment']);
+
+
 
             $gateway = new Braintree\Gateway([
                 'environment' => config('services.braintree.environment'),
