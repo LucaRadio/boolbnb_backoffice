@@ -74,9 +74,7 @@ class ApartmentController extends Controller
                 $apartments = 'Non ci sono risultati per questa ricerca';
             }
         } else if ($advancedSearch) {
-            //$requestedServices = json_decode($advancedSearch['services']);
-            // dd($apartmentServices);
-            //$requestedServices = $advancedSearch['services'];
+            $requestedServices = json_decode($advancedSearch['services']);
 
             //trasforma input in coordinate
             $response = file_get_contents('https://api.tomtom.com/search/2/geocode/' . urlencode($advancedSearch['place']) . '.json?storeResult=false&countrySet=IT&view=Unified&limit=1&key=sGNJHBIkBGVklWlAnKDehryPD39qsJxn');
@@ -97,16 +95,19 @@ class ApartmentController extends Controller
                 //carica dati degli appartamenti
                 $query = Apartment::with('services');
                 foreach ($poiCoordinates as $coordinates) {
-                    $query->orWhere(function ($q) use ($coordinates, $advancedSearch) {
+                    $query->orWhere(function ($q) use ($coordinates, $advancedSearch, $requestedServices) {
                         $q->where('latitude', $coordinates['latitude'])
                             ->where('longitude', $coordinates['longitude'])
                             ->where('visibility', 1)
                             ->where('n_rooms', '>=', $advancedSearch['rooms'])
                             ->where('n_beds', '>=', $advancedSearch['beds'])
                             ->where('square_meters', '>=', $advancedSearch['sqrMeters']);
-                        // ->whereHas('services', function ($query) use ($requestedServices) {
-                        //     $query->where('name', $requestedServices);
-                        // });
+
+                        foreach ($requestedServices as $service) {
+                            $q->whereHas('services', function ($query) use ($service) {
+                                $query->where('services.id', $service);
+                            });
+                        }
                     });
                 }
                 $query->select('*', DB::raw("$distanceFormula as distance"))
@@ -123,7 +124,7 @@ class ApartmentController extends Controller
 
     public function show(Apartment $apartment)
     {
-        $apartment->load('services')->get();
+        $apartment->where('deleted_at', null)->load('services')->get();
         return response()->json($apartment);
     }
 }
