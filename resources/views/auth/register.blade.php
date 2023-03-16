@@ -1,17 +1,6 @@
 @extends('layouts.profile')
 @section('content')
     <div class="d-flex change">
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                I dati inseriti non sono validi:
-
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
 
         <div class="left-side">
             <div class="text-black text p-5">
@@ -71,6 +60,9 @@
                                             per
                                             esserlo.
                                         </div>
+                                        @error('email')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
                                     </div>
 
 
@@ -129,7 +121,11 @@
 
                                     <div class="mb-4 row mb-0 mt-3 justify-content-end">
                                         <div class="col-md-6 text-end">
-                                            <button :disabled='errorDigit' type="submit" class="btn btn-color btn-warning">
+                                            <button v-if='qui && quo && qua' type="submit"
+                                                class="btn btn-color btn-warning">
+                                                {{ __('Registrati') }}
+                                            </button>
+                                            <button v-else disabled class="btn btn-color btn-warning">
                                                 {{ __('Registrati') }}
                                             </button>
                                         </div>
@@ -160,12 +156,15 @@
                 confPw:'',
                 show:false,
                 showPw:false,
-                error:false
+                error:false,
+                qui:false,
+                quo:false,
+                qua:false,
 
             }
         },
         computed:{
-                
+
         },
         methods: {
             reset(component){
@@ -189,13 +188,13 @@
                     const highlight = rawDiv[1];
                     const label = rawDiv[3]
                     const error = rawDiv[4];
-                 if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.mail) ){
+                 if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.mail)){
                     this.isInvalid(input,label,highlight,error);
-                    console.log('invalido,true');
+                    this.qui = false;
                     
                 }else{
                     this.isValid(input,label,highlight,error);
-                    console.log('valido,false');
+                    this.qui = true
 
                   }
 
@@ -221,10 +220,12 @@
                     const error = document.querySelector(`.pw+.error`);
                     if(!/^(?=.*[0-9])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/.test(this.pw)){
                         this.isInvalid(input,label,highlight,error);
+                        this.quo = false
 
                     }else{
                         this.isValid(input,label,highlight,error);
 
+                        this.quo = true
                     }
                 },
                 validateConfPassword(){
@@ -234,12 +235,14 @@
                     const highlight = rawDiv[1];
                     const label = rawDiv[3];
                     const error = document.querySelector(`.confPw+.error`);
-                    console.log(error);
+
                     if(this.pw !== this.confPw){
                         this.isInvalid(input,label,highlight,error);
+                        this.qua = false
 
                     }else{
                         this.isValid(input,label,highlight,error);
+                        this.qua = true
 
                     }
                 },
@@ -274,7 +277,8 @@
                     highlight?.setAttribute('style','height:2px;background-color:crimson')
                     error?.classList.replace('d-none','d-block');
                     this.error = true
-                    return true
+
+
                 },
                 isValid(input,label,highlight,error){
                     input?.classList.remove('invalid');
@@ -285,7 +289,8 @@
                     highlight?.setAttribute('style','height:0px;')
                     error?.classList.replace('d-block','d-none');
                     this.error = false
-                    return false
+
+
                 }
         },
     }).mount('#register')
