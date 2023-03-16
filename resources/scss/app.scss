@@ -1,5 +1,6 @@
 @import "~bootstrap/scss/bootstrap";
 
+
 .unauthorized_img {
     max-width: 250px;
     object-fit: cover;
@@ -10,7 +11,8 @@ input.form-control {
     box-shadow: none !important;
 }
 
-.pw {
+.pw,
+.confPw {
     border-right: none;
     display: flex;
 }
@@ -32,6 +34,7 @@ input.form-control {
     color: #7d6c6c77;
     border-left: none;
 }
+
 .bg-img-form {
     background-image: url(https://images.pexels.com/photos/130879/pexels-photo-130879.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2);
     background-size: cover;
@@ -48,12 +51,10 @@ input.form-control {
     border: 1px solid green;
     border-radius: 8px;
     background: rgb(251, 226, 146);
-    background: radial-gradient(
-        circle,
-        rgba(251, 226, 146, 1) 3%,
-        rgba(255, 215, 85, 1) 51%,
-        rgba(215, 177, 57, 1) 69%
-    );
+    background: radial-gradient(circle,
+            rgba(251, 226, 146, 1) 3%,
+            rgba(255, 215, 85, 1) 51%,
+            rgba(215, 177, 57, 1) 69%);
     background-size: cover;
     background-position: initial;
     background-repeat: no-repeat;
@@ -65,4 +66,247 @@ input.form-control {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+
+.left-side {
+    flex-grow: 1;
+    max-width: 60%;
+    height: 100vh;
+    background-color: #fbe292;
+    position: relative;
+}
+
+.right-side {
+    display: flex;
+    align-items: stretch;
+    flex-direction: column;
+    flex-grow: 1;
+    margin-top: 5rem;
+
+}
+
+.img {
+    background-image: url('/public/HotelsBackground.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    filter: blur(5px);
+
+
+    height: 100%;
+}
+
+.text {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.text {
+    position: absolute;
+    z-index: 1;
+}
+
+
+
+.login,
+.register {
+    text-decoration: none;
+    color: black;
+    background-color: transparent;
+    position: absolute;
+    text-align: end;
+    padding: .7rem 1.3rem 0.7rem 1.3rem;
+    border-radius: 25px 0px 0px 25px;
+}
+
+.login {
+    z-index: 2;
+    top: 2rem;
+    right: -10px;
+    padding-right: 2rem;
+
+    &:hover {
+        color: black;
+    }
+}
+
+
+.register {
+    z-index: 2;
+    top: 5.3rem;
+    right: -10px;
+
+    &:hover {
+        color: black;
+    }
+}
+
+.selected {
+    background-color: white;
+    color: black;
+}
+
+input[type='date']:required:invalid::-webkit-datetime-edit {
+    color: transparent;
+}
+
+input[type='date']:focus::-webkit-datetime-edit {
+    color: black !important;
+}
+
+
+// VARIABLES // ============================== //
+.wrapper {
+    $bg-color: white;
+    margin: auto;
+    $hl-color: #ffc400;
+    $muted-color: mix(black, $bg-color, 70%);
+    $trans-time: 300ms;
+    $width: 300px;
+
+
+    body {
+        background: $bg-color;
+    }
+
+    // FORM // ============================== //
+    form {
+        width: $width;
+        margin: auto;
+
+        h1 {
+            font-size: 3em;
+            font-weight: 300;
+            text-align: center;
+            color: $hl-color;
+        }
+
+        h5 {
+            text-align: center;
+            text-transform: uppercase;
+            color: $muted-color;
+        }
+
+        hr.sep {
+            background: $hl-color;
+            box-shadow: none;
+            border: none;
+            height: 2px;
+            width: 25%;
+            margin: 0px auto 45px auto;
+        }
+
+        .emoji {
+            font-size: 1.2em;
+        }
+    }
+
+    .group {
+        position: relative;
+        margin-top: 2rem;
+    }
+
+
+
+    // INPUTS // ============================== //
+
+    input {
+        margin: auto;
+        background: none;
+        color: $muted-color;
+        font-size: 18px;
+        padding: 10px 10px 10px 5px;
+        display: block;
+        width: $width;
+        border: none;
+        border-radius: 0;
+        border-bottom: 1px solid $muted-color;
+
+        &:focus {
+            outline: none;
+        }
+
+        &:focus~label {
+            top: -14px;
+            font-size: 12px;
+            color: $hl-color;
+        }
+
+        &:focus~.bar:before {
+            width: $width;
+        }
+    }
+
+    hi input[type="password"] {
+        letter-spacing: 0.3em;
+    }
+
+    label {
+        margin: auto;
+        color: $muted-color;
+        font-size: 16px;
+        font-weight: normal;
+        position: absolute;
+        pointer-events: none;
+        left: 5px;
+        top: 10px;
+        transition: $trans-time ease all;
+    }
+
+    .bar {
+        position: relative;
+        display: block;
+        width: $width;
+
+        &:before {
+            content: '';
+            height: 2px;
+            width: 0;
+            bottom: 0px;
+            position: absolute;
+            background: $hl-color;
+            transition: $trans-time ease all;
+            left: 0;
+        }
+    }
+
+    .focused {
+        top: -14px;
+        font-size: 12px;
+        color: $hl-color;
+    }
+
+}
+
+.card-shadow {
+    box-shadow: rgba(0, 0, 0, 0.22) 0px 16px 20px;
+}
+
+.card-bg {
+    background: #fbe292 !important;
+}
+
+.btn-color {
+    background-color: #fbe292;
+}
+
+.invalid {
+    background-color: red;
+}
+
+.eye {
+    position: absolute;
+    height: 100%;
+    right: 0;
+    top: 0
 }

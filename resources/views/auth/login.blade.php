@@ -1,73 +1,129 @@
-@extends('layouts.app')
+@extends('layouts.profile')
 
 @section('content')
-<div class="container mt-4">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
+    <div class="d-flex change">
+        <div class="left-side">
+            <div class="text-black text p-5">
+                <div class="hi display-1 mb-5">Login</div>
+                <div class="welcome fw-bold display-5 text-center">Accedi tramite il form per visualizzare i tuoi
+                    appartamenti
+                </div>
+            </div>
+            <div class="img d-flex justify-content-center align-items-center">
+            </div>
+            <a class="login selected">
+                Login</a>
+            <a href='{{ route('register') }}' class="register ">
+                Register</a>
+        </div>
+        <div class="right-side" id="login">
+            <div class="img-container text-center">
+                <img src="/logo_nobg.png">
+            </div>
+            <div class="row m-0 row-reg justify-content-center">
+                <div class="col-md-8 col-sm-8 col">
+                    <div class="card card-shadow border-dark">
+                        <div class="card-header card-bg fw-bold border-dark bg-warning">{{ __('Login') }}</div>
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
+                        <div class="card-body position-relative">
+                            <div class="wrapper">
+                                <form method="POST" action="{{ route('login') }}">
+                                    @csrf
+                                    @if ($errors->any())
+                                        @foreach ($errors->all() as $error)
+                                            <div class="alert alert-danger">
+                                                {{ $error }}
+                                            </div>
+                                        @endforeach
+                                    @endif
 
-                        <div class="mb-4 row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                    <div class="group mail">
+                                        <input @input='labelBug()' name="email" v-model='mail' type="email"
+                                            required="required" /><span class="highlight"></span><span
+                                            class="bar"></span>
+                                        <label>Email</label>
+                                        @error('email')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="group password">
+                                        <input name="password" type="password" required="required" />
+                                        <span class="highlight"></span>
+                                        <span class="bar"></span>
+                                        <label>Password</label>
+                                        @error('password')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
 
-                                @error('email')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
+                                    <div class="mb-4 row mb-0">
+                                        <div class="col-md-8 offset-md-4 text-end">
+                                            <button type="submit" class="btn btn-color btn-warning">
+                                                {{ __('Login') }}
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
-
-                        <div class="mb-4 row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-
-                                @error('password')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="mb-4 row">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="mb-4 row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
-                                </button>
-
-                                @if (Route::has('password.request'))
-                                <a class="btn btn-link" href="{{ route('password.request') }}">
-                                    {{ __('Forgot Your Password?') }}
-                                </a>
-                                @endif
-                            </div>
-                        </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 @endsection
+<script type="module">
+    const {createApp} = Vue;
+    createApp({
+        data(){
+            return{
+                mail:''
+            }
+        },
+        methods: {
+            labelBug(){
+                const rawDiv = document.querySelectorAll('.mail>*');
+                const input = rawDiv[1]
+                const label = rawDiv[3]
+
+                if(this.mail != ''){
+                    label.classList.add('focused');
+                    }
+                    else{
+                        label.classList.remove('focused');
+                    }
+                }
+                
+        },
+    }).mount('#login')
+</script>
+
+<style scoped lang='scss'>
+    @media only screen and (max-width: 925px) {
+        .change {
+            flex-direction: column;
+        }
+
+        .register,
+        .login {
+            right: 0;
+            padding-right: 1rem !important;
+            margin-right: .65rem
+        }
+
+        .left-side {
+            max-width: 100% !important;
+        }
+
+        .right-side {
+            padding-bottom: 1rem;
+        }
+
+
+    }
+</style>
