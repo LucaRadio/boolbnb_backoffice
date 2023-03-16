@@ -24,7 +24,8 @@
                 <div class="col col-md-8 p-0 g-3 my-card p-1 pb-0">
 
                     <div class="d-flex justify-content-end">
-                        <a class="btn btn-outline-light rounded-5 border-0 fs-4" href="#"><i class="fa-solid fa-x"></i></a>
+                        <a class="btn btn-outline-light rounded-5 border-0 fs-4" href="#"><i
+                                class="fa-solid fa-x"></i></a>
                     </div>
 
                     <div class="text-center py-4">
@@ -32,8 +33,8 @@
                     </div>
 
                     <div class="pb-2">
-                        <form action="{{ route('user.apartments.update', $apartment->id) }}" class="form-group d-inline-block"
-                            method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('user.apartments.update', $apartment->id) }}"
+                            class="form-group d-inline-block" method="POST" enctype="multipart/form-data">
                             @csrf()
                             @method('PUT')
                             <div class="row">
@@ -265,9 +266,10 @@
                     
                 
             },
-            mounted() {
-                console.log(this.services);
-            },
+            mounted(){
+            const loader = document.querySelector('.whole-page-overlay')
+            loader.classList.replace('d-block','d-none')
+        },,
             methods: {
                 imgCoverChange(event){
                     const chosenFiles = event.target.files

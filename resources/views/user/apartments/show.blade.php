@@ -13,43 +13,46 @@
                 <div class="d-flex gap-2">
                     <a class="btn btn-info" href="{{ route('user.apartments.edit', $apartment) }}">Edit</a>
                     <section id="buyer">
-                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#pay-promotion">Promuovi l'appartamento</button>
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#pay-promotion">Promuovi
+                            l'appartamento</button>
 
-                        <div class="modal fade" id="pay-promotion" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
-                                                    role="dialog" aria-labelledby="delete-account" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="delete-account">Promuovi l'appartamento</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <h2 class="text-lg font-medium text-gray-900">
-                                        {{ __('Con quale offerta vuoi promuovere il tuo appartamento?') }}
-                                    </h2>
-                                    <div class="row">
-                                    @foreach ($promotions as $promotion)
-                                    <div class="col col-sm-6 col-md-4">
-                                        <div class="col-content">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">{{ $promotion->type }}</h5>
-                                                    <p class="card-text">
-                                                        {{ $promotion->price }}$
-                                                        <br>
-                                                        {{ $promotion->duration}} h
+                        <div class="modal fade" id="pay-promotion" tabindex="-1" data-bs-backdrop="static"
+                            data-bs-keyboard="false" role="dialog" aria-labelledby="delete-account" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="delete-account">Promuovi l'appartamento</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h2 class="text-lg font-medium text-gray-900">
+                                            {{ __('Con quale offerta vuoi promuovere il tuo appartamento?') }}
+                                        </h2>
+                                        <div class="row">
+                                            @foreach ($promotions as $promotion)
+                                                <div class="col col-sm-6 col-md-4">
+                                                    <div class="col-content">
+                                                        <div class="card">
+                                                            <div class="card-body">
+                                                                <h5 class="card-title">{{ $promotion->type }}</h5>
+                                                                <p class="card-text">
+                                                                    {{ $promotion->price }}$
+                                                                    <br>
+                                                                    {{ $promotion->duration }} h
 
-                                                    </p>
-                                                    <a class="btn btn-primary" href="{{route('user.braintree', ['promotion'=>$promotion, 'apartment'=>$apartment])}}" >Acquista</a>
+                                                                </p>
+                                                                <a class="btn btn-primary"
+                                                                    href="{{ route('user.braintree', ['promotion' => $promotion, 'apartment' => $apartment]) }}">Acquista</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            @endforeach
                                         </div>
-                                    </div>
-                                    @endforeach
-                                    </div>
 
 
-                                </div>
+                                    </div>
 
                                 </div>
                             </div>
@@ -59,8 +62,8 @@
                     <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-apartment">
                         <i class="fas fa-trash"></i>
                     </button>
-                    
-                    
+
+
                 </div>
             </div>
             <div class="row mb-3">
@@ -116,11 +119,11 @@
         </div>
     </div>
 
-    
+
 
     <div class="modal fade" id="delete-apartment" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
-                    role="dialog" aria-labelledby="delete-apartment" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        role="dialog" aria-labelledby="delete-apartment" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="delete-apartment">Cancella appartamento</h5>
@@ -131,11 +134,12 @@
                         Sei sicuro di voler cancellare il tuo appartamento?
                     </h2>
                     <p class="mt-1 text-sm text-gray-600">
-                        Una volta che il tuo appartamento sarà cancellato, i dati relativi saranno cancellati definitivamente ti covniene pensarci due volte!
+                        Una volta che il tuo appartamento sarà cancellato, i dati relativi saranno cancellati
+                        definitivamente ti covniene pensarci due volte!
                     </p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>                         
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
                     <form action="{{ route('user.apartments.destroy', $apartment->id) }}" method="POST"
                         class="delete_apartment">
                         @csrf
@@ -147,8 +151,7 @@
         </div>
     </div>
 
-    <script>
-    </script>
+    <script></script>
     <script type="module">
         const {createApp,onMounted,ref} = Vue
         createApp({
@@ -159,8 +162,11 @@
             },
             name: 'Map',
             mounted() {
+                const loader = document.querySelector('.whole-page-overlay')
+                loader.classList.replace('d-block','d-none')
                 const sizeMapModify = document.querySelector('#italy');
                 sizeMapModify.style= 'height:400px'
+
             },
 
             setup() {

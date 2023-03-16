@@ -21,7 +21,7 @@
                 <img src="/logo_nobg.png">
             </div>
             <div class="row m-0 row-reg justify-content-center">
-                <div class="col-md-8 col-sm-8 col">
+                <div class="col-md-6 col-sm-6 col">
                     <div class="card card-shadow border-dark">
                         <div class="card-header card-bg fw-bold border-dark bg-warning">{{ __('Login') }}</div>
 
@@ -49,7 +49,7 @@
                                             </span>
                                         @enderror
                                     </div>
-                                    <div class="group password">
+                                    <div class="group password mb-3">
                                         <input name="password" type="password" required="required" />
                                         <span class="highlight"></span>
                                         <span class="bar"></span>
@@ -84,6 +84,10 @@
             return{
                 mail:''
             }
+        },
+        mounted(){
+            const loader = document.querySelector('.whole-page-overlay')
+            loader.classList.replace('d-block','d-none')
         },
         methods: {
             labelBug(){
