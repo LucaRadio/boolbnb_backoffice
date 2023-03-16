@@ -8,7 +8,7 @@
                 <div class="col col-md-8 p-0 g-3 my-card p-1 pb-0">
 
                     <div class="d-flex justify-content-end">
-                        <a class="btn btn-outline-light rounded-5 border-0 fs-4" href="#"><i
+                        <a class="btn btn-outline-light rounded-5 border-0 fs-4" href="{{ route('user.dashboard') }}"><i
                                 class="fa-solid fa-x"></i></a>
                     </div>
 
@@ -198,9 +198,11 @@
                                 </div>
                             </div>
                             <div class="text-center">
-                                <button :disabled='errorDigit' class="btn btn-lg btn-outline-dark mt-1 rounded-5"
+                                <button :disabled='errorDigit' class="btn btn-lg btn-outline-light mt-1 rounded-5"
                                     type="submit">Salva
                                     Appartamento</button>
+                                <button class="btn btn-lg btn-outline-light mt-1 rounded-5 mx-3" type="reset">Svuota
+                                    Campi</button>
                             </div>
                         </form>
                         <div class="container text-start text-small">

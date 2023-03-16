@@ -1,13 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <h1>Sezione Index</h1>
-        <div class="row">
-            @foreach ($apartments as $item)
-                <div class="col col-sm-6 col-md-4">
-                    <div class="col-content">
-                        <div class="card" style="width: 18rem;">
+    <div class="bg-img-form">
+        <div class="container">
+            <div class="text-center pt-5 m-0 pb-3">
+                <h1 class="m-0">I Tuoi Appartamenti</h1>
+            </div>
+
+            <div class="row g-3">
+                @foreach ($apartments as $item)
+                    <div class="col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center">
+                        <div class="card">
                             @if (str_contains($item->img_cover, 'https://picsum.photos'))
                                 <img class="card-img-top" src=" {{ $item['img_cover'] }}" alt="Card image cap">
                             @else
@@ -17,13 +20,12 @@
                             <div class="card-body">
                                 <h5 class="card-title">{{ $item->title }}</h5>
                                 <p class="card-text">{{ $item->description }}</p>
-                                <a href={{ route('user.apartments.show', $item->id) }} class="btn btn-primary">vai allo
-                                    Show</a>
+                                <a href={{ route('user.apartments.show', $item->id) }} class="btn btn-primary">Dettagli</a>
                             </div>
                         </div>
                     </div>
-                </div>
-            @endforeach
+                @endforeach
+            </div>
         </div>
     </div>
 @endsection
