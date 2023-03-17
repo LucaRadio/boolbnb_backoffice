@@ -5,16 +5,13 @@
         <div class="row py-5 justify-content-center">
             <div class="col-md-8 ">
                 <div class="mb-3 d-flex justify-content-between align-items-center">
-                    <div class="">
-                        <div class="id">{{ $apartment->id }}</div>
-                        <h1 class="mb-3">{{ $apartment->title }}</h1>
-                        <h3><span class="badge text-bg-success">{{ $apartment->address }}</span></h3>
+                    <div class="d-flex justify-content-center align-items-center">
+                        <h1 class="">{{ $apartment->title }}</h1>
                     </div>
                     <div class="d-flex gap-2">
-                        <a class="btn btn-info" href="{{ route('user.apartments.edit', $apartment) }}">Edit</a>
+                        <a class="btn btn-info" href="{{ route('user.apartments.edit', $apartment) }}"><i class="fa-solid fa-pen-fancy"></i></a>
                         <section id="buyer">
-                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#pay-promotion">Promuovi
-                                l'appartamento</button>
+                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#pay-promotion"><i class="fa-solid fa-rocket"></i></button>
                             <div class="modal fade" id="pay-promotion" tabindex="-1" data-bs-backdrop="static"
                                 data-bs-keyboard="false" role="dialog" aria-labelledby="delete-account" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -60,6 +57,9 @@
                         </button>
                     </div>
                 </div>
+                <div>
+                    <h3><span class="badge text-bg-success">{{ $apartment->address }}</span></h3>
+                </div>
                 <div class="mb-3">
                     <div class="py-3">
                         <img src="{{ asset('storage/' . $apartment['img_cover']) }}" alt="{{ $apartment->title }}"
@@ -75,14 +75,14 @@
                     <div>
                         <h5>Promozioni attive</h5>
                         @foreach ($apartment->promotions as $promotion_el)
-                        @dump($promotion_el)
                         <div class="d-flex py-2">
-                            <span class="text-primary icon-width fs-3">{{$promotion_el->attributes}}</span>
+                            <span class="text-primary fs-2">{{$promotion_el->type}}</span>
                             <span class="px-3 d-flex align-items-center"></span>
                         </div>
                     @endforeach
                     </div>
                 </div>
+                <hr>
                 <table class="table">
                     <thead>
                         <tr>
