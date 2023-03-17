@@ -27,23 +27,23 @@
 
                         <div class="row gap-3 gap-lg-0">
                             <div class="col-lg-4">
-                                <div class="row flex-column gap-3">
-                                    <div class="col">
+                                {{-- <div class=""> --}}
+                                    {{-- <div class=""> --}}
                                         <a href="{{ route('user.messages.index') }} "
                                             class="text-decoration-none text-black">
-                                            <div class="card p-3">
+                                            <div class="card p-3 h-100">
                                                 <div class="card_title">
                                                     <h5>Hai
                                                         {{ count($messages) }} messaggi
                                                     </h5>
                                                 </div>
                                                 <div class="card_img d-flex justify-content-center">
-                                                    <img src="{{ url('/1.png') }}" alt="" class="w-50 img-fluid">
+                                                    <img src="{{ url('/1.png') }}" alt="" class=" img-fluid">
                                                 </div>
                                             </div>
                                         </a>
-                                    </div>
-                                    <div class="col">
+                                    {{-- </div> --}}
+                                    {{-- <div class="col">
                                         <a href="#" class="text-decoration-none text-black">
                                             <div class="card  p-3">
                                                 <div class="card_title">
@@ -54,8 +54,8 @@
                                                 </div>
                                             </div>
                                         </a>
-                                    </div>
-                                </div>
+                                    </div> --}}
+                                {{-- </div> --}}
                             </div>
                             <div class="col-lg-4">
                                 <a href="{{ route('user.apartments.index') }}" class="text-decoration-none text-black">
