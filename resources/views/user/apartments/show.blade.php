@@ -77,7 +77,7 @@
                         @foreach ($apartment->promotions as $promotion_el)
                         @dump($promotion_el)
                         <div class="d-flex py-2">
-                            <span class="text-primary icon-width fs-3">{{$promotion_el->attributes["type"]}}</span>
+                            <span class="text-primary icon-width fs-3">{{$promotion_el->attributes}}</span>
                             <span class="px-3 d-flex align-items-center"></span>
                         </div>
                     @endforeach
