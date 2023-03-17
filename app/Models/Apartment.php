@@ -27,7 +27,6 @@ class Apartment extends Model
     ];
 
     protected $hidden = [
-        'id',
         'visibility',
         'created_at',
         'updated_at',
