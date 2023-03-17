@@ -70,8 +70,6 @@ class ApartmentController extends Controller
                     ->select('*', DB::raw("$distanceFormula as distance"))
                     ->orderByRaw("distance ASC");
                 $apartments = $query->get();
-            } else {
-                $apartments = 'Non ci sono risultati per questa ricerca';
             }
         } else if ($advancedSearch) {
             $requestedServices = json_decode($advancedSearch['services']);
@@ -113,8 +111,6 @@ class ApartmentController extends Controller
                 $query->select('*', DB::raw("$distanceFormula as distance"))
                     ->orderByRaw("distance ASC");
                 $apartments = $query->get();
-            } else {
-                $apartments = 'Non ci sono risultati per questa ricerca';
             }
         } else {
             $apartments = Apartment::with('services')->where('visibility', 1)->paginate(5);
