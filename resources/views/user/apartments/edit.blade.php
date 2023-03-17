@@ -18,7 +18,7 @@
             </ul>
         </div>
     @endif
-    <div class="bg-img-form">
+    <div class="">
         <div class="container">
             <div class="row justify-content-center py-5">
                 <div class="col col-md-8 p-0 g-3 my-card p-1 pb-0">
