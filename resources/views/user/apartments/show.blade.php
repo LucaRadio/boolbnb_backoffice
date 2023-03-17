@@ -3,12 +3,13 @@
 @section('content')
     <div class="container">
         <div class="row py-5 justify-content-center">
-            <div class="col-md-8 ">
+            <div class="col-md-8">
                 <div class="mb-3 d-flex justify-content-between align-items-center">
                     <div class="d-flex justify-content-center align-items-center">
                         <h1 class="">{{ $apartment->title }}</h1>
                     </div>
                     <div class="d-flex gap-2">
+                        <a class="btn btn-secondary" href="{{ route('user.apartments.index', $apartment) }}"><i class="fa-solid fa-house-chimney"></i></a>
                         <a class="btn btn-info" href="{{ route('user.apartments.edit', $apartment) }}"><i class="fa-solid fa-pen-fancy"></i></a>
                         <section id="buyer">
                             <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#pay-promotion"><i class="fa-solid fa-rocket"></i></button>

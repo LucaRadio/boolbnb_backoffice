@@ -62,13 +62,14 @@ input.form-control {
 }
 
 .my-card {
-    border: 1px solid green;
+    color: white;
+    // border: 1px solid green;
     border-radius: 8px;
-    background: rgb(251, 226, 146);
-    background: radial-gradient(circle,
-            rgba(251, 226, 146, 1) 3%,
-            rgba(255, 215, 85, 1) 51%,
-            rgba(215, 177, 57, 1) 69%);
+    background-color: rgba(0, 0, 0, 0.40);
+    // background: radial-gradient(circle,
+    //         rgba(251, 226, 146, 1) 3%,
+    //         rgba(255, 215, 85, 1) 51%,
+    //         rgba(215, 177, 57, 1) 69%);
     background-size: cover;
     background-position: initial;
     background-repeat: no-repeat;

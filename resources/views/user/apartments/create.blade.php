@@ -5,14 +5,14 @@
     <div class="bg-img-form">
         <div class="container">
             <div class="row justify-content-center py-5">
-                <div class="col col-md-8 p-0 g-3 my-card p-1 pb-0">
+                <div class="col col-md-8 p-0 g-3 my-card p-1 pb-0 position-relative">
 
-                    <div class="d-flex justify-content-end">
+                    <div class="position-absolute top-0 end-0">
                         <a class="btn btn-outline-light rounded-5 border-0 fs-4" href="{{ route('user.dashboard') }}"><i
                                 class="fa-solid fa-x"></i></a>
                     </div>
 
-                    <div class="text-center py-4">
+                    <div class="text-center pb-4 pt-3">
                         <h1>Crea Appartamento</h1>
                     </div>
 
