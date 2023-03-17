@@ -18,21 +18,18 @@
             <li class="titolo list-group-item"> 
                 Titolo
             </li>
-            @foreach ($messages as $item)
-            @php
-               $item = $item->toArray() 
-            @endphp
 
+            @foreach ($messages as $message)
 
             <li class="list-group-item">
                 <div class="d-flex align-items-center justify-content-between">
                     <div>
-                        <h6 class="m-0">{{$item[0]['sender_name']}}</h6>
+                        <h6 class="m-0">{{$message['sender_name']}}</h6>
 
-                        <span class="email">{{$item[0]['email']}}</span>
+                        <span class="email">{{$message['email']}}</span>
                     </div>
 
-                    <button class="btn btn-warning"><a href={{route('user.messages.show', $item[0]["id"])}} class="text-decoration-none text-white">Leggi</a></button>
+                    <button class="btn btn-warning"><a href={{route('user.messages.show', $message["id"])}} class="text-decoration-none text-white">Leggi</a></button>
                 </div>
             </li>
 

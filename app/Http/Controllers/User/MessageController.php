@@ -19,8 +19,10 @@ class MessageController extends Controller
         $apartments = Apartment::where('user_id', $user->id)->get();
         $messages= [];
         foreach ($apartments as $apartment){
-            if (count($apartment->messages)){            
-                $messages[]=$apartment->messages;
+            if (count($apartment->messages)){
+                foreach ($apartment->messages as $message){
+                    $messages[]=$message;
+                }
             }
         }
         return view("user.messages.index", compact('messages'));
