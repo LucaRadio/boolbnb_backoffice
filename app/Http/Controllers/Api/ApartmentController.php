@@ -120,7 +120,7 @@ class ApartmentController extends Controller
 
     public function show(Apartment $apartment)
     {
-        $apartment->where('deleted_at', null)->load('services')->get();
+        $apartment->load('services')->get();
         return response()->json($apartment);
     }
 }
