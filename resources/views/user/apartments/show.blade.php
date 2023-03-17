@@ -2,115 +2,118 @@
 
 @section('content')
     <div class="container">
-        <div class="container py-5">
-            <div class="mb-3 d-flex justify-content-between align-items-center">
-                <div>
-                    <div class="id">{{ $apartment->id }}</div>
-                    <h2 class="mb-3">{{ $apartment->title }}</h2>
-                    <h3><span class="badge text-bg-success">{{ $apartment->address }}</span></h3>
-                </div>
-                <div class="d-flex gap-2">
-                    <a class="btn btn-info" href="{{ route('user.apartments.edit', $apartment) }}">Edit</a>
-                    <section id="buyer">
-                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#pay-promotion">Promuovi l'appartamento</button>
+        <div class="row py-5 justify-content-center">
+            <div class="col-md-8 ">
+                <div class="mb-3 d-flex justify-content-between align-items-center">
+                    <div class="">
+                        <div class="id">{{ $apartment->id }}</div>
+                        <h1 class="mb-3">{{ $apartment->title }}</h1>
+                        <h3><span class="badge text-bg-success">{{ $apartment->address }}</span></h3>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <a class="btn btn-info" href="{{ route('user.apartments.edit', $apartment) }}">Edit</a>
+                        <section id="buyer">
+                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#pay-promotion">Promuovi
+                                l'appartamento</button>
+                            <div class="modal fade" id="pay-promotion" tabindex="-1" data-bs-backdrop="static"
+                                data-bs-keyboard="false" role="dialog" aria-labelledby="delete-account" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="delete-account">Promuovi l'appartamento</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <h2 class="text-lg font-medium text-gray-900">
+                                                {{ __('Con quale offerta vuoi promuovere il tuo appartamento?') }}
+                                            </h2>
+                                            <div class="row">
+                                                @foreach ($promotions as $promotion)
+                                                    <div class="col col-sm-6 col-md-4">
+                                                        <div class="col-content">
+                                                            <div class="card">
+                                                                <div class="card-body">
+                                                                    <h5 class="card-title">{{ $promotion->type }}</h5>
+                                                                    <p class="card-text">
+                                                                        {{ $promotion->price }}$
+                                                                        <br>
+                                                                        {{ $promotion->duration }} h
 
-                        <div class="modal fade" id="pay-promotion" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
-                                                    role="dialog" aria-labelledby="delete-account" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="delete-account">Promuovi l'appartamento</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <h2 class="text-lg font-medium text-gray-900">
-                                        {{ __('Con quale offerta vuoi promuovere il tuo appartamento?') }}
-                                    </h2>
-                                    <div class="row">
-                                    @foreach ($promotions as $promotion)
-                                    <div class="col col-sm-6 col-md-4">
-                                        <div class="col-content">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">{{ $promotion->type }}</h5>
-                                                    <p class="card-text">
-                                                        {{ $promotion->price }}$
-                                                        <br>
-                                                        {{ $promotion->duration}} h
-
-                                                    </p>
-                                                    <a class="btn btn-primary" href="{{route('user.braintree', ['promotion'=>$promotion, 'apartment'=>$apartment])}}" >Acquista</a>
-                                                </div>
+                                                                    </p>
+                                                                    <a class="btn btn-primary"
+                                                                        href="{{ route('user.braintree', ['promotion' => $promotion, 'apartment' => $apartment]) }}">Acquista</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                @endforeach
                                             </div>
                                         </div>
                                     </div>
-                                    @endforeach
-                                    </div>
-
-
-                                </div>
-
                                 </div>
                             </div>
+                        </section>
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                            data-bs-target="#delete-apartment">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="py-3">
+                        <img src="{{ asset('storage/' . $apartment['img_cover']) }}" alt="{{ $apartment->title }}"
+                            class="img-fluid rounded-4">
+                    </div>
+                    <hr>
+                    <div class="py-3">
+                        <p class="lead">{{ $apartment->description }}</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h5>Promozioni attive</h5>
+                        @foreach ($apartment->promotions as $promotion_el)
+                        @dump($promotion_el)
+                        <div class="d-flex py-2">
+                            <span class="text-primary icon-width fs-3">{{$promotion_el->attributes["type"]}}</span>
+                            <span class="px-3 d-flex align-items-center"></span>
                         </div>
-                    </section>
-                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-apartment">
-                        <i class="fas fa-trash"></i>
-                    </button>
-
-
+                    @endforeach
+                    </div>
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>N. stanze</th>
+                            <th>N. bagni</th>
+                            <th>N. letti</th>
+                            <th>Metri quadri</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{ $apartment->n_rooms }}</td>
+                            <td>{{ $apartment->n_bathrooms }}</td>
+                            <td>{{ $apartment->n_beds }}</td>
+                            <td>{{ $apartment->square_meters }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="py-3">
+                    @foreach ($apartment->services as $service)
+                        <div class="d-flex py-2">
+                            <span class="text-primary icon-width fs-3"><i class="{{ $service->icon }}"></i></span>
+                            <span class="px-3 d-flex align-items-center">{{ $service->name }} </span>
+                        </div>
+                    @endforeach
+                </div>
+                <hr>
+                <div id="map" ref="mapRef" class="rounded-4">
+                    <div id="italy"></div>
                 </div>
             </div>
-            <div class="row mb-3">
-                <div class="col-md-8">
-                    <p class="lead">{{ $apartment->description }}</p>
-                </div>
-                <div class="col-md-4">
-                    <img src="{{ asset('storage/' . $apartment['img_cover']) }}" alt="{{ $apartment->title }}"
-                        class="img-fluid">
-                </div>
-            </div>
-            <div class="d-flex justify-content-between">
-                <div>
-                    <h5>Promozioni attive</h5>
-                    <p></p>
-                </div>
-                {{-- link che dovrebbe rimandare a vista front-end --}}
-                <a href="#" class="btn btn-dark align-self-baseline">Vedi da ospite</a>
-            </div>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>N. stanze</th>
-                        <th>N. bagni</th>
-                        <th>N. letti</th>
-                        <th>Metri quadri</th>
-                        <th>Servizi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>{{ $apartment->n_rooms }}</td>
-                        <td>{{ $apartment->n_bathrooms }}</td>
-                        <td>{{ $apartment->n_beds }}</td>
-                        <td>{{ $apartment->square_meters }}</td>
-                        <td>
-                            <ul>
-                                @foreach ($apartment->services as $service)
-                                    <li>{{ $service->name }}</li>
-                                @endforeach
-                            </ul>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-
-
-            <div id="map" ref="mapRef">
-                <div id="italy"></div>
-            </div>
-
-
         </div>
     </div>
 
