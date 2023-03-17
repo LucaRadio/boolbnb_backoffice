@@ -120,7 +120,11 @@ class ApartmentController extends Controller
 
     public function show(Apartment $apartment)
     {
-        $apartment->load('services')->get();
-        return response()->json($apartment);
+
+        if ($apartment->visibility === 1) {
+            return response()->json($apartment);
+        } else {
+            return response()->json(false);
+        }
     }
 }

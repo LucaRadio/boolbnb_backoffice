@@ -46,7 +46,9 @@ Route::middleware(['auth', 'verified'])
             $messages = [];
             foreach ($apartments as $apartment) {
                 if (count($apartment->messages)) {
-                    $messages[] = $apartment->messages;
+                    foreach ($apartment->messages as $message) {
+                        $messages[] = $message;
+                    }
                 }
             }
             return view('dashboard', compact("messages"));
