@@ -52,7 +52,7 @@ class Apartment extends Model
 
     public function promotions()
     {
-        return $this->belongsToMany(Promotion::class)->withTimestamps();
+        return $this->belongsToMany(Promotion::class)->withPivot(['created_at', 'updated_at', 'expired_at']);
     }
 
     public function services()
