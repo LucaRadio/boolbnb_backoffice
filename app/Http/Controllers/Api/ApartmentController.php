@@ -58,7 +58,9 @@ class ApartmentController extends Controller
                     ];
                 }, $radiusSearch['results']);
                 //carica dati degli appartamenti
-                $query = Apartment::with('services');
+                $query = Apartment::with(['services', 'promotions' => function ($q) {
+                    $q->where('expired_at', '>=', Carbon::now());
+                }]);
                 foreach ($poiCoordinates as $coordinates) {
                     $query->orWhere(function ($q) use ($coordinates) {
                         $q->where('latitude', $coordinates['latitude'])
@@ -91,7 +93,9 @@ class ApartmentController extends Controller
                     ];
                 }, $radiusSearch['results']);
                 //carica dati degli appartamenti
-                $query = Apartment::with('services');
+                $query = Apartment::with(['services', 'promotions' => function ($q) {
+                    $q->where('expired_at', '>=', Carbon::now());
+                }]);
                 foreach ($poiCoordinates as $coordinates) {
                     $query->orWhere(function ($q) use ($coordinates, $advancedSearch, $requestedServices) {
                         $q->where('latitude', $coordinates['latitude'])
