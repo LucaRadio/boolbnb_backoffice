@@ -6,13 +6,30 @@ nav.navbar {
     left: 0;
     right: 0;
     z-index: 999;
+    height: 60px;
 }
 
 .dashboard_container {
-    height: 100vh;
+    height: calc(100vh - 60px);
     display: flex;
     flex-direction: column;
     justify-content: center;
+}
+
+.apartments_container{
+    max-height: 70vh;
+    overflow-y: scroll;
+    overflow-x: visible;
+}
+
+.card_img_horizontal{
+    height: 100%;
+    object-fit: cover;
+}
+
+.nav{
+    --bs-nav-link-color: #7d6c6c77;
+    --bs-nav-link-hover-color: #7d6c6c;
 }
 
 .unauthorized_img {
@@ -55,6 +72,7 @@ input.form-control {
     background-position: center;
     background-repeat: no-repeat;
     backdrop-filter: blur(30px);
+    height: calc(100vh - 60px);
 }
 
 .rounded-10 {
