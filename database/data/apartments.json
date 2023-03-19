@@ -1,0 +1,297 @@
+[
+    {
+        "title": "Elegante appartamento a due passi dal Duomo",
+        "num_rooms": 2,
+        "num_bathrooms": 1,
+        "num_beds": 3,
+        "sq_meters": 75,
+        "address": "Via Torino, 10, Milano, MI",
+        "description": "Appartamento di design con arredamento moderno, ideale per una vacanza nel centro di Milano.",
+        "image": "https://www.udr.com/globalassets/corporate/homepage/homepage_4_1274towson.jpg"
+        },
+    {
+        "title": "Casa vacanze sulle colline toscane",
+        "num_rooms": 3,
+        "num_bathrooms": 2,
+        "num_beds": 4,
+        "sq_meters": 120,
+        "address": "Via San Martino, 15, Montepulciano, SI",
+        "description": "Villa con piscina privata immersa nella campagna toscana, perfetta per una vacanza rilassante.",
+        "image": "https://www.borgobucciano.net/foto/grandi/living-area-apartment-for-tuscan-holidays.jpg"
+    },
+    {
+        "title": "Appartamento moderno in pieno centro a Firenze",
+        "num_rooms": 1,
+        "num_bathrooms": 1,
+        "num_beds": 2,
+        "sq_meters": 50,
+        "address": "Via dei Neri, 10, Firenze, FI",
+        "description": "Appartamento di recente ristrutturazione, arredato in stile moderno e dotato di ogni comfort.",
+        "image": "https://cf.bstatic.com/xdata/images/hotel/max1024x768/208878103.jpg?k=b3fdb480fbe76334a31b4e8a774843bdafb01c473bce9b4430187318156b05ad&o=&hp=1"
+    },
+    {
+        "title": "Casa indipendente con vista sul mare in Sardegna",
+        "num_rooms": 2,
+        "num_bathrooms": 1,
+        "num_beds": 4,
+        "sq_meters": 90,
+        "address": "Via della Torre, 20, Villasimius, CA",
+        "description": "Casa vacanza con vista panoramica sul mare, a pochi passi dalla spiaggia.",
+        "image": "https://www.liveinsardinia.com/wp-content/uploads/2018/10/sea-view-apartments-for-sale-sardinia-18-870x420.jpg"
+    },
+    {
+        "title": "Appartamento nel cuore del centro storico di Roma",
+        "num_rooms": 2,
+        "num_bathrooms": 1,
+        "num_beds": 3,
+        "sq_meters": 80,
+        "address": "Via del Corso, 10, Roma, RM",
+        "description": "Appartamento completamente ristrutturato, situato in un palazzo storico nel cuore di Roma.",
+        "image": "https://romeloft.com/rome-apartment-photo/555x380c1q85/459/1.jpg"
+    },
+    {
+        "title": "Appartamento nel centro di Firenze",
+        "num_rooms": 2,
+        "num_bathrooms": 1,
+        "num_beds": 4,
+        "sq_meters": 70,
+        "address": "Via dei Servi, 10, Firenze, FI",
+        "description": "Appartamento recentemente ristrutturato, situato nel cuore di Firenze, a pochi passi dai principali monumenti della città.",
+        "image": "https://www.habitatapartments.com/resources/apartments/846x564/speziali-exclusive-apartment-florence-night-view-a.jpg"
+    },
+    {
+        "title": "Villetta a schiera con giardino in Sardegna",
+        "num_rooms": 3,
+        "num_bathrooms": 2,
+        "num_beds": 6,
+        "sq_meters": 100,
+        "address": "Via delle Ortensie, 20, Villasimius, CA",
+        "description": "Villetta a schiera con giardino privato, situata a pochi passi dalla spiaggia di Villasimius, una delle più belle della Sardegna.",
+        "image": "https://www.liveinsardinia.com/wp-content/uploads/2018/08/apartments-img.jpg"
+    },
+    {
+        "title": "Appartamento di lusso a Milano",
+        "num_rooms": 3,
+        "num_bathrooms": 2,
+        "num_beds": 5,
+        "sq_meters": 120,
+        "address": "Via Monte Napoleone, 10, Milano, MI",
+        "description": "Appartamento di lusso, arredato con mobili di design, situato nella zona più esclusiva di Milano, a pochi passi dalle boutique di alta moda.",
+        "image": "http://www.apartments.com/images/default-source/2019-naa/parkline-apartment-in-miami-fla2dc2731-e6f2-4dca-89c5-38245ccacea1.tmb-featuredim.jpg?sfvrsn=55bc41ed_1"
+    },
+    {
+        "title": "Casa vacanze con piscina in Toscana",
+        "num_rooms": 4,
+        "num_bathrooms": 3,
+        "num_beds": 8,
+        "sq_meters": 150,
+        "address": "Via della Chiesa, 20, San Gimignano, SI",
+        "description": "Casa vacanze con piscina privata, situata nelle colline toscane, immersa nella natura e a pochi chilometri dalle città d'arte.",
+        "image": "https://cf.bstatic.com/xdata/images/hotel/270x200/206326408.jpg?k=b7b77986dd812364a0f47052cbcf89aa9f494334a32be0775f95e96943af3f7c&o="
+    },
+    {
+        "title": "Appartamento con vista sul mare in Liguria",
+        "num_rooms": 2,
+        "num_bathrooms": 1,
+        "num_beds": 3,
+        "sq_meters": 60,
+        "address": "Via Roma, 10, Portofino, GE",
+        "description": "Appartamento con vista panoramica sul mare, situato nel suggestivo borgo di Portofino, famoso per le sue bellezze naturali e per la sua movida.",
+        "image": "https://images.easyreserve.it/vacation_rentals/169769/xwide/r774r-img-5243.jpg"
+    },
+    {
+        "title": "Casa vacanze in montagna",
+        "num_rooms": 2,
+        "num_bathrooms": 1,
+        "num_beds": 4,
+        "sq_meters": 80,
+        "address": "Via delle Alpi, 10, Cortina d'Ampezzo, BL",
+        "description": "Casa vacanze situata in una delle località sciistiche più famose delle Dolomiti, ideale per una vacanza all'insegna dello sport e del relax.",
+        "image": "https://mountainview.tirol/wp-content/uploads/2019/12/DJI_0045.jpg"
+    },
+    {
+        "title": "Villa con piscina a Taormina",
+        "num_rooms": 5,
+        "num_bathrooms": 3,
+        "num_beds": 10,
+        "sq_meters": 250,
+        "address": "Via dei Gerani, 10, Taormina, ME",
+        "description": "Villa con piscina e giardino privati, situata in una delle località più suggestive della Sicilia, famosa per i suoi panorami mozzafiato e le sue spiagge da sogno.",
+        "image": "https://cf.bstatic.com/xdata/images/hotel/max1024x768/289046870.jpg?k=2689d02affa3bb5ad46cd12972d99827b1be35acd3578054c5f981aaa92df644&o=&hp=1"
+
+    },
+    {
+        "title": "Appartamento con terrazza panoramica a Napoli",
+        "num_rooms": 2,
+        "num_bathrooms": 1,
+        "num_beds": 4,
+        "sq_meters": 70,
+        "address": "Via Toledo, 10, Napoli, NA",
+        "description": "Appartamento con terrazza panoramica sulla città di Napoli, situato nel cuore del centro storico, a pochi passi dalle principali attrazioni turistiche.",
+        "image": "https://media-cdn.tripadvisor.com/media/photo-s/1d/9f/9f/1a/dioniso-s-luxury-apartments.jpg"
+
+    },
+    {
+        "title": "Casa vacanze con vista sul lago di Garda",
+        "num_rooms": 3,
+        "num_bathrooms": 2,
+        "num_beds": 6,
+        "sq_meters": 120,
+        "address": "Via delle Rose, 10, Peschiera del Garda, VR",
+        "description": "Casa vacanze con vista panoramica sul lago di Garda, situata in una posizione privilegiata, ideale per chi cerca una vacanza all'insegna del relax e della natura.",
+        "image": "https://cf.bstatic.com/xdata/images/hotel/max1024x768/274473914.jpg?k=47920c54e74c1b06d0d8af9a861eeffaaaf36393b2580a6df28b71ba261d531e&o=&hp=1"
+
+    },
+    {
+        "title": "Appartamento nel quartiere Trastevere di Roma",
+        "num_rooms": 2,
+        "num_bathrooms": 1,
+        "num_beds": 4,
+        "sq_meters": 80,
+        "address": "Via di San Francesco a Ripa, 10, Roma, RM",
+        "description": "Appartamento situato nel caratteristico quartiere di Trastevere, famoso per la sua vita notturna e i suoi ristoranti tipici.",
+        "image": "https://media.vrbo.com/lodging/20000000/19100000/19091400/19091310/9c64d084.c10.jpg"
+
+    },
+    {
+        "title": "Casa vacanze in campagna toscana",
+        "num_rooms": 3,
+        "num_bathrooms": 2,
+        "num_beds": 6,
+        "sq_meters": 100,
+        "address": "Via delle Vigne, 10, Montepulciano, SI",
+        "description": "Casa vacanze immersa nella campagna toscana, circondata da vigneti e uliveti, ideale per chi cerca una vacanza all'insegna della natura e della gastronomia.",
+        "image": "https://imagesnice2stayeurope.s3.amazonaws.com/uploads/image/image/21910/Tuscany_Foreve-1-DSC_8515-kopia.jpg"
+
+    },
+    {
+        "title": "Appartamento con vista sulla Torre di Pisa",
+        "num_rooms": 1,
+        "num_bathrooms": 1,
+        "num_beds": 2,
+        "sq_meters": 50,
+        "address": "Via Santa Maria, 10, Pisa, PI",
+        "description": "Appartamento con vista panoramica sulla celebre Torre di Pisa, situato nel centro storico della città, a pochi passi dalle principali attrazioni turistiche.",
+        "image": "https://lid.zoocdn.com/645/430/835d3516c5e6e9b948986b3cdc92f08dc8d7607d.jpg"
+    },
+    {
+        "title": "Villa con piscina e vista mare a Porto Cervo",
+        "num_rooms": 4,
+        "num_bathrooms": 4,
+        "num_beds": 8,
+        "sq_meters": 300,
+        "address": "Via del Mare, 10, Porto Cervo, OT",
+        "description": "Villa di lusso con piscina e vista mare, situata in una delle località più esclusive della Sardegna, famosa per le sue spiagge e le sue ville da sogno.",
+        "image": "https://cf.bstatic.com/xdata/images/hotel/max1024x768/257108756.jpg?k=c8dba130008a72b912300896b8b3ec5100d1fe1c2d4f97d4d163238f6da02a46&o=&hp=1"
+    },
+    {
+        "title": "Appartamento in centro a Firenze",
+        "num_rooms": 2,
+        "num_bathrooms": 1,
+        "num_beds": 4,
+        "sq_meters": 70,
+        "address": "Piazza Brunelleschi Filippo, 3, Firenze, FI",
+        "description": "Appartamento situato nel cuore del centro storico di Firenze, a pochi passi dalle principali attrazioni turistiche, ideale per chi vuole scoprire la bellezza della città a piedi.",
+        "image": "https://cf.bstatic.com/xdata/images/hotel/max1024x768/150553119.jpg?k=18dcf0f719d2b8a3d57988afb9503712915cc6313468cb051e1b0273a2f67e09&o=&hp=1"
+    },
+    {
+        "title": "Casa vacanze con giardino a Lucca",
+        "num_rooms": 3,
+        "num_bathrooms": 2,
+        "num_beds": 6,
+        "sq_meters": 120,
+        "address": "Via del Fosso, 10, Lucca, LU",
+        "description": "Casa vacanze con giardino privato, situata nelle vicinanze della città di Lucca, famosa per le sue mura antiche e le sue chiese romaniche.",
+        "image": "https://theluxurytravelbook.com/storage/media/images/general/resort_carousel/italy-lucca-luxury-apartments-via-san-giorgio-0-880ade.jpg"
+    },
+    {
+        "title": "Appartamento con terrazza sul Canal Grande di Venezia",
+        "num_rooms": 2,
+        "num_bathrooms": 1,
+        "num_beds": 4,
+        "sq_meters": 80,
+        "address": "Calle del Traghetto, 10, Venezia, VE",
+        "description": "Appartamento con terrazza panoramica sul Canal Grande di Venezia, situato in una posizione privilegiata, a pochi passi dal Ponte di Rialto e da Piazza San Marco.",
+        "image": "https://cf.bstatic.com/xdata/images/hotel/max1024x768/41025098.jpg?k=c74f7064eab0d7efebd9a323a1a6bf01f5c31326fe985414c6b08633bb967ad3&o=&hp=1"
+    },
+    {
+        "title": "Casa vacanze con piscina a San Teodoro",
+        "num_rooms": 2,
+        "num_bathrooms": 1,
+        "num_beds": 4,
+        "sq_meters": 90,
+        "address": "Via del Mare, 10, San Teodoro, OT",
+        "description": "Casa vacanze con piscina e giardino privati, situata nelle vicinanze di San Teodoro, famosa per le sue spiagge bianche e il suo mare cristallino.",
+        "image": "https://cf.bstatic.com/xdata/images/hotel/max1024x768/268097641.jpg?k=8c2e6ec98b2e56912b5f1e22f782667d1c4efbad0800d82a255b4b79c8834bf7&o=&hp=1"
+    },
+    {
+        "title": "Appartamento con vista sulla Costiera Amalfitana",
+        "num_rooms": 1,
+        "num_bathrooms": 1,
+        "num_beds": 2,
+        "sq_meters": 60,
+        "address": "Via dei Mulini, 10, Positano, SA",
+        "description": "Appartamento con vista panoramica sulla Costiera Amalfitana, situato nel caratteristico borgo di Positano, famoso per le sue case colorate.",
+        "image": "https://a0.muscache.com/im/pictures/fb99d493-592c-4c0b-832e-9df15507f8be.jpg?im_w=720"
+    },
+    {
+        "title": "Appartamento moderno a Milano",
+        "num_rooms": 3,
+        "num_bathrooms": 2,
+        "num_beds": 4,
+        "sq_meters": 100,
+        "address": "Via Vittor Pisani, 10, Milano, MI",
+        "description": "Appartamento moderno e confortevole nel cuore di Milano, situato in una posizione strategica per visitare la città e i suoi dintorni.",
+        "image": "https://cf.bstatic.com/xdata/images/xphoto/max1440/48388296.jpg?k=6f0259f3ad68f59e0168e67dfe718a30155392c6285b51bdae0193049598dfa1&o="
+    },
+    {
+        "title": "Casa vacanze con piscina in Umbria",
+        "num_rooms": 4,
+        "num_bathrooms": 3,
+        "num_beds": 8,
+        "sq_meters": 150,
+        "address": "Via dei Castelli, 10, Perugia, PG",
+        "description": "Casa vacanze con piscina privata, situata in un ambiente naturale incontaminato, tra le colline dell'Umbria, ideale per una vacanza all'insegna del relax e della natura.",
+        "image": "https://www.villa-montegabbione.com/wp-content/uploads/2022/07/20220716_170420-scaled.jpg"
+    },
+    {
+        "title": "Appartamento con vista sulla cattedrale di Firenze",
+        "num_rooms": 2,
+        "num_bathrooms": 1,
+        "num_beds": 4,
+        "sq_meters": 75,
+        "address": "Via dei Servi, 1, Firenze, FI",
+        "description": "Appartamento con vista panoramica sulla cattedrale di Firenze, situato nel cuore del centro storico, a pochi passi dalle principali attrazioni turistiche.",
+        "image": "https://mamo-florence-charlie-s-apartments.booked.net/data/Photos/380x250/11656/1165681/1165681113/Mamo-Florence-CharlieS-Apartments-Exterior.JPEG"
+    },
+    {
+        "title": "Casa vacanze con giardino in Liguria",
+        "num_rooms": 2,
+        "num_bathrooms": 1,
+        "num_beds": 4,
+        "sq_meters": 90,
+        "address": "Via delle Palme, 10, Sestri Levante, GE",
+        "description": "Casa vacanze con giardino privato, situata sulla costa ligure, in una posizione tranquilla e panoramica, a pochi passi dal mare.",
+        "image": "https://images.interhome.group/5A56365000CA1EEB9F9753BB4DDA2D55/tr:h-600,cm-pad_resize,pr-true"
+    },
+    {
+        "title": "Appartamento con vista sul mare a Napoli",
+        "num_rooms": 2,
+        "num_bathrooms": 1,
+        "num_beds": 4,
+        "sq_meters": 70,
+        "address": "Via Posillipo, 10, Napoli, NA",
+        "description": "Appartamento con vista panoramica sul mare di Napoli, situato in una posizione privilegiata, ideale per godere dei colori e dei sapori della città.",
+        "image": "https://collichiari-images.vrbarea.com/photos/338/xwide-asra16:10/balcone-su-napoli-napoli-appartamento-terrazza.jpg"
+    },
+    {
+        "title": "Casa vacanze in montagna in Trentino",
+        "num_rooms": 2,
+        "num_bathrooms": 1,
+        "num_beds": 4,
+        "sq_meters": 80,
+        "address": "Via dei Monti, 10, Trento, TN",
+        "description": "Casa vacanze immersa nelle montagne del Trentino, circondata da boschi e sentieri, ideale per chi cerca una vacanza all'insegna della natura e dello sport.",
+        "image": "https://q-xx.bstatic.com/xdata/images/hotel/max1024x768/351184477.jpg?k=498a8a2ab81c578fbd961cd0c5f71097a81aee9efd9b78d715c651f5b0e05e02&o="
+    }
+]  
