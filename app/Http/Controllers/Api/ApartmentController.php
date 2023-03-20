@@ -58,7 +58,9 @@ class ApartmentController extends Controller
                     ];
                 }, $radiusSearch['results']);
                 //carica dati degli appartamenti
-                $query = Apartment::with('services');
+                $query = Apartment::with(['services', 'promotions' => function ($q) {
+                    $q->where('expired_at', '>=', Carbon::now());
+                }]);
                 foreach ($poiCoordinates as $coordinates) {
                     $query->orWhere(function ($q) use ($coordinates) {
                         $q->where('latitude', $coordinates['latitude'])
@@ -68,16 +70,16 @@ class ApartmentController extends Controller
                 }
                 $query
                     ->select('*', DB::raw("$distanceFormula as distance"))
-                    ->leftJoin('apartment_promotion', function ($join) {
-                        $join->on('apartment_promotion.apartment_id', '=', 'apartments.id')
-                            ->where('apartment_promotion.expired_at', '>=', Carbon::now());
-                    })
-                    ->orderByRaw("CASE 
-                                WHEN apartment_promotion.promotion_id = 3 THEN 1 
-                                WHEN apartment_promotion.promotion_id = 2 THEN 2 
-                                WHEN apartment_promotion.promotion_id = 1 THEN 3
-                                ELSE 4 
-                                END")
+                    // ->leftJoin('apartment_promotion', function ($join) {
+                    //     $join->on('apartment_promotion.apartment_id', '=', 'apartments.id')
+                    //         ->where('apartment_promotion.expired_at', '>=', Carbon::now());
+                    // })
+                    // ->orderByRaw("CASE 
+                    //             WHEN apartment_promotion.promotion_id = 3 THEN 1 
+                    //             WHEN apartment_promotion.promotion_id = 2 THEN 2 
+                    //             WHEN apartment_promotion.promotion_id = 1 THEN 3
+                    //             ELSE 4 
+                    //             END")
                     ->orderByRaw("distance ASC");
                 $apartments = $query->get();
             }
@@ -121,17 +123,18 @@ class ApartmentController extends Controller
                     });
                 }
                 $query->select('*', DB::raw("$distanceFormula as distance"))
-                    ->leftJoin('apartment_promotion', function ($join) {
-                        $join->on('apartment_promotion.apartment_id', '=', 'apartments.id')
-                            ->where('apartment_promotion.expired_at', '>=', Carbon::now());
-                    })
-                    ->orderByRaw("CASE 
-                            WHEN apartment_promotion.promotion_id = 3 THEN 1 
-                            WHEN apartment_promotion.promotion_id = 2 THEN 2 
-                            WHEN apartment_promotion.promotion_id = 1 THEN 3
-                            ELSE 4 
-                            END")
                     ->orderByRaw("distance ASC");
+
+                // ->leftJoin('apartment_promotion', function ($join) {
+                //     $join->on('apartment_promotion.apartment_id', '=', 'apartments.id')
+                //         ->where('apartment_promotion.expired_at', '>=', Carbon::now());
+                // })
+                // ->orderByRaw("CASE 
+                //         WHEN apartment_promotion.promotion_id = 3 THEN 1 
+                //         WHEN apartment_promotion.promotion_id = 2 THEN 2 
+                //         WHEN apartment_promotion.promotion_id = 1 THEN 3
+                //         ELSE 4 
+                //         END")
                 $apartments = $query->get();
             }
         } else {
@@ -142,7 +145,7 @@ class ApartmentController extends Controller
 
     public function show(Apartment $apartment)
     {
-
+        $apartment->load('services')->get();
         if ($apartment->visibility === 1) {
             return response()->json($apartment);
         } else {

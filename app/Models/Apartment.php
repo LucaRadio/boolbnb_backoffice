@@ -23,7 +23,8 @@ class Apartment extends Model
         'longitude',
         'latitude',
         'user_id',
-        'deleted_at'
+        'deleted_at',
+        'id'
     ];
 
     protected $hidden = [
