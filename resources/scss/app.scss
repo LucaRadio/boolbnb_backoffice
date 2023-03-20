@@ -1,5 +1,12 @@
 @import "~bootstrap/scss/bootstrap";
 
+@media only screen and (min-width: 769px) {
+    .mw {
+        max-height: 200px;
+    }
+
+}
+
 nav.navbar {
     position: sticky;
     top: 0;
@@ -9,25 +16,30 @@ nav.navbar {
     height: 60px;
 }
 
+.logo_boolbnb {
+    max-width: 60px;
+}
+
+
 .dashboard_container {
-    height: calc(100vh - 60px);
+
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
-.apartments_container{
+.apartments_container {
     max-height: 70vh;
     overflow-y: scroll;
     overflow-x: visible;
 }
 
-.card_img_horizontal{
+.card_img_horizontal {
     height: 100%;
     object-fit: cover;
 }
 
-.nav{
+.nav {
     --bs-nav-link-color: #7d6c6c77;
     --bs-nav-link-hover-color: #7d6c6c;
 }

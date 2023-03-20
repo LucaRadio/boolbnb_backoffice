@@ -11,14 +11,15 @@
                 <div class="row w-100 mb-3">
                     <div class="col-md-8 m-auto">
                         @foreach ($apartments as $index => $item)
-                            <div class="card mb-3" id="card{{ $item->id }}">
-                                <div class="row g-0 {{ $loop->index % 2 === 1 ? 'flex-row-reverse' : '' }}">
-                                    <div class="col-md-4">
+                            <div class="card mw overflow-hidden mb-3" id="card{{ $item->id }}">
+                                <div
+                                    class="row g-0 mw overflow-hidden {{ $loop->index % 2 === 1 ? 'flex-row-reverse' : '' }}">
+                                    <div class=" mw col-md-4 overflow-hidden">
                                         @if (str_contains($item->img_cover, 'https://picsum.photos'))
                                             <img class="card-img-top card_img_horizontal" src=" {{ $item->img_cover }}"
                                                 alt="Card image cap">
                                         @else
-                                            <img class="card-img-top card_img_horizontal"
+                                            <img class="card-img-top card_img_horizontal h-100 "
                                                 src="{{ asset('storage/' . $item->img_cover) }}" alt="Card image cap">
                                         @endif
                                     </div>
@@ -77,7 +78,8 @@
                                                     <h6>
                                                         <i class="fa-solid fa-map-pin"></i> {{ $item->address }}
                                                     </h6>
-                                                    <div class="card-text d-flex gap-2 overflow-scroll">Servizi:
+                                                    <div class="card-text d-flex gap-2 overflow-y-hidden overflow-auto">
+                                                        Servizi:
                                                         @foreach ($item->services as $service)
                                                             <h6><span
                                                                     class="badge my-card text-dark">{{ $service->name }}</span>
