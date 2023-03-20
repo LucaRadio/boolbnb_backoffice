@@ -9,10 +9,13 @@
                         <h1 class="">{{ $apartment->title }}</h1>
                     </div>
                     <div class="d-flex gap-2">
-                        <a class="btn btn-secondary" href="{{ route('user.apartments.index', $apartment) }}"><i class="fa-solid fa-house-chimney"></i></a>
-                        <a class="btn btn-info" href="{{ route('user.apartments.edit', $apartment) }}"><i class="fa-solid fa-pen-fancy"></i></a>
+                        <a class="btn btn-secondary" href="{{ route('user.apartments.index', $apartment) }}"><i
+                                class="fa-solid fa-house-chimney"></i></a>
+                        <a class="btn btn-info" href="{{ route('user.apartments.edit', $apartment) }}"><i
+                                class="fa-solid fa-pen-fancy"></i></a>
                         <section id="buyer">
-                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#pay-promotion"><i class="fa-solid fa-rocket"></i></button>
+                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#pay-promotion"><i
+                                    class="fa-solid fa-rocket"></i></button>
                             <div class="modal fade" id="pay-promotion" tabindex="-1" data-bs-backdrop="static"
                                 data-bs-keyboard="false" role="dialog" aria-labelledby="delete-account" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -63,8 +66,13 @@
                 </div>
                 <div class="mb-3">
                     <div class="py-3">
-                        <img src="{{ asset('storage/' . $apartment['img_cover']) }}" alt="{{ $apartment->title }}"
-                            class="img-fluid rounded-4">
+                        @if (!str_contains($apartment->img_cover, 'cover_img/'))
+                            <img class="card-img-top card_img_horizontal" src=" {{ $apartment->img_cover }}"
+                                alt="Card image cap">
+                        @else
+                            <img class="card-img-top card_img_horizontal"
+                                src="{{ asset('storage/' . $apartment->img_cover) }}" alt="Card image cap">
+                        @endif
                     </div>
                     <hr>
                     <div class="py-3">
@@ -76,11 +84,11 @@
                     <div>
                         <h5>Promozioni attive</h5>
                         @foreach ($apartment->promotions as $promotion_el)
-                        <div class="d-flex py-2">
-                            <span class="text-primary fs-2">{{$promotion_el->type}}</span>
-                            <span class="px-3 d-flex align-items-center"></span>
-                        </div>
-                    @endforeach
+                            <div class="d-flex py-2">
+                                <span class="text-primary fs-2">{{ $promotion_el->type }}</span>
+                                <span class="px-3 d-flex align-items-center"></span>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
                 <hr>

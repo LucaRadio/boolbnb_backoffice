@@ -180,8 +180,14 @@
                                     @error('img_cover') is-invalid @elseif(old('img_cover')) is-valid @enderror"
                                             name="img_cover">
                                         <div class="py-2">
-                                            <img src="{{ asset('storage') . '/' . $apartment->img_cover }}"
-                                                class="img-thumbnail">
+                                            @if (!str_contains($apartment->img_cover, 'cover_img/'))
+                                                <img class="img-thumbnail img-fluid" src=" {{ $apartment->img_cover }}"
+                                                    alt="Card image cap">
+                                            @else
+                                                <img class="img-thumbnail img-fluid"
+                                                    src="{{ asset('storage/' . $apartment->img_cover) }}"
+                                                    alt="Card image cap">
+                                            @endif
                                         </div>
 
                                         @error('img_cover')
