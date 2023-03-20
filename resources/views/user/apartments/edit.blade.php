@@ -21,7 +21,7 @@
     <div class="bg-img-form">
         <div class="container">
             <div class="row justify-content-center py-5">
-                <div class="col col-md-12 col-lg-10 p-0 g-3 my-card p-1 pb-0 position-relative">
+                <div class="col col-md-12 col-lg-10 p-3 g-3 my-card p-1 pb-0 position-relative">
 
                     <div class="position-absolute top-0 end-0">
                         <a class="btn btn-outline-light rounded-5 border-0 fs-4"

@@ -26,7 +26,20 @@ use Illuminate\Support\Facades\DB;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    if (Auth::user()) {
+        $user = Auth::user();
+        $apartments = Apartment::where('user_id', $user->id)->get();
+        $messages = [];
+        foreach ($apartments as $apartment) {
+            if (count($apartment->messages)) {
+                foreach ($apartment->messages as $message) {
+                    $messages[] = $message;
+                }
+            }
+        }
+        return view('dashboard', compact("messages"));
+    }
+    return view('auth.login');
 });
 
 

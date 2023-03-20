@@ -5,7 +5,7 @@
     <div class="bg-img-form">
         <div class="container">
             <div class="row justify-content-center py-5">
-                <div class="col col-md-12 col-lg-10 p-0 g-3 my-card p-1 pb-0 position-relative">
+                <div class="col col-md-12 col-lg-10 p-3 g-3 my-card p-1 pb-0 position-relative">
 
                     <div class="position-absolute top-0 end-0">
                         <a class="btn btn-outline-light rounded-5 border-0 fs-4" href="{{ route('user.dashboard') }}"><i
@@ -121,29 +121,6 @@
                                         <textarea v-model='apartmentDescription' name="description" cols="30" rows="5"
                                             class="form-control mx-auto rounded-5"></textarea>
                                     </div>
-
-                                    <div class="address mb-3">
-                                        <label class="form-label">Indirizzo *</label>
-                                        <input @input='checkData(searchField,"address")' type="text" step="0.5"
-                                            autocomplete="off" class="form-control mx-auto rounded-5" name="address"
-                                            v-model="searchField" @keyup="refreshSearch">
-                                        <div class="error d-none text-danger">
-                                            C'è qualche problema con il tuo indirizzo, assicurati che non abbia caratteri
-                                            speciali e
-                                            che
-                                            tu
-                                            abbia selezionato l'indirizzo cliccandolo dal menù a tendina.
-                                        </div>
-                                        <div class="list-group addressList">
-                                            <a :value='i' v-for='(item,i) in searchData'
-                                                class="list-group-item list-group-item-action" @click='choosenAddress(i)'>
-                                                @{{ item.address.freeformAddress }}
-                                            </a>
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <div class="col-md-6">
                                     <div class="img_cover mb-3">
                                         <label class="form-label">Carica l'immagine del progetto *</label>
                                         <input @change='imgCoverChange' type="file"
@@ -155,6 +132,29 @@
                                                 {{ $message }}
                                             </div>
                                         @enderror
+                                    </div>
+
+
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="address mb-3 position-relative">
+                                        <label class="form-label">Indirizzo *</label>
+                                        <input @input='checkData(searchField,"address")' type="text" step="0.5"
+                                            autocomplete="off" class="form-control mx-auto rounded-5" name="address"
+                                            v-model="searchField" @keyup="refreshSearch">
+                                        <div class="error d-none text-danger">
+                                            C'è qualche problema con il tuo indirizzo, assicurati che non abbia caratteri
+                                            speciali e
+                                            che
+                                            tu
+                                            abbia selezionato l'indirizzo cliccandolo dal menù a tendina.
+                                        </div>
+                                        <div class="list-group addressList position-absolute">
+                                            <a :value='i' v-for='(item,i) in searchData'
+                                                class="list-group-item list-group-item-action " @click='choosenAddress(i)'>
+                                                @{{ item.address.freeformAddress }}
+                                            </a>
+                                        </div>
                                     </div>
 
                                     <div class="visibility mb-3 form-check form-switch">

@@ -1,5 +1,15 @@
 @import "~bootstrap/scss/bootstrap";
 
+.text-primary {
+    color: #ffc400 !important;
+
+}
+
+.bg-primary {
+    color: #ffc400 !important;
+
+}
+
 @media only screen and (min-width: 769px) {
     .mw {
         max-height: 200px;
@@ -85,6 +95,15 @@ input.form-control {
     background-repeat: no-repeat;
     backdrop-filter: blur(30px);
     // height: calc(100vh - 60px);
+}
+
+.bg-imgg-form {
+    background-image: url(https://images.pexels.com/photos/130879/pexels-photo-130879.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    backdrop-filter: blur(30px);
+    height: calc(100vh - 60px);
 }
 
 .rounded-10 {
