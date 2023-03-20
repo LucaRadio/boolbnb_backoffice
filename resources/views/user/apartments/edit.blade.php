@@ -195,7 +195,7 @@
                             </div>
                             <div class="text-center">
                                 <button :disabled='errorDigit' class="rounded-5 btn btn-lg btn-outline-light mt-4"
-                                    type="submit">Salva Progetto</button>
+                                    type="submit">Salva Modifiche</button>
                             </div>
                         </form>
                         <div class="container text-start text-small">
