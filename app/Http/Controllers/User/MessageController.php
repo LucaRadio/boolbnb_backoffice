@@ -49,7 +49,7 @@ class MessageController extends Controller
     {
 
        $message->apartment()->dissociate();
-
+        
        $message->delete();
 
        return redirect()->route("user.messages.index");
