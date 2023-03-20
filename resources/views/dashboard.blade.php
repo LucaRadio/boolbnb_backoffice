@@ -36,7 +36,6 @@
                                         </div>
                                     </div>
                                 </a>
-
                             </div>
                             <div class="col-lg-4">
                                 <a href="{{ route('user.apartments.index') }}" class="text-decoration-none text-black">
