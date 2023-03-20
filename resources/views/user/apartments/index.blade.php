@@ -4,7 +4,7 @@
     @php
         $now = date('Y/m/d h:i:s');
     @endphp
-    <div class="bg-img-form">
+    <div class="bg-img-form pt-5">
         <div class="container">
             <h1 class="py-3 text-center text-white">I Tuoi Appartamenti</h1>
             <div class="apartments_container">
