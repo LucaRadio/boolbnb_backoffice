@@ -28,8 +28,11 @@
 
                         <span class="email">{{$message['email']}}</span>
                     </div>
+                    
+                    <span class="email d-none d-sm-block">{{$message->apartment["title"]}}</span>
 
                     <button class="btn btn-warning"><a href={{route('user.messages.show', $message["id"])}} class="text-decoration-none text-white">Leggi</a></button>
+                    
                 </div>
             </li>
 
