@@ -15,11 +15,11 @@
                                 <div
                                     class="row g-0 mw overflow-hidden {{ $loop->index % 2 === 1 ? 'flex-row-reverse' : '' }}">
                                     <div class=" mw col-md-4 overflow-hidden">
-                                        @if (str_contains($item->img_cover, 'https://picsum.photos'))
+                                        @if (!str_contains($item->img_cover, 'cover_img/'))
                                             <img class="card-img-top card_img_horizontal" src=" {{ $item->img_cover }}"
                                                 alt="Card image cap">
                                         @else
-                                            <img class="card-img-top card_img_horizontal h-100 "
+                                            <img class="card-img-top card_img_horizontal"
                                                 src="{{ asset('storage/' . $item->img_cover) }}" alt="Card image cap">
                                         @endif
                                     </div>
